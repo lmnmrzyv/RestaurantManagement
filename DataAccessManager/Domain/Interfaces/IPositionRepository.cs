@@ -5,8 +5,7 @@ using System.Text;
 
 namespace DataAccessManager.Domain.Interfaces
 {
-    public interface IEmployeeRepository : ICrudRepository<Employee>
+    public interface IPositionRepository : ICrudRepository<Position>
     {
-
     }
 }

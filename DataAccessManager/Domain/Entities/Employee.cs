@@ -4,9 +4,16 @@ using System.Text;
 
 namespace DataAccessManager.Domain.Entities
 {
-    public class Employee
+    public class Employee:IDbEntity
     {
         public int Id { get; set; }
-        //en sevdihzdjkfghkfbs qrup yoldasim Xedicedirmi
+        public string Name { get; set; }
+        public string Surname { get; set; }
+
+        public int PositionId { get; set; }
+
+        public string EducationLevel { get; set; }
+
+        public decimal PerformanceRating { get; set; }
     }
 }
