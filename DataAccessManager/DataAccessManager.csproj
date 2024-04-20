@@ -8,9 +8,4 @@
     <ProjectReference Include="..\RestaurantManagement\RestaurantManagement.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Domain\Entities\" />
-    <Folder Include="Domain\Interfaces\" />
-  </ItemGroup>
-
 </Project>
