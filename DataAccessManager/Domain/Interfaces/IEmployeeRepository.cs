@@ -6,5 +6,6 @@ namespace DataAccessManager.Domain.Interfaces
 {
     public interface IEmployeeRepository
     {
+
     }
 }

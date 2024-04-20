@@ -6,5 +6,7 @@ namespace DataAccessManager.Domain.Entities
 {
     public class Employee
     {
+        public int Id { get; set; }
+        //en sevdihzdjkfghkfbs qrup yoldasim Xedicedirmi
     }
 }
