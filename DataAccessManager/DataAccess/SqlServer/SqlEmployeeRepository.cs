@@ -28,7 +28,7 @@ namespace DataAccessManager.DataAccess.SqlServer
                     command.Parameters.AddWithValue("@Name", item.Name);
                     command.Parameters.AddWithValue("@Surname", item.Surname);
                     command.Parameters.AddWithValue("@PositionId", item.PositionId);
-                    command.Parameters.AddWithValue("@EducationLevel", item.EducationLevel);
+                    command.Parameters.AddWithValue("@EducationLevel", item.EducationLevel ?? (object)DBNull.Value);
                     command.Parameters.AddWithValue("@PerformanceRating", item.PerformanceRating);
 
                     return (int)command.ExecuteScalar();
@@ -51,7 +51,7 @@ namespace DataAccessManager.DataAccess.SqlServer
                     command.Parameters.AddWithValue("@Name", item.Name);
                     command.Parameters.AddWithValue("@Surname", item.Surname);
                     command.Parameters.AddWithValue("@PositionId", item.PositionId);
-                    command.Parameters.AddWithValue("@EducationLevel", item.EducationLevel);
+                    command.Parameters.AddWithValue("@EducationLevel", item.EducationLevel ?? (object)DBNull.Value);
                     command.Parameters.AddWithValue("@PerformanceRating", item.PerformanceRating);
                     command.ExecuteNonQuery();
                 }
@@ -96,7 +96,7 @@ namespace DataAccessManager.DataAccess.SqlServer
                         employee.Name = reader.GetString(reader.GetOrdinal("Name"));
                         employee.Surname = reader.GetString(reader.GetOrdinal("Surname"));
                         employee.PositionId = reader.GetInt32(reader.GetOrdinal("PositionId"));
-                        employee.EducationLevel = reader.GetString(reader.GetOrdinal("EducationLevel"));
+                        employee.EducationLevel = reader.IsDBNull(reader.GetOrdinal("EducationLevel")) ? null : reader.GetString(reader.GetOrdinal("EducationLevel"));
                         employee.PerformanceRating = reader.GetDecimal(reader.GetOrdinal("PerformanceRating"));
 
                         return employee;
@@ -120,12 +120,12 @@ namespace DataAccessManager.DataAccess.SqlServer
                     while(reader.Read())
                     {
                         Employee employee = new Employee();
-                        employee.Id = (int)reader["Id"];
-                        employee.Name= (string)reader["Name"];
-                        employee.Surname = (string)reader["Surname"];
-                        employee.PositionId = (int)reader["PositionId"];
-                        employee.EducationLevel = (string)reader["EducationLevel"];
-                        employee.PerformanceRating = (decimal)reader["PerformanceRating"];
+                        employee.Id = reader.GetInt32(reader.GetOrdinal("Id"));
+                        employee.Name = reader.GetString(reader.GetOrdinal("Name"));
+                        employee.Surname = reader.GetString(reader.GetOrdinal("Surname"));
+                        employee.PositionId = reader.GetInt32(reader.GetOrdinal("PositionId"));
+                        employee.EducationLevel = reader.IsDBNull(reader.GetOrdinal("EducationLevel")) ? null : reader.GetString(reader.GetOrdinal("EducationLevel"));
+                        employee.PerformanceRating = reader.GetDecimal(reader.GetOrdinal("PerformanceRating"));
 
                         employees.Add(employee);
                     }
