@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DataAccessManager.Domain.Entities
 {
-    public class Discount
+    public class Discount : IDbEntity
     {
         public int Id { get; set; }
         public DateTime startTime { get; set; }
