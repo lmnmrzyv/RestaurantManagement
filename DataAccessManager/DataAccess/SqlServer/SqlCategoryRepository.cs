@@ -38,7 +38,7 @@ namespace DataAccessManager.Domain.SqlServer
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
-                string query = "update Categories set name = @name where Id=@Id;";
+                string query = "delete Categories where Id=@Id;";
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@id", id);
@@ -53,7 +53,7 @@ namespace DataAccessManager.Domain.SqlServer
             {
                 connection.Open();
 
-                string query = "SELECT Id, name FROM Category WHERE Id = @Id and name = @name";
+                string query = "SELECT Id, name FROM Category WHERE Id = @Id";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
@@ -81,7 +81,7 @@ namespace DataAccessManager.Domain.SqlServer
             {
                 connection.Open();
 
-                string query = "SELECT Id, name FROM Category WHERE name = @name";
+                string query = "SELECT Id, name FROM Category";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {

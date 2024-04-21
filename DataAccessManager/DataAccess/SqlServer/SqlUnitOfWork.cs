@@ -8,7 +8,7 @@ namespace DataAccessManager.DataAccess.SqlServer
 {
     public class SqlUnitOfWork : IUnitOfWork
     {
-        public ICategoryRepository CategoryRepository => new SqlCategoryRepository();
+        public ICategoryRepository CategoryRepository => new SqlCategoryRepository(connectionString);
 
         public IMenuItemRepository MenuItemRepository => new SqlMenuItemRepository();
 

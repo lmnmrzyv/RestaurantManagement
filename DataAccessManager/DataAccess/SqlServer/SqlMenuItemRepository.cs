@@ -9,27 +9,27 @@ namespace DataAccessManager.DataAccess.SqlServer
 {
     public class SqlMenuItemRepository : IMenuItemRepository
     {
-        public class SqlMenuItemRepository : ICategoryRepository
-        {
             private readonly string _connectionString;
-            public SqlCategoryRepository(string connectionString)
+            public SqlMenuItemRepository(string connectionString)
             {
                 _connectionString = connectionString;
             }
-            public int Add(Category item)
+            public int Add(MenuItem item)
             {
                 using (SqlConnection connection = new SqlConnection(_connectionString))
                 {
                     connection.Open();
 
-                    string query = @"INSERT INTO Categories (name)
-                               output inserted.Id VALUES (@name);";
+                    string query = @"INSERT INTO MenuItems (name, description, price)
+                               output inserted.Id VALUES (@name, @description, @price);";
 
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@name", item.name);
+                        command.Parameters.AddWithValue("@name,", item.name);
+                    command.Parameters.AddWithValue("@description", item.description ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@price", item.price);
 
-                        return (int)command.ExecuteScalar();
+                    return (int)command.ExecuteScalar();
                     }
                 }
 
@@ -40,7 +40,7 @@ namespace DataAccessManager.DataAccess.SqlServer
                 using (SqlConnection connection = new SqlConnection(_connectionString))
                 {
                     connection.Open();
-                    string query = "update Categories set name = @name where Id=@Id;";
+                    string query = "delete MenuItems where Id=@Id;";
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@id", id);
@@ -48,14 +48,15 @@ namespace DataAccessManager.DataAccess.SqlServer
                     }
                 }
             }
+        
 
-            public Category Get(int id)
+        public MenuItem Get(int id)
             {
                 using (SqlConnection connection = new SqlConnection(_connectionString))
                 {
                     connection.Open();
 
-                    string query = "SELECT Id, name FROM Category WHERE Id = @Id and name = @name";
+                    string query = "SELECT Id, name, description, price FROM MenuItems WHERE Id = @Id";
 
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
@@ -66,54 +67,58 @@ namespace DataAccessManager.DataAccess.SqlServer
                             if (reader.Read() == false)
                                 return null;
 
-                            Category category = new Category();
+                            MenuItem menuitem = new MenuItem();
 
-                            category.Id = reader.GetInt32(reader.GetOrdinal("Id"));
-                            category.name = reader.GetString(reader.GetOrdinal("name"));
+                        menuitem.Id = reader.GetInt32(reader.GetOrdinal("Id"));
+                        menuitem.name = reader.GetString(reader.GetOrdinal("name"));
+                        menuitem.description = reader.IsDBNull(reader.GetOrdinal("description")) ? null : reader.GetString(reader.GetOrdinal("description"));
+                        menuitem.price = reader.GetInt32(reader.GetOrdinal("price"));
+                        
 
-                            return category;
+
+                        return menuitem;
                         }
                     }
                 }
             }
 
-            public List<Category> GetAll()
+            public List<MenuItem> GetAll()
             {
                 using (SqlConnection connection = new SqlConnection(_connectionString))
                 {
                     connection.Open();
 
-                    string query = "SELECT Id, name FROM Category WHERE name = @name";
+                    string query = "SELECT Id, name, description, price FROM MenuItem";
 
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        List<Category> Categories = new List<Category>();
+                        List<MenuItem> MenuItems = new List<MenuItem>();
 
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
                             while (reader.Read())
                             {
-                                Category category = new Category();
+                            MenuItem menuitem = new MenuItem();
 
-                                category.Id = reader.GetInt32(reader.GetOrdinal("Id"));
-                                category.name = reader.GetString(reader.GetOrdinal("name"));
+                            menuitem.Id = reader.GetInt32(reader.GetOrdinal("Id"));
+                            menuitem.name = reader.GetString(reader.GetOrdinal("name"));
 
-                                Categories.Add(category);
+                            MenuItems.Add(menuitem);
                             }
 
-                            return Categories;
+                            return MenuItems;
                         }
                     }
                 }
-            }
+        }
 
-            public void Update(Category item)
+            public void Update(MenuItem item)
             {
                 using (SqlConnection connection = new SqlConnection(_connectionString))
                 {
                     connection.Open();
 
-                    string query = "UPDATE Categories SET name = @name WHERE Id = @Id";
+                    string query = "UPDATE MenuItems SET name = @name WHERE Id = @Id";
 
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
