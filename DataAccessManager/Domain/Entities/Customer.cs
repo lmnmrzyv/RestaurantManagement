@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DataAccessManager.Domain.Entities
 {
-    public class Customer
+    public class Customer : IDbEntity
     {
         public int Id { get; set; }
         public string Name { get; set; }
