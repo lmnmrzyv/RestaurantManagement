@@ -9,125 +9,129 @@ namespace DataAccessManager.DataAccess.SqlServer
 {
     public class SqlMenuItemRepository : IMenuItemRepository
     {
-            private readonly string _connectionString;
-            public SqlMenuItemRepository(string connectionString)
+        private readonly string _connectionString;
+        public SqlMenuItemRepository(string connectionString)
+        {
+            _connectionString = connectionString;
+        }
+        public int Add(MenuItem item)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                _connectionString = connectionString;
-            }
-            public int Add(MenuItem item)
-            {
-                using (SqlConnection connection = new SqlConnection(_connectionString))
-                {
-                    connection.Open();
+                connection.Open();
 
-                    string query = @"INSERT INTO MenuItems (name, description, price)
+                string query = @"INSERT INTO MenuItems (name, description, price)
                                output inserted.Id VALUES (@name, @description, @price);";
 
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        command.Parameters.AddWithValue("@name,", item.name);
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@name,", item.name);
                     command.Parameters.AddWithValue("@description", item.description ?? (object)DBNull.Value);
                     command.Parameters.AddWithValue("@price", item.price);
 
                     return (int)command.ExecuteScalar();
-                    }
                 }
-
             }
 
-            public void Delete(int id)
+        }
+
+        public void Delete(int id)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                using (SqlConnection connection = new SqlConnection(_connectionString))
+                connection.Open();
+                string query = "delete MenuItems where Id=@Id;";
+                using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    connection.Open();
-                    string query = "delete MenuItems where Id=@Id;";
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        command.Parameters.AddWithValue("@id", id);
-                        command.ExecuteNonQuery();
-                    }
+                    command.Parameters.AddWithValue("@id", id);
+                    command.ExecuteNonQuery();
                 }
             }
-        
+        }
+
 
         public MenuItem Get(int id)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                using (SqlConnection connection = new SqlConnection(_connectionString))
+                connection.Open();
+
+                string query = "SELECT Id, name, description, price FROM MenuItems WHERE Id = @Id";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    connection.Open();
+                    command.Parameters.AddWithValue("@Id", id);
 
-                    string query = "SELECT Id, name, description, price FROM MenuItems WHERE Id = @Id";
-
-                    using (SqlCommand command = new SqlCommand(query, connection))
+                    using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        command.Parameters.AddWithValue("@Id", id);
+                        if (reader.Read() == false)
+                            return null;
 
-                        using (SqlDataReader reader = command.ExecuteReader())
-                        {
-                            if (reader.Read() == false)
-                                return null;
-
-                            MenuItem menuitem = new MenuItem();
+                        MenuItem menuitem = new MenuItem();
 
                         menuitem.Id = reader.GetInt32(reader.GetOrdinal("Id"));
                         menuitem.name = reader.GetString(reader.GetOrdinal("name"));
                         menuitem.description = reader.IsDBNull(reader.GetOrdinal("description")) ? null : reader.GetString(reader.GetOrdinal("description"));
                         menuitem.price = reader.GetInt32(reader.GetOrdinal("price"));
-                        
+
 
 
                         return menuitem;
-                        }
                     }
                 }
             }
+        }
 
-            public List<MenuItem> GetAll()
+        public List<MenuItem> GetAll()
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                using (SqlConnection connection = new SqlConnection(_connectionString))
+                connection.Open();
+
+                string query = "SELECT Id, name, description, price FROM MenuItem";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    connection.Open();
+                    List<MenuItem> MenuItems = new List<MenuItem>();
 
-                    string query = "SELECT Id, name, description, price FROM MenuItem";
-
-                    using (SqlCommand command = new SqlCommand(query, connection))
+                    using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        List<MenuItem> MenuItems = new List<MenuItem>();
-
-                        using (SqlDataReader reader = command.ExecuteReader())
+                        while (reader.Read())
                         {
-                            while (reader.Read())
-                            {
                             MenuItem menuitem = new MenuItem();
 
                             menuitem.Id = reader.GetInt32(reader.GetOrdinal("Id"));
                             menuitem.name = reader.GetString(reader.GetOrdinal("name"));
+                            menuitem.description = reader.IsDBNull(reader.GetOrdinal("description")) ? null : reader.GetString(reader.GetOrdinal("description"));
+                            menuitem.price = reader.GetInt32(reader.GetOrdinal("price"));
 
                             MenuItems.Add(menuitem);
-                            }
-
-                            return MenuItems;
                         }
+
+                        return MenuItems;
                     }
                 }
+            }
         }
 
-            public void Update(MenuItem item)
+        public void Update(MenuItem item)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                using (SqlConnection connection = new SqlConnection(_connectionString))
+                connection.Open();
+
+                string query = "UPDATE MenuItems SET name = @name, description=@description, price=@price WHERE Id = @Id";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    connection.Open();
+                    command.Parameters.AddWithValue("@name", item.name);
+                    command.Parameters.AddWithValue("@descriprion", item.description ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@price", item.price);
 
-                    string query = "UPDATE MenuItems SET name = @name WHERE Id = @Id";
-
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        command.Parameters.AddWithValue("@name", item.name);
-
-                        command.ExecuteNonQuery();
-                    }
+                    command.ExecuteNonQuery();
                 }
             }
         }
     }
 }
+

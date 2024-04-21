@@ -14,20 +14,20 @@ namespace DataAccessManager.DataAccess.SqlServer
         {
             _connectionString = connectionString;
         }
-        public int Add(MenuItem item)
+        public int Add(Order item)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
 
-                string query = @"INSERT INTO MenuItems (name, description, price)
-                               output inserted.Id VALUES (@name, @description, @price);";
+                string query = @"INSERT INTO Orders (OrderTime, TotalPrice, PaymentMethod)
+                               output inserted.Id VALUES (@OrderTime, @TotalPrice, @PaymentMethod);";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    command.Parameters.AddWithValue("@name,", item.name);
-                    command.Parameters.AddWithValue("@description", item.description ?? (object)DBNull.Value);
-                    command.Parameters.AddWithValue("@price", item.price);
+                    command.Parameters.AddWithValue("@OrderTime,", item.OrderTime);
+                    command.Parameters.AddWithValue("@TotalPrice", item.TotalPrice);
+                    command.Parameters.AddWithValue("@PaymentMethod", item.PaymentMethod);
 
                     return (int)command.ExecuteScalar();
                 }
@@ -40,7 +40,7 @@ namespace DataAccessManager.DataAccess.SqlServer
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
-                string query = "delete MenuItems where Id=@Id;";
+                string query = "delete Orders where Id=@Id;";
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@id", id);
@@ -50,13 +50,13 @@ namespace DataAccessManager.DataAccess.SqlServer
         }
 
 
-        public MenuItem Get(int id)
+        public Order Get(int id)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
 
-                string query = "SELECT Id, name, description, price FROM MenuItems WHERE Id = @Id";
+                string query = "SELECT Id, OrderTime, TotalPrice, PaymentMethod FROM Orders WHERE Id = @Id";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
@@ -67,67 +67,70 @@ namespace DataAccessManager.DataAccess.SqlServer
                         if (reader.Read() == false)
                             return null;
 
-                        MenuItem menuitem = new MenuItem();
+                        Order order = new Order();
 
-                        menuitem.Id = reader.GetInt32(reader.GetOrdinal("Id"));
-                        menuitem.name = reader.GetString(reader.GetOrdinal("name"));
-                        menuitem.description = reader.IsDBNull(reader.GetOrdinal("description")) ? null : reader.GetString(reader.GetOrdinal("description"));
-                        menuitem.price = reader.GetInt32(reader.GetOrdinal("price"));
+                        order.Id = reader.GetInt32(reader.GetOrdinal("Id"));
+                        order.OrderTime = reader.GetDateTime(reader.GetOrdinal("OrderTime"));
+                        order.TotalPrice = reader.GetDecimal(reader.GetOrdinal("TotalPrice"));
+                        order.PaymentMethod = reader.GetString(reader.GetOrdinal("PaymentMethod"));
 
 
 
-                        return menuitem;
+                        return order;
                     }
                 }
             }
         }
 
-        public List<MenuItem> GetAll()
+        public List<Order> GetAll()
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
 
-                string query = "SELECT Id, name, description, price FROM MenuItem";
+                string query = "SELECT Id, OrderTime, TotalPrice, PaymentMethod FROM Order";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    List<MenuItem> MenuItems = new List<MenuItem>();
+                    List<Order> Orders = new List<Order>();
 
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
                         while (reader.Read())
                         {
-                            MenuItem menuitem = new MenuItem();
+                            Order order = new Order();
 
-                            menuitem.Id = reader.GetInt32(reader.GetOrdinal("Id"));
-                            menuitem.name = reader.GetString(reader.GetOrdinal("name"));
+                            order.Id = reader.GetInt32(reader.GetOrdinal("Id"));
+                            order.OrderTime = reader.GetDateTime(reader.GetOrdinal("OrderTime"));
+                            order.TotalPrice = reader.GetDecimal(reader.GetOrdinal("TotalPrice"));
+                            order.PaymentMethod = reader.GetString(reader.GetOrdinal("PaymentMethod"));
 
-                            MenuItems.Add(menuitem);
+                            Orders.Add(order);
                         }
 
-                        return MenuItems;
+                        return Orders;
                     }
                 }
             }
         }
 
-        public void Update(MenuItem item)
+        public void Update(Order item)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
 
-                string query = "UPDATE MenuItems SET name = @name WHERE Id = @Id";
+                string query = "UPDATE Orders SET OrderTime=@OrderTime, TotalPrice=@TotalPrice, PaymentMethod=@PaymentMethod WHERE Id = @Id";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    command.Parameters.AddWithValue("@name", item.name);
+                    command.Parameters.AddWithValue("@OrderTime,", item.OrderTime);
+                    command.Parameters.AddWithValue("@TotalPrice", item.TotalPrice);
+                    command.Parameters.AddWithValue("@PaymentMethod", item.PaymentMethod);
 
                     command.ExecuteNonQuery();
                 }
             }
         }
     }
-}
 }
