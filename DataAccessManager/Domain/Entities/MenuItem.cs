@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DataAccessManager.Domain.Entities
 {
-    internal class MenuItem
+    public class MenuItem : IDbEntity
     {
         public int Id { get; set; }
         public string name { get; set; }

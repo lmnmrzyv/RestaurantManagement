@@ -4,9 +4,8 @@ using System.Text;
 
 namespace DataAccessManager.Domain.Entities
 {
-    public class Category : IDbEntity
+    public interface IDbEntity
     {
-        public int Id { get; set; }
-        public string name { get; set; }
+        int Id { get; set; }
     }
 }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DataAccessManager.Domain.Entities
 {
-    internal class Order
+    public class Order :IDbEntity
     {
         public int Id { get; set; }
         public DateTime OrderTime { get; set; }
