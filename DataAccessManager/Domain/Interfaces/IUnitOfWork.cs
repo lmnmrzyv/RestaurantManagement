@@ -9,5 +9,7 @@ namespace DataAccessManager.Domain.Interfaces
         ICategoryRepository CategoryRepository { get; }
         IMenuItemRepository MenuItemRepository { get; }
         IOrderRepository OrderRepository { get; }
+        ICustomerRepository CustomerRepository { get; }
+        IDiscountRepository DiscountRepository { get; }
     }
 }

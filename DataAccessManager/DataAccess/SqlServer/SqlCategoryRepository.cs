@@ -38,7 +38,7 @@ namespace DataAccessManager.Domain.SqlServer
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
-                string query = "delete Categories where Id=@Id;";
+                string query = "delete from Categories where Id=@Id;";
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@id", id);

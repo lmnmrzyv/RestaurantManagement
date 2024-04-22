@@ -13,5 +13,7 @@ namespace DataAccessManager.DataAccess.SqlServer
         public IMenuItemRepository MenuItemRepository => new SqlMenuItemRepository();
 
         public IOrderRepository OrderRepository => new SqlOrderRepository();
+        public ICustomerRepository CustomerRepository => new SqlCustomerRepository();
+        public IDiscountRepository discountRepository => new SqlDiscountRepository();
     }
 }

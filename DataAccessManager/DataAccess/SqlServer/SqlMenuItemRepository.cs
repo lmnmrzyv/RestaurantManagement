@@ -40,7 +40,7 @@ namespace DataAccessManager.DataAccess.SqlServer
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
-                string query = "delete MenuItems where Id=@Id;";
+                string query = "delete from MenuItems where Id=@Id;";
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@id", id);
@@ -88,7 +88,7 @@ namespace DataAccessManager.DataAccess.SqlServer
             {
                 connection.Open();
 
-                string query = "SELECT Id, name, description, price FROM MenuItem";
+                string query = "SELECT Id, name, description, price FROM MenuItems";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
