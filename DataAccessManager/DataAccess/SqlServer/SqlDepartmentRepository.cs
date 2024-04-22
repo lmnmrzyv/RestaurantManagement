@@ -56,7 +56,7 @@ namespace DataAccessManager.DataAccess.SqlServer
             {
                 connection.Open();
 
-                string query = @"DELETE Departments where Id=@Id";
+                string query = @"UPDATE Departments SET IsActive=0 where Id=@Id";
 
                 using(SqlCommand command = new SqlCommand(query,connection))
                 {
