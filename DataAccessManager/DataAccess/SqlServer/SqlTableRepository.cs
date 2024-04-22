@@ -36,7 +36,7 @@ namespace DataAccessManager.DataAccess.SqlServer
             {
                 connection.Open();
 
-                string query = @"DELETE Tables where Id=@Id";
+                string query = "UPDATE Tables SET IsActive = 0 WHERE Id = @Id";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {

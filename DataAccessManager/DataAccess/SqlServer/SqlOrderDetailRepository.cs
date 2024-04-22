@@ -42,7 +42,7 @@ namespace DataAccessManager.DataAccess.SqlServer
             {
                 connection.Open();
 
-                string query = @"DELETE OrderDetails where Id=@Id";
+                string query = "UPDATE OrderDetails SET IsActive = 0 WHERE Id = @Id";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
@@ -51,6 +51,7 @@ namespace DataAccessManager.DataAccess.SqlServer
                 }
 
             }
+           
         }
 
         public OrderDetail Get(int id)

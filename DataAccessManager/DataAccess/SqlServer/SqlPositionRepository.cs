@@ -35,7 +35,7 @@ namespace DataAccessManager.DataAccess.SqlServer
             {
                 connection.Open();
 
-                string query = @"DELETE Positions where Id=@Id";
+                string query = "UPDATE Positions SET IsActive = 0 WHERE Id = @Id";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
