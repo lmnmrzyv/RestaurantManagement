@@ -11,5 +11,6 @@ namespace DataAccessManager.Domain.Entities
         public int MenuItemId { get; set; }
         public int Quantity { get; set; }
         public decimal Amount { get; set; }
+        public bool IsActive { get; set; }
     }
 }
