@@ -7,52 +7,53 @@ using DataAccessManager.Domain.Interfaces;
 
 namespace DataAccessManager.DataAccess.SqlServer
 {
-    public class SqlPositionRepository : IPositionRepository
+    public class SqlTableRepository : ITableRepository
     {
         private readonly string _connectionString;
-        public SqlPositionRepository(string connectionString)
+        public SqlTableRepository(string connectionString)
         {
             _connectionString = connectionString;
         }
-        public int Add(Position item)
+
+        public int Add(Table item)
         {
-            using (SqlConnection connection = new SqlConnection(_connectionString))
+            using(SqlConnection connection=new SqlConnection(_connectionString))
             {
                 connection.Open();
-                string query = "INSERT INTO Positions (Name, DepartmentId) OUTPUT INSERTED.Id VALUES (@Name, @DepartmentId);";
-                using (SqlCommand command = new SqlCommand(query, connection))
+                string query = "INSERT INTO Tables (TableNumber, Capacity) OUTPUT INSERTED.Id VALUES (@TableNumber, @Capacity);";
+                using(SqlCommand command= new SqlCommand(query, connection))
                 {
-                    command.Parameters.AddWithValue("@Name", item.Name ?? (object)DBNull.Value);
-                    command.Parameters.AddWithValue("@DepartmentId", item.DepartmentId);
+                    command.Parameters.AddWithValue("@TableNumber", item.TableNumber);
+                    command.Parameters.AddWithValue("@Capacity", item.Capacity);
                     return (int)command.ExecuteScalar();
                 }
             }
         }
 
-        public void Delete(Position item)
+        public void Delete(Table item)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
 
-                string query = @"DELETE Positions where Id=@Id";
+                string query = @"DELETE Tables where Id=@Id";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@Id", item.Id);
                     command.ExecuteNonQuery();
                 }
-
             }
         }
 
-        public Position Get(int id)
+        public Table Get(int id)
         {
+
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
 
-                string query = @"Select Id,Name,DepartmentId from Positions where Id=@Id";
+                string query = @"Select Id,TableNumber,Capacity from Tables where Id=@Id";
 
                 using (SqlCommand cmd = new SqlCommand(query, connection))
                 {
@@ -63,13 +64,13 @@ namespace DataAccessManager.DataAccess.SqlServer
                         if (!reader.Read())
                             return null;
 
-                        Position position = new Position();
+                       Table table = new Table();
 
-                        position.Id = reader.GetInt32(reader.GetOrdinal("Id"));
-                        position.Name = reader.GetString(reader.GetOrdinal("Name"));
-                        position.DepartmentId = reader.GetInt32(reader.GetOrdinal("DepartmentId"));
+                        table.Id = reader.GetInt32(reader.GetOrdinal("Id"));
+                        table.TableNumber = reader.GetInt32(reader.GetOrdinal("TableNumber"));
+                        table.Capacity = reader.GetInt32(reader.GetOrdinal("Capacity"));
 
-                        return position;
+                        return table;
                     }
 
                 }
@@ -77,15 +78,15 @@ namespace DataAccessManager.DataAccess.SqlServer
             }
         }
 
-        public List<Position> GetAll()
+        public List<Table> GetAll()
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
 
-                List<Position> positions = new List<Position>();
+                List<Table> tables = new List<Table>();
 
-                string query = "SELECT * FROM Positions";
+                string query = "SELECT * FROM Tables";
 
                 using (SqlCommand cmd = new SqlCommand(query, connection))
                 {
@@ -93,35 +94,35 @@ namespace DataAccessManager.DataAccess.SqlServer
 
                     while (Reader.Read())
                     {
-                        Position position = new Position();
-                        position.Id = (int)Reader["Id"];
-                        position.Name = (string)Reader["Name"];
-                        position.DepartmentId = (int)Reader["DepartmentId"];
+                        Table table = new Table();
+                        table.Id = (int)Reader["Id"];
+                        table.TableNumber = (int)Reader["TableNumber"];
+                        table.Capacity = (int)Reader["Capacity"];
 
 
-                        positions.Add(position);
+                        tables.Add(table);
 
 
                     }
                 }
 
-                return positions;
+                return tables;
             }
         }
 
-        public void Update(Position item)
+        public void Update(Table item)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
 
-                string query = @"UPDATE Positions SET Name=@Name,DepartmentId=@DepartmentId where Id=@Id";
+                string query = @"UPDATE Tables SET TableNumber=@TableNumber, Capacity=@Capacity where Id=@Id";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@Id", item.Id);
-                    command.Parameters.AddWithValue("@Name", item.Name);
-                    command.Parameters.AddWithValue("@DepartmentId", item.DepartmentId);
+                    command.Parameters.AddWithValue("@TableNumber", item.TableNumber);
+                    command.Parameters.AddWithValue("@Capacity", item.Capacity);
                     command.ExecuteNonQuery();
                 }
 

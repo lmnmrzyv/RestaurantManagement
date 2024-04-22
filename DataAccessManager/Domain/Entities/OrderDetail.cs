@@ -1,0 +1,15 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace DataAccessManager.Domain.Entities
+{
+    public class OrderDetail: IDbEntity
+    {
+        public int Id { get; set; }
+        public int OrderId { get; set; }
+        public int MenuItemId { get; set; }
+        public int Quantity { get; set; }
+        public decimal Amount { get; set; }
+    }
+}

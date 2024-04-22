@@ -4,10 +4,10 @@ using System.Text;
 
 namespace DataAccessManager.Domain.Entities
 {
-    public class Position:IDbEntity
+    public class Table : IDbEntity
     {
         public int Id { get; set; }
-        public string Name { get; set; }
-        public int DepartmentId { get; set; }
+        public int TableNumber { get; set; }
+        public int Capacity { get; set; }
     }
 }
