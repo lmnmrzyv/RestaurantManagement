@@ -64,7 +64,7 @@ namespace DataAccessManager.DataAccess.SqlServer
             {
                 connection.Open();
 
-                string query = @"DELETE Employees where Id=@Id";
+                string query = @"UPDATE Employees SET IsActive=0 where Id=@Id";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {

@@ -15,5 +15,6 @@ namespace DataAccessManager.Domain.Entities
         public string EducationLevel { get; set; }
 
         public decimal PerformanceRating { get; set; }
+        public bool IsActive { get; set; }
     }
 }

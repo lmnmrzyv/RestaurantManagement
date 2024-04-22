@@ -11,6 +11,6 @@ namespace DataAccessManager.Domain.Entities
         public int NumberOfPeople { get; set; }
         public int TableId { get; set; }
         public int CustomerId { get; set; }
-
+        public bool IsActive { get; set; }
     }
 }
