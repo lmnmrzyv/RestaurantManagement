@@ -14,5 +14,9 @@ namespace DataAccessManager.DataAccess.SqlServer
         public IDepartmentRepository DepartmentRepository => new SqlDepartmentRepository();
 
         public IReservationRepository ReservationRepository => new SqlReservationRepository();
+
+        public IOrderDetailRepository OrderDetailRepository => new SqlOrderDetailRepository();
+
+        public ITableRepository TableRepository =>  new SqlTableRepository();
     }
 }

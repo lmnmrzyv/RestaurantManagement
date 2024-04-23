@@ -10,5 +10,7 @@ namespace DataAccessManager.Domain.Interfaces
         IPositionRepository PositionRepository { get; }
         IDepartmentRepository DepartmentRepository { get; }
         IReservationRepository ReservationRepository { get; }
+        IOrderDetailRepository OrderDetailRepository { get; }
+        ITableRepository TableRepository { get; }
     }
 }
