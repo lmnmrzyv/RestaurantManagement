@@ -16,7 +16,7 @@ namespace DataAccessManager.Domain.Entities
 
         public decimal PerformanceRating { get; set; }
         public bool IsActive { get; set; }
-        //
+        
        
     }
 }
