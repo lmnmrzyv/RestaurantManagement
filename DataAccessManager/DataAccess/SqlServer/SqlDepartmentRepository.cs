@@ -50,7 +50,7 @@ namespace DataAccessManager.DataAccess.SqlServer
             }
         }
 
-        public void Delete(Department item)
+        public void Delete(int id)
         {
             using(SqlConnection connection = new SqlConnection(_connectionString))
             {
@@ -60,7 +60,7 @@ namespace DataAccessManager.DataAccess.SqlServer
 
                 using(SqlCommand command = new SqlCommand(query,connection))
                 {
-                    command.Parameters.AddWithValue("@Id",item.Id);
+                    command.Parameters.AddWithValue("@Id", id);
                     command.ExecuteNonQuery();
                 }
             }

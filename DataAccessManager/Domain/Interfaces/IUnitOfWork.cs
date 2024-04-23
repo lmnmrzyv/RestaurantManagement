@@ -6,6 +6,11 @@ namespace DataAccessManager.Domain.Interfaces
 {
     public interface IUnitOfWork
     {
+        ICategoryRepository CategoryRepository { get; }
+        IMenuItemRepository MenuItemRepository { get; }
+        IOrderRepository OrderRepository { get; }
+        ICustomerRepository CustomerRepository { get; }
+        IDiscountRepository DiscountRepository { get; }
         IEmployeeRepository EmployeeRepository { get; }
         IPositionRepository PositionRepository { get; }
         IDepartmentRepository DepartmentRepository { get; }
