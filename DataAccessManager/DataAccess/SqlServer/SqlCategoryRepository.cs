@@ -20,8 +20,8 @@ namespace DataAccessManager.Domain.SqlServer
             {
                 connection.Open();
 
-                string query = @"INSERT INTO Categories (name)
-                               output inserted.Id VALUES (@name);";
+                string query = @"INSERT INTO Categories (name,IsActive)
+                               output inserted.Id VALUES (@name,1);";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
@@ -53,7 +53,7 @@ namespace DataAccessManager.Domain.SqlServer
             {
                 connection.Open();
 
-                string query = "SELECT Id, name FROM Category WHERE Id = @Id";
+                string query = "SELECT Id, name FROM Category WHERE Id = @Id and IsActive=1";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
@@ -81,7 +81,7 @@ namespace DataAccessManager.Domain.SqlServer
             {
                 connection.Open();
 
-                string query = "SELECT Id, name FROM Category";
+                string query = "SELECT Id, name FROM Category  where IsActive=1";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {

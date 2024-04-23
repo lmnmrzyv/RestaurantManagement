@@ -21,8 +21,8 @@ namespace DataAccessManager.DataAccess.SqlServer
             {
                 connection.Open();
 
-                string query = @"INSERT INTO Discounts (startTime,endTime,Status, CategoryId,percent)
-                               output inserted.Id VALUES (@startTime,@endTime,@Status, @CategoryId,@percent);";
+                string query = @"INSERT INTO Discounts (startTime,endTime,Status, CategoryId,percent,IsActive)
+                               output inserted.Id VALUES (@startTime,@endTime,@Status, @CategoryId,@percent,1);";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
@@ -59,7 +59,7 @@ namespace DataAccessManager.DataAccess.SqlServer
             {
                 connection.Open();
 
-                string query = "SELECT Id, startTime, endTime, Status, CategoryId, Percent FROM Discounts WHERE Id = @Id and Status = 1";
+                string query = "SELECT Id, startTime, endTime, Status, CategoryId, Percent FROM Discounts WHERE Id = @Id and IsActive=1";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
@@ -91,7 +91,7 @@ namespace DataAccessManager.DataAccess.SqlServer
             {
                 connection.Open();
 
-                string query = "SELECT Id, startTime, endTime, Status, CategoryId, Percent FROM Discounts WHERE Status = 1";
+                string query = "SELECT Id, startTime, endTime, Status, CategoryId, Percent FROM Discounts  where IsActive=1";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {

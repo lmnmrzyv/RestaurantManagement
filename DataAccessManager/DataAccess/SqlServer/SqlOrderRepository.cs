@@ -20,8 +20,8 @@ namespace DataAccessManager.DataAccess.SqlServer
             {
                 connection.Open();
 
-                string query = @"INSERT INTO Orders (OrderTime, TotalPrice, PaymentMethod)
-                               output inserted.Id VALUES (@OrderTime, @TotalPrice, @PaymentMethod);";
+                string query = @"INSERT INTO Orders (OrderTime, TotalPrice, PaymentMethod,IsActive)
+                               output inserted.Id VALUES (@OrderTime, @TotalPrice, @PaymentMethod,1);";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
@@ -56,7 +56,7 @@ namespace DataAccessManager.DataAccess.SqlServer
             {
                 connection.Open();
 
-                string query = "SELECT Id, OrderTime, TotalPrice, PaymentMethod FROM Orders WHERE Id = @Id";
+                string query = "SELECT Id, OrderTime, TotalPrice, PaymentMethod FROM Orders WHERE Id = @Id and IsActive=1";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
@@ -88,7 +88,7 @@ namespace DataAccessManager.DataAccess.SqlServer
             {
                 connection.Open();
 
-                string query = "SELECT Id, OrderTime, TotalPrice, PaymentMethod FROM Order";
+                string query = "SELECT Id, OrderTime, TotalPrice, PaymentMethod FROM Order where IsActive=1";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
