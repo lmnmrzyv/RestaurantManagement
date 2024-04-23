@@ -19,11 +19,12 @@ namespace DataAccessManager.DataAccess.SqlServer
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
-                string query = "INSERT INTO Positions (Name, DepartmentId) OUTPUT INSERTED.Id VALUES (@Name, @DepartmentId);";
+                string query = "INSERT INTO Positions (Name, DepartmentId,IsActive) OUTPUT INSERTED.Id VALUES (@Name, @DepartmentId,1);";
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    command.Parameters.AddWithValue("@Name", item.Name ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@Name", item.Name);
                     command.Parameters.AddWithValue("@DepartmentId", item.DepartmentId);
+                  //  command.Parameters.AddWithValue("@IsActive", item.IsActive);
                     return (int)command.ExecuteScalar();
                 }
             }
@@ -52,7 +53,7 @@ namespace DataAccessManager.DataAccess.SqlServer
             {
                 connection.Open();
 
-                string query = @"Select Id,Name,DepartmentId from Positions where Id=@Id";
+                string query = @"Select Id,Name,DepartmentId from Positions where Id=@Id and IsActive=1";
 
                 using (SqlCommand cmd = new SqlCommand(query, connection))
                 {
@@ -85,7 +86,7 @@ namespace DataAccessManager.DataAccess.SqlServer
 
                 List<Position> positions = new List<Position>();
 
-                string query = "SELECT * FROM Positions";
+                string query = "SELECT * FROM Positions where IsActive=1";
 
                 using (SqlCommand cmd = new SqlCommand(query, connection))
                 {

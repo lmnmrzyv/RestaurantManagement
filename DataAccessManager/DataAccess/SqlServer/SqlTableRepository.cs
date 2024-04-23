@@ -20,11 +20,12 @@ namespace DataAccessManager.DataAccess.SqlServer
             using(SqlConnection connection=new SqlConnection(_connectionString))
             {
                 connection.Open();
-                string query = "INSERT INTO Tables (TableNumber, Capacity) OUTPUT INSERTED.Id VALUES (@TableNumber, @Capacity);";
+                string query = "INSERT INTO Tables (TableNumber, Capacity,IsActive) OUTPUT INSERTED.Id VALUES (@TableNumber, @Capacity,1);";
                 using(SqlCommand command= new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@TableNumber", item.TableNumber);
                     command.Parameters.AddWithValue("@Capacity", item.Capacity);
+                   // command.Parameters.AddWithValue("@IsActive", item.IsActive);
                     return (int)command.ExecuteScalar();
                 }
             }
@@ -53,7 +54,7 @@ namespace DataAccessManager.DataAccess.SqlServer
             {
                 connection.Open();
 
-                string query = @"Select Id,TableNumber,Capacity from Tables where Id=@Id";
+                string query = @"Select Id,TableNumber,Capacity from Tables where Id=@Id and IsActive=1";
 
                 using (SqlCommand cmd = new SqlCommand(query, connection))
                 {
@@ -86,7 +87,7 @@ namespace DataAccessManager.DataAccess.SqlServer
 
                 List<Table> tables = new List<Table>();
 
-                string query = "SELECT * FROM Tables";
+                string query = "SELECT * FROM Tables where IsActive=1";
 
                 using (SqlCommand cmd = new SqlCommand(query, connection))
                 {

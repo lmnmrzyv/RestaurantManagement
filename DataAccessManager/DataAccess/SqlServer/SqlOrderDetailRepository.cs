@@ -20,8 +20,8 @@ namespace DataAccessManager.DataAccess.SqlServer
             {
                 connection.Open();
 
-                string query = @"INSERT INTO OrderDetails (OrderId,MenuItemId,Quantity,Amount) output inserted.Id VALUES (@OrderId,@MenuItemId,
-                               @Quantity,@Amount)";
+                string query = @"INSERT INTO OrderDetails (OrderId,MenuItemId,Quantity,Amount,IsActive) output inserted.Id
+                                   VALUES (@OrderId,@MenuItemId, @Quantity,@Amount,1)";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
@@ -29,6 +29,7 @@ namespace DataAccessManager.DataAccess.SqlServer
                     command.Parameters.AddWithValue("@MenuItemId", item.MenuItemId);
                     command.Parameters.AddWithValue("@Quantity", item.Quantity);
                     command.Parameters.AddWithValue("@Amount", item.Amount);
+                   // command.Parameters.AddWithValue("@IsActive", item.IsActive);
 
                     return (int)command.ExecuteScalar();
                 }
@@ -60,7 +61,7 @@ namespace DataAccessManager.DataAccess.SqlServer
             {
                 connection.Open();
 
-                string query = @"Select Id,OrderId,MenuItemId,Quantity,Amount from OrderDetails where Id=@Id";
+                string query = @"Select Id,OrderId,MenuItemId,Quantity,Amount from OrderDetails where Id=@Id and IsActive=1";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
@@ -91,7 +92,7 @@ namespace DataAccessManager.DataAccess.SqlServer
                 connection.Open();
 
                 List<OrderDetail> orderDetails = new List<OrderDetail>();
-                string query = "SELECT *FROM OrderDetails";
+                string query = "SELECT *FROM OrderDetails where IsActive=1";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
