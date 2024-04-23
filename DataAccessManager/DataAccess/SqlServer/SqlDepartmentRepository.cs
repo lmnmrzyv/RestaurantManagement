@@ -21,7 +21,7 @@ namespace DataAccessManager.DataAccess.SqlServer
             {
                 connection.Open();
 
-                string query = "INSERT INTO Departments (Name) OUTPUT INSERTED.Id VALUES (@Name)";
+                string query = "INSERT INTO Departments (Name,IsActive) OUTPUT INSERTED.Id VALUES (@Name,1)";
 
                 using(SqlCommand command=new SqlCommand(query,connection))
                 {
@@ -72,7 +72,7 @@ namespace DataAccessManager.DataAccess.SqlServer
             {
                 connection.Open();
 
-                string query = @"Select Id,Name from Departments where Id=@Id";
+                string query = @"Select Id,Name from Departments where Id=@Id and IsActive=1";
 
                 using(SqlCommand  cmd=new SqlCommand(query,connection))
                 {
@@ -87,6 +87,7 @@ namespace DataAccessManager.DataAccess.SqlServer
 
                         department.Id=reader.GetInt32(reader.GetOrdinal("Id"));
                         department.Name = reader.GetString(reader.GetOrdinal("Name"));
+                        
 
                         return department;
                     }
@@ -104,9 +105,9 @@ namespace DataAccessManager.DataAccess.SqlServer
 
                 List<Department> departments = new List<Department>();
 
-                string query = "SELECT * FROM Departments";
-                
-                using(SqlCommand cmd=new SqlCommand(query,connection))
+                string query = @"Select Id,Name from Departments where IsActive=1";
+
+                using (SqlCommand cmd=new SqlCommand(query,connection))
                 {
                     SqlDataReader Reader = cmd.ExecuteReader();
 
@@ -115,7 +116,7 @@ namespace DataAccessManager.DataAccess.SqlServer
                         Department department = new Department();
                         department.Id = (int)Reader["Id"];
                         department.Name = (string)Reader["Name"];
-
+                        
 
                         departments.Add(department);
                         
