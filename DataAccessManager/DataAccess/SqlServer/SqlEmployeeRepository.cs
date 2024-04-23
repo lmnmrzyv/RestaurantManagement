@@ -20,8 +20,8 @@ namespace DataAccessManager.DataAccess.SqlServer
             {
                 connection.Open();
 
-                string query = @"INSERT INTO Employees (Name,Surname,PositionId,EducationLevel,PerformanceRating) output inserted.Id VALUES (@Name,@Surname,
-                               @PositionId,@EducationLevel,@PerformanceRating)";
+                string query = @"INSERT INTO Employees (Name,Surname,PositionId,EducationLevel,PerformanceRating,IsActive) output inserted.Id VALUES (@Name,@Surname,
+                               @PositionId,@EducationLevel,@PerformanceRating,1)";
 
                 using (SqlCommand command = new SqlCommand(query,connection))
                 {
@@ -81,7 +81,7 @@ namespace DataAccessManager.DataAccess.SqlServer
             {
                 connection.Open();
 
-                string query = @"Select Id,Name,Surname,PositionId,EducationLevel,PerformanceRating from Employees where Id=@Id";
+                string query = @"Select Id,Name,Surname,PositionId,EducationLevel,PerformanceRating from Employees where Id=@Id and IsActive=1";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
@@ -112,7 +112,7 @@ namespace DataAccessManager.DataAccess.SqlServer
             {
                 connection.Open();
                 List<Employee> employees = new List<Employee>();
-                string query = "SELECT*FROM Employees";
+                string query = @"Select Id,Name,Surname,PositionId,EducationLevel,PerformanceRating from Employees where  IsActive=1";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {

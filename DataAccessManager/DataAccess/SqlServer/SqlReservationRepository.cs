@@ -20,8 +20,8 @@ namespace DataAccessManager.DataAccess.SqlServer
             {
                 connection.Open();
 
-                string query = @"INSERT INTO Reservations (ReservationDate,NumberOfPeople,TableId,CustomerId) output inserted.Id VALUES 
-                 (@ReservationDate,@NumberOfPeople, @TableId,@CustomerId)";
+                string query = @"INSERT INTO Reservations (ReservationDate,NumberOfPeople,TableId,CustomerId,IsActive) output inserted.Id VALUES 
+                 (@ReservationDate,@NumberOfPeople, @TableId,@CustomerId,1)";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
@@ -29,6 +29,7 @@ namespace DataAccessManager.DataAccess.SqlServer
                     command.Parameters.AddWithValue("@NumberOfPeople", item.NumberOfPeople);
                     command.Parameters.AddWithValue("@TableId", item.TableId);
                     command.Parameters.AddWithValue("@CustomerId", item.CustomerId);
+                   // command.Parameters.AddWithValue("@IsActive", item.IsActive);
                     
 
                     return (int)command.ExecuteScalar();
@@ -52,6 +53,7 @@ namespace DataAccessManager.DataAccess.SqlServer
                     command.Parameters.AddWithValue("@NumberOfPeople", item.NumberOfPeople);
                     command.Parameters.AddWithValue("@TableId", item.TableId);
                     command.Parameters.AddWithValue("@CustomerId", item.CustomerId);
+  
                     command.ExecuteNonQuery();
                 }
 
@@ -81,7 +83,7 @@ namespace DataAccessManager.DataAccess.SqlServer
             {
                 connection.Open();
 
-                string query = @"Select Id,ReservationDate,NumberOfPeople,TableId,CustomerId from Reservations where Id=@Id";
+                string query = @"Select Id,ReservationDate,NumberOfPeople,TableId,CustomerId from Reservations where Id=@Id and IsActive=1";
 
                 using (SqlCommand cmd = new SqlCommand(query, connection))
                 {
@@ -99,6 +101,7 @@ namespace DataAccessManager.DataAccess.SqlServer
                         reservation.NumberOfPeople = reader.GetInt32(reader.GetOrdinal("NumberOfPeople"));
                         reservation.TableId = reader.GetInt32(reader.GetOrdinal("TableId"));
                         reservation.CustomerId = reader.GetInt32(reader.GetOrdinal("CustomerId"));
+                        
 
                         return reservation;
                     }
@@ -116,7 +119,7 @@ namespace DataAccessManager.DataAccess.SqlServer
 
                 List<Reservation> reservations = new List<Reservation>();
 
-                string query = "SELECT * FROM Reservations";
+                string query = "Select Id,ReservationDate,NumberOfPeople,TableId,CustomerId from Reservations where  IsActive=1";
 
                 using (SqlCommand cmd = new SqlCommand(query, connection))
                 {
@@ -130,6 +133,7 @@ namespace DataAccessManager.DataAccess.SqlServer
                         reservation.NumberOfPeople = (int)Reader["NumberOfPeople"];
                         reservation.TableId = (int)Reader["TableId"];
                         reservation.CustomerId = (int)Reader["CustomerId"];
+                        
 
 
                         reservations.Add(reservation);
