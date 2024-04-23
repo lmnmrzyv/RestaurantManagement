@@ -12,5 +12,6 @@ namespace DataAccessManager.Domain.Interfaces
         void Delete(int id);
         List<T> GetAll();
         T Get(int id);
+
     }
 }
