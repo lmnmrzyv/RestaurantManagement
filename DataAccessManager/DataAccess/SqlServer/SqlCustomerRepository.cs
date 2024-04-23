@@ -38,8 +38,8 @@ namespace DataAccessManager.DataAccess.SqlServer
             using(SqlConnection connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
-                string query = "delete from Customers where Id=@Id;"; 
-                using(SqlCommand command = new SqlCommand(query, connection))
+                string query = "Update Customers SET ISActive=0 where id = @Id";
+                using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@Id", id);
                     command.ExecuteNonQuery();

@@ -43,7 +43,7 @@ namespace DataAccessManager.DataAccess.SqlServer
             {
                 connection.Open();
 
-                string query = "UPDATE Discounts SET Status = 0 WHERE Id = @Id";
+                string query = "UPDATE Discounts SET IsActive = 0 WHERE Id = @Id";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {

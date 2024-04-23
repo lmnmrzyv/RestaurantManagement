@@ -40,7 +40,7 @@ namespace DataAccessManager.DataAccess.SqlServer
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
-                string query = "delete from MenuItems where Id=@Id;";
+                string query = "Update MenuItems SET ISActive = 0 where id = @id";
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@id", id);

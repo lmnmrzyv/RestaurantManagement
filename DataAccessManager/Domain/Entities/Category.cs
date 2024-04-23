@@ -8,5 +8,7 @@ namespace DataAccessManager.Domain.Entities
     {
         public int Id { get; set; }
         public string name { get; set; }
+        public bool IsActive { get; set; }
+
     }
 }

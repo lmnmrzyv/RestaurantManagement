@@ -10,5 +10,7 @@ namespace DataAccessManager.Domain.Entities
         public DateTime OrderTime { get; set; }
         public decimal TotalPrice { get; set; }
         public string PaymentMethod { get; set; }
+        public bool IsActive { get; set; }
+
     }
 }

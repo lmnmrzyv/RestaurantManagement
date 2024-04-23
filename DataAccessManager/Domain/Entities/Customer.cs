@@ -11,5 +11,7 @@ namespace DataAccessManager.Domain.Entities
         public string Surname { get; set; }
         public string PhoneNum { get; set; }
         public string Mail { get; set; }
+        public bool IsActive { get; set; }
+
     }
 }

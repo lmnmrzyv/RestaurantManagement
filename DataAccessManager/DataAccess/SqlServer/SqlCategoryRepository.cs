@@ -38,7 +38,7 @@ namespace DataAccessManager.Domain.SqlServer
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
-                string query = "delete from Categories where Id=@Id;";
+                string query = "Update Categories SET ISActive=0 where id = @id";
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@id", id);
@@ -95,7 +95,7 @@ namespace DataAccessManager.Domain.SqlServer
 
                             category.Id = reader.GetInt32(reader.GetOrdinal("Id"));
                             category.name = reader.GetString(reader.GetOrdinal("name"));
-
+                            
                             Categories.Add(category);
                         }
 
