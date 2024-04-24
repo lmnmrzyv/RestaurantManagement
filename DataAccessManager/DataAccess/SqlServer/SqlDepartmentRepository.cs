@@ -72,7 +72,7 @@ namespace DataAccessManager.DataAccess.SqlServer
             {
                 connection.Open();
 
-                string query = @"Select Id,Name from Departments where Id=@Id and IsActive=1";
+                string query = @"Select Id,Name,IsActive from Departments where Id=@Id and IsActive=1";
 
                 using(SqlCommand  cmd=new SqlCommand(query,connection))
                 {
@@ -87,6 +87,7 @@ namespace DataAccessManager.DataAccess.SqlServer
 
                         department.Id=reader.GetInt32(reader.GetOrdinal("Id"));
                         department.Name = reader.GetString(reader.GetOrdinal("Name"));
+                        department.IsActive = reader.GetBoolean(reader.GetOrdinal("IsActive")); 
                         
 
                         return department;
@@ -105,7 +106,7 @@ namespace DataAccessManager.DataAccess.SqlServer
 
                 List<Department> departments = new List<Department>();
 
-                string query = @"Select Id,Name from Departments where IsActive=1";
+                string query = @"Select Id,Name,IsActive from Departments where IsActive=1";
 
                 using (SqlCommand cmd=new SqlCommand(query,connection))
                 {
@@ -116,6 +117,7 @@ namespace DataAccessManager.DataAccess.SqlServer
                         Department department = new Department();
                         department.Id = (int)Reader["Id"];
                         department.Name = (string)Reader["Name"];
+                        department.IsActive = (bool)Reader["IsActive"];
                         
 
                         departments.Add(department);

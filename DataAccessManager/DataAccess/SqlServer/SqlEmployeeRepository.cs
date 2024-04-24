@@ -81,7 +81,7 @@ namespace DataAccessManager.DataAccess.SqlServer
             {
                 connection.Open();
 
-                string query = @"Select Id,Name,Surname,PositionId,EducationLevel,PerformanceRating from Employees where Id=@Id and IsActive=1";
+                string query = @"Select Id,Name,Surname,PositionId,EducationLevel,PerformanceRating,IsActive from Employees where Id=@Id and IsActive=1";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
@@ -98,6 +98,7 @@ namespace DataAccessManager.DataAccess.SqlServer
                         employee.PositionId = reader.GetInt32(reader.GetOrdinal("PositionId"));
                         employee.EducationLevel = reader.IsDBNull(reader.GetOrdinal("EducationLevel")) ? null : reader.GetString(reader.GetOrdinal("EducationLevel"));
                         employee.PerformanceRating = reader.GetDecimal(reader.GetOrdinal("PerformanceRating"));
+                        employee.IsActive = reader.GetBoolean(reader.GetOrdinal("IsActive"));
 
                         return employee;
                     }
@@ -112,7 +113,7 @@ namespace DataAccessManager.DataAccess.SqlServer
             {
                 connection.Open();
                 List<Employee> employees = new List<Employee>();
-                string query = @"Select Id,Name,Surname,PositionId,EducationLevel,PerformanceRating from Employees where  IsActive=1";
+                string query = @"Select Id,Name,Surname,PositionId,EducationLevel,PerformanceRating,IsActive from Employees where  IsActive=1";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
@@ -126,6 +127,7 @@ namespace DataAccessManager.DataAccess.SqlServer
                         employee.PositionId = reader.GetInt32(reader.GetOrdinal("PositionId"));
                         employee.EducationLevel = reader.IsDBNull(reader.GetOrdinal("EducationLevel")) ? null : reader.GetString(reader.GetOrdinal("EducationLevel"));
                         employee.PerformanceRating = reader.GetDecimal(reader.GetOrdinal("PerformanceRating"));
+                        employee.IsActive = reader.GetBoolean(reader.GetOrdinal("IsActive"));
 
                         employees.Add(employee);
                     }

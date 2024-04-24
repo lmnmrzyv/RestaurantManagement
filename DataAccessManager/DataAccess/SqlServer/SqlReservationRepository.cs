@@ -83,7 +83,7 @@ namespace DataAccessManager.DataAccess.SqlServer
             {
                 connection.Open();
 
-                string query = @"Select Id,ReservationDate,NumberOfPeople,TableId,CustomerId from Reservations where Id=@Id and IsActive=1";
+                string query = @"Select Id,ReservationDate,NumberOfPeople,TableId,CustomerId,IsACtive from Reservations where Id=@Id and IsActive=1";
 
                 using (SqlCommand cmd = new SqlCommand(query, connection))
                 {
@@ -101,6 +101,7 @@ namespace DataAccessManager.DataAccess.SqlServer
                         reservation.NumberOfPeople = reader.GetInt32(reader.GetOrdinal("NumberOfPeople"));
                         reservation.TableId = reader.GetInt32(reader.GetOrdinal("TableId"));
                         reservation.CustomerId = reader.GetInt32(reader.GetOrdinal("CustomerId"));
+                        reservation.IsActive = reader.GetBoolean(reader.GetOrdinal("IsActive"));
                         
 
                         return reservation;
@@ -119,7 +120,7 @@ namespace DataAccessManager.DataAccess.SqlServer
 
                 List<Reservation> reservations = new List<Reservation>();
 
-                string query = "Select Id,ReservationDate,NumberOfPeople,TableId,CustomerId from Reservations where  IsActive=1";
+                string query = "Select Id,ReservationDate,NumberOfPeople,TableId,CustomerId,IsActive from Reservations where  IsActive=1";
 
                 using (SqlCommand cmd = new SqlCommand(query, connection))
                 {
@@ -133,6 +134,7 @@ namespace DataAccessManager.DataAccess.SqlServer
                         reservation.NumberOfPeople = (int)Reader["NumberOfPeople"];
                         reservation.TableId = (int)Reader["TableId"];
                         reservation.CustomerId = (int)Reader["CustomerId"];
+                        reservation.IsActive = (bool)Reader["IsActive"];
                         
 
 
