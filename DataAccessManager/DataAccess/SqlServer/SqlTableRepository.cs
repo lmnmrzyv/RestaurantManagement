@@ -54,7 +54,7 @@ namespace DataAccessManager.DataAccess.SqlServer
             {
                 connection.Open();
 
-                string query = @"Select Id,TableNumber,Capacity from Tables where Id=@Id and IsActive=1";
+                string query = @"Select * from Tables where Id=@Id and IsActive=1";
 
                 using (SqlCommand cmd = new SqlCommand(query, connection))
                 {
@@ -70,7 +70,7 @@ namespace DataAccessManager.DataAccess.SqlServer
                         table.Id = reader.GetInt32(reader.GetOrdinal("Id"));
                         table.TableNumber = reader.GetInt32(reader.GetOrdinal("TableNumber"));
                         table.Capacity = reader.GetInt32(reader.GetOrdinal("Capacity"));
-
+                        table.IsActive = reader.GetBoolean(reader.GetOrdinal("IsActive"));
                         return table;
                     }
 
@@ -99,7 +99,7 @@ namespace DataAccessManager.DataAccess.SqlServer
                         table.Id = (int)Reader["Id"];
                         table.TableNumber = (int)Reader["TableNumber"];
                         table.Capacity = (int)Reader["Capacity"];
-
+                        table.IsActive = (bool)Reader["IsActive"];
 
                         tables.Add(table);
 

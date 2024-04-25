@@ -59,7 +59,7 @@ namespace DataAccessManager.DataAccess.SqlServer
             {
                 connection.Open();
 
-                string query = "SELECT Id, startTime, endTime, Status, CategoryId, Percent FROM Discounts WHERE Id = @Id and IsActive=1";
+                string query = "SELECT * FROM Discounts WHERE Id = @Id and IsActive=1";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
@@ -78,6 +78,7 @@ namespace DataAccessManager.DataAccess.SqlServer
                         Discount.Status = reader.GetBoolean(reader.GetOrdinal("Status"));
                         Discount.CategoryId = reader.GetInt32(reader.GetOrdinal("CategoryId"));
                         Discount.Percent = reader.GetInt32(reader.GetOrdinal("Percent"));
+                        Discount.IsActive = reader.GetBoolean(reader.GetOrdinal("IsActive"));
 
                         return Discount;
                     }
@@ -91,7 +92,7 @@ namespace DataAccessManager.DataAccess.SqlServer
             {
                 connection.Open();
 
-                string query = "SELECT Id, startTime, endTime, Status, CategoryId, Percent FROM Discounts  where IsActive=1";
+                string query = "SELECT * FROM Discounts where IsActive=1";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
@@ -108,7 +109,7 @@ namespace DataAccessManager.DataAccess.SqlServer
                             discount.Status = reader.GetBoolean(reader.GetOrdinal("Status"));
                             discount.CategoryId = reader.GetInt32(reader.GetOrdinal("CategoryId"));
                             discount.Percent = reader.GetInt32(reader.GetOrdinal("Percent"));
-
+                            discount.IsActive = reader.GetBoolean(reader.GetOrdinal("IsActive"));
                             discounts.Add(discount);
                         }
 

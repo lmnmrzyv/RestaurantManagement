@@ -61,7 +61,7 @@ namespace DataAccessManager.DataAccess.SqlServer
             {
                 connection.Open();
 
-                string query = @"Select Id,OrderId,MenuItemId,Quantity,Amount from OrderDetails where Id=@Id and IsActive=1";
+                string query = @"Select * from OrderDetails where Id=@Id and IsActive=1";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
@@ -77,7 +77,7 @@ namespace DataAccessManager.DataAccess.SqlServer
                         orderDetail.MenuItemId = reader.GetInt32(reader.GetOrdinal("MenuItemId"));
                         orderDetail.Quantity = reader.GetInt32(reader.GetOrdinal("Quantity"));
                         orderDetail.Amount = reader.GetDecimal(reader.GetOrdinal("Amount"));
-
+                        orderDetail.IsActive = reader.GetBoolean(reader.GetOrdinal("IsActive"));
                         return orderDetail;
                     }
                 }
@@ -92,7 +92,7 @@ namespace DataAccessManager.DataAccess.SqlServer
                 connection.Open();
 
                 List<OrderDetail> orderDetails = new List<OrderDetail>();
-                string query = "SELECT *FROM OrderDetails where IsActive=1";
+                string query = "SELECT * FROM OrderDetails where IsActive=1";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
@@ -105,7 +105,7 @@ namespace DataAccessManager.DataAccess.SqlServer
                         orderDetail.MenuItemId = reader.GetInt32(reader.GetOrdinal("MenuItemId"));
                         orderDetail.Quantity = reader.GetInt32(reader.GetOrdinal("Quantity"));
                         orderDetail.Amount = reader.GetDecimal(reader.GetOrdinal("Amount"));
-
+                        orderDetail.IsActive = reader.GetBoolean(reader.GetOrdinal("IsActive"));
                         orderDetails.Add(orderDetail);
                     }
                     return orderDetails;

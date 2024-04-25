@@ -56,7 +56,7 @@ namespace DataAccessManager.DataAccess.SqlServer
             {
                 connection.Open();
 
-                string query = "SELECT Id, OrderTime, TotalPrice, PaymentMethod FROM Orders WHERE Id = @Id and IsActive=1";
+                string query = "SELECT * FROM Orders WHERE Id = @Id and IsActive=1";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
@@ -73,7 +73,7 @@ namespace DataAccessManager.DataAccess.SqlServer
                         order.OrderTime = reader.GetDateTime(reader.GetOrdinal("OrderTime"));
                         order.TotalPrice = reader.GetDecimal(reader.GetOrdinal("TotalPrice"));
                         order.PaymentMethod = reader.GetString(reader.GetOrdinal("PaymentMethod"));
-
+                        order.IsActive = reader.GetBoolean(reader.GetOrdinal("IsActive"));
 
 
                         return order;
@@ -88,7 +88,7 @@ namespace DataAccessManager.DataAccess.SqlServer
             {
                 connection.Open();
 
-                string query = "SELECT Id, OrderTime, TotalPrice, PaymentMethod FROM Order where IsActive=1";
+                string query = "SELECT * FROM Order where IsActive=1";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
@@ -104,7 +104,7 @@ namespace DataAccessManager.DataAccess.SqlServer
                             order.OrderTime = reader.GetDateTime(reader.GetOrdinal("OrderTime"));
                             order.TotalPrice = reader.GetDecimal(reader.GetOrdinal("TotalPrice"));
                             order.PaymentMethod = reader.GetString(reader.GetOrdinal("PaymentMethod"));
-
+                            order.IsActive = reader.GetBoolean(reader.GetOrdinal("IsActive"));
                             Orders.Add(order);
                         }
 

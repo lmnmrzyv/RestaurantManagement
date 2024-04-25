@@ -56,7 +56,7 @@ namespace DataAccessManager.DataAccess.SqlServer
             {
                 connection.Open();
 
-                string query = "SELECT Id, name, description, price FROM MenuItems WHERE Id = @Id and IsActive=1";
+                string query = "SELECT * FROM MenuItems WHERE Id = @Id and IsActive=1";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
@@ -73,7 +73,7 @@ namespace DataAccessManager.DataAccess.SqlServer
                         menuitem.name = reader.GetString(reader.GetOrdinal("name"));
                         menuitem.description = reader.IsDBNull(reader.GetOrdinal("description")) ? null : reader.GetString(reader.GetOrdinal("description"));
                         menuitem.price = reader.GetInt32(reader.GetOrdinal("price"));
-
+                        menuitem.IsActive = reader.GetBoolean(reader.GetOrdinal("IsActive"));
 
 
                         return menuitem;
@@ -88,7 +88,7 @@ namespace DataAccessManager.DataAccess.SqlServer
             {
                 connection.Open();
 
-                string query = "SELECT Id, name, description, price FROM MenuItems where IsActive=1";
+                string query = "SELECT * FROM MenuItems where IsActive=1";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
@@ -104,7 +104,7 @@ namespace DataAccessManager.DataAccess.SqlServer
                             menuitem.name = reader.GetString(reader.GetOrdinal("name"));
                             menuitem.description = reader.IsDBNull(reader.GetOrdinal("description")) ? null : reader.GetString(reader.GetOrdinal("description"));
                             menuitem.price = reader.GetInt32(reader.GetOrdinal("price"));
-
+                            menuitem.IsActive = reader.GetBoolean(reader.GetOrdinal("IsActive"));
                             MenuItems.Add(menuitem);
                         }
 

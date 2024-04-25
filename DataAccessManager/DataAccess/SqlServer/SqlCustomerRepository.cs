@@ -70,7 +70,7 @@ namespace DataAccessManager.DataAccess.SqlServer
             using(SqlConnection connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
-                string query = "Select Name,Surname,PhoneNum,Mail from Customers Where Id=@Id and IsActive=1;";
+                string query = "Select Name,Surname,PhoneNum,Mail,IsActive from Customers Where Id=@Id and IsActive=1;";
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@Id", id);
@@ -82,6 +82,7 @@ namespace DataAccessManager.DataAccess.SqlServer
                         customer.Name = reader.GetString(reader.GetOrdinal("Name"));
                         customer.Surname = reader.GetString(reader.GetOrdinal("Surname"));
                         customer.PhoneNum = reader.GetString(reader.GetOrdinal("PhoneNum"));
+                        customer.IsActive = reader.GetBoolean(reader.GetOrdinal("IsActive"));
                         customer.Mail = reader.IsDBNull(reader.GetOrdinal("Mail")) ? null : reader.GetString(reader.GetOrdinal("Mail"));
                         return customer;
                     }
@@ -106,6 +107,7 @@ namespace DataAccessManager.DataAccess.SqlServer
                             customer.Name = reader.GetString(reader.GetOrdinal("Name"));
                             customer.Surname = reader.GetString(reader.GetOrdinal("Surname"));
                             customer.PhoneNum = reader.GetString(reader.GetOrdinal("PhoneNum"));
+                            customer.IsActive = reader.GetBoolean(reader.GetOrdinal("IsActive"));
                             customer.Mail = reader.IsDBNull(reader.GetOrdinal("MAil")) ? null : reader.GetString(reader.GetOrdinal("Mail"));                            
                             customers.Add(customer);
                             

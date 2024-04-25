@@ -53,7 +53,7 @@ namespace DataAccessManager.DataAccess.SqlServer
             {
                 connection.Open();
 
-                string query = @"Select Id,Name,DepartmentId from Positions where Id=@Id and IsActive=1";
+                string query = @"Select * from Positions where Id=@Id and IsActive=1";
 
                 using (SqlCommand cmd = new SqlCommand(query, connection))
                 {
@@ -69,7 +69,7 @@ namespace DataAccessManager.DataAccess.SqlServer
                         position.Id = reader.GetInt32(reader.GetOrdinal("Id"));
                         position.Name = reader.GetString(reader.GetOrdinal("Name"));
                         position.DepartmentId = reader.GetInt32(reader.GetOrdinal("DepartmentId"));
-
+                        position.IsActive = reader.GetBoolean(reader.GetOrdinal("IsActive"));
                         return position;
                     }
 
@@ -98,11 +98,9 @@ namespace DataAccessManager.DataAccess.SqlServer
                         position.Id = (int)Reader["Id"];
                         position.Name = (string)Reader["Name"];
                         position.DepartmentId = (int)Reader["DepartmentId"];
-
+                        position.IsActive = (bool)Reader["IsActive"];
 
                         positions.Add(position);
-
-
                     }
                 }
 

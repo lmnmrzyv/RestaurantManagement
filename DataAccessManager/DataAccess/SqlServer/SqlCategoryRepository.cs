@@ -53,7 +53,7 @@ namespace DataAccessManager.Domain.SqlServer
             {
                 connection.Open();
 
-                string query = "SELECT Id, name FROM Category WHERE Id = @Id and IsActive=1";
+                string query = "SELECT Id, name,IsActive FROM Category WHERE Id = @Id and IsActive=1";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
@@ -68,6 +68,7 @@ namespace DataAccessManager.Domain.SqlServer
 
                         category.Id = reader.GetInt32(reader.GetOrdinal("Id"));
                         category.name = reader.GetString(reader.GetOrdinal("name"));
+                        category.IsActive = reader.GetBoolean(reader.GetOrdinal("IsActive"));
 
                         return category;
                     }
@@ -81,7 +82,7 @@ namespace DataAccessManager.Domain.SqlServer
             {
                 connection.Open();
 
-                string query = "SELECT Id, name FROM Category  where IsActive=1";
+                string query = "SELECT * FROM Category  where IsActive=1";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
@@ -95,6 +96,7 @@ namespace DataAccessManager.Domain.SqlServer
 
                             category.Id = reader.GetInt32(reader.GetOrdinal("Id"));
                             category.name = reader.GetString(reader.GetOrdinal("name"));
+                            category.IsActive = reader.GetBoolean(reader.GetOrdinal("IsActive"));
                             
                             Categories.Add(category);
                         }
