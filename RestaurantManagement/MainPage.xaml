@@ -6,7 +6,31 @@
         xmlns:local="clr-namespace:RestaurantManagement"
         mc:Ignorable="d"
         Title="MainPage" Height="450" Width="800">
-	<Border Background="DimGray" BorderThickness="5">
+    <Window.Resources>
+        <Style TargetType="Button" x:Key="btnMenu">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="WhiteSmoke"/>
+            <Setter Property="Height" Value="auto"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontWeight" Value="DemiBold"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="Border" CornerRadius="15">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Border" Property="Background" Value="#2b5493"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Border Background="DarkSlateGray" BorderThickness="5">
 		<Grid>
 			<Grid.RowDefinitions>
 				<RowDefinition Height="40"/>
@@ -15,16 +39,21 @@
 				<RowDefinition Height="Auto"/>
 			</Grid.RowDefinitions>
 			<TextBlock Grid.Row="0" Text="Restaurant Management System" FontSize="32" TextAlignment="Center" FontFamily="NSimSan" Foreground="White"/>
-			<UniformGrid Background="Gray" Columns="6"  Grid.Row="1">
-				<TextBlock Text="Employee Management" FontSize="12" FontFamily="Times New Roman" Foreground="White" Margin="0,5,0,5"/>
-				<TextBlock Text="Customer Management" FontSize="12" FontFamily="Times New Roman" Foreground="White" Margin="0,5,0,5"/>
-				<TextBlock Text="Orders" FontSize="12" FontFamily="Times New Roman" Foreground="White" Margin="0,5,0,5"/>
-				<TextBlock Text="Menu" FontSize="12" FontFamily="Times New Roman" Foreground="White" Margin="0,5,0,5"/>
-				<TextBlock Text="Reservations" FontSize="12" FontFamily="Times New Roman" Foreground="White" Margin="0,5,0,5"/>
-				<TextBlock Text="Discounts" FontSize="12" FontFamily="Times New Roman" Foreground="White" Margin="0,5,0,5"/>
+			<UniformGrid Background="LightSlateGray" Columns="6"  Grid.Row="1">
+                <Button Style="{StaticResource btnMenu}" Content="Employee Management" FontFamily="Times New Roman" Foreground="White" Margin="0,5,0,5"/>
+                <Button Style="{StaticResource btnMenu}" Content="Customer Management"  FontFamily="Times New Roman" Foreground="White" Margin="0,5,0,5"/>
+                <Button Style="{StaticResource btnMenu}" Content="         Orders"  FontFamily="Times New Roman" Foreground="White" Margin="0,5,0,5"/>
+                <Button Style="{StaticResource btnMenu}" Content="         Menu"  FontFamily="Times New Roman" Foreground="White" Margin="0,5,0,5"/>
+                <Button Style="{StaticResource btnMenu}" Content="   Reservations" FontFamily="Times New Roman" Foreground="White" Margin="0,5,0,5"/>
+                <Button Style="{StaticResource btnMenu}" Content="     Discounts"  FontFamily="Times New Roman" Foreground="White" Margin="0,5,0,5"/>
 			</UniformGrid>
-			<Image Grid.Row="2" Source="/Images/restaurant.png"/>
-			<TextBlock Grid.Row="3" Text="2024 Restaurant Management System" FontSize="20" TextAlignment="Center" FontFamily="NSimSan" Foreground="White"/>
+            <Border Grid.Row="2">
+                <Grid  Background="#f2f2f2" >
+                    <Image HorizontalAlignment="Center" VerticalAlignment="Center"  Source="/Images/restaurant.png"  />
+                </Grid>
+            </Border>
+
+            <TextBlock Background="LightSlateGray" Grid.Row="3" Text="2024 Restaurant Management System" FontSize="15" TextAlignment="Center" FontFamily="NSimSan" Foreground="White"/>
 		</Grid>
 		</Border>
 </Window>
