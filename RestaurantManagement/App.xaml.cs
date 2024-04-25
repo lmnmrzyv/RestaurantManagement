@@ -13,5 +13,16 @@ namespace RestaurantManagement
     /// </summary>
     public partial class App : Application
     {
+        public App()
+        {
+            //var mainPageViewModel = new MainPageViewModel();
+            var mainPage = new MainPage();
+
+            //mainPage.DataContext = mainPageViewModel;
+
+            MainWindow = mainPage;
+
+            MainWindow.Show();
+        }
     }
 }

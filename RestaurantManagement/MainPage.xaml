@@ -6,7 +6,26 @@
         xmlns:local="clr-namespace:RestaurantManagement"
         mc:Ignorable="d"
         Title="MainPage" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+	<Border Background="DimGray" BorderThickness="5">
+		<Grid>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="40"/>
+				<RowDefinition Height="30"/>
+				<RowDefinition Height="*"/>
+				<RowDefinition Height="Auto"/>
+			</Grid.RowDefinitions>
+			<TextBlock Grid.Row="0" Text="Restaurant Management System" FontSize="32" TextAlignment="Center" FontFamily="NSimSan" Foreground="White"/>
+			<UniformGrid Background="Gray" Columns="6"  Grid.Row="1">
+				<TextBlock Text="Employee Management" FontSize="12" FontFamily="Times New Roman" Foreground="White" Margin="0,5,0,5"/>
+				<TextBlock Text="Customer Management" FontSize="12" FontFamily="Times New Roman" Foreground="White" Margin="0,5,0,5"/>
+				<TextBlock Text="Orders" FontSize="12" FontFamily="Times New Roman" Foreground="White" Margin="0,5,0,5"/>
+				<TextBlock Text="Menu" FontSize="12" FontFamily="Times New Roman" Foreground="White" Margin="0,5,0,5"/>
+				<TextBlock Text="Reservations" FontSize="12" FontFamily="Times New Roman" Foreground="White" Margin="0,5,0,5"/>
+				<TextBlock Text="Discounts" FontSize="12" FontFamily="Times New Roman" Foreground="White" Margin="0,5,0,5"/>
+			</UniformGrid>
+			<Image Grid.Row="2" Source="/Images/restaurant.png"/>
+			<TextBlock Grid.Row="3" Text="2024 Restaurant Management System" FontSize="20" TextAlignment="Center" FontFamily="NSimSan" Foreground="White"/>
+		</Grid>
+		</Border>
 </Window>
+	
