@@ -1,0 +1,106 @@
+﻿<Window x:Class="RM.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RM"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Border Background="OrangeRed" Grid.Column="0" Grid.Row="0" >
+            <Image Source="/Images/tray.png"/>
+        </Border>
+        <Border Background="OrangeRed" Grid.Column="0" Grid.Row="1" >
+            <StackPanel>
+
+                <Button Style="{DynamicResource menubutonlar}" Height="30" Command="{Binding Path=OpenEmployees}" CommandParameter="{Binding ElementName=grdName}" >
+                    <DockPanel Width="220">
+                            <Image Source="/Images/waitress.png"/>
+                            <Label Content="Employees" Foreground="White" FontFamily="Times new roman" />
+                        </DockPanel>
+                    </Button>
+
+
+				<Button Style="{DynamicResource menubutonlar}" Height="30" Command="{Binding Path=OpenCustomers}" CommandParameter="{Binding ElementName=grdName}">
+                    <DockPanel Width="220">
+                        <Image Source="/Images/meal.png"/>
+                        <Label Content="Customers" Foreground="White" FontFamily="Times new roman" />
+                    </DockPanel>
+                </Button>
+                <Button Style="{DynamicResource menubutonlar}" Height="30" Command="{Binding Path=OpenOrders}" CommandParameter="{Binding ElementName=grdName}">
+                    <DockPanel Width="220">
+                        <Image Source="/Images/online-order.png"  />
+                        <Label Content="Orders" Foreground="White" FontFamily="Times new roman" />
+                    </DockPanel>
+                </Button>
+
+                <Button Style="{DynamicResource menubutonlar}" Height="30" Command="{Binding Path=OpenOrderDetails}" CommandParameter="{Binding ElementName=grdName}">
+                    <DockPanel Width="220">
+                        <Image Source="/Images/receipt.png"/>
+                        <Label Content="OrderDetails" Foreground="White" FontFamily="Times new roman" />
+                    </DockPanel>
+                </Button>
+                <Button Style="{DynamicResource menubutonlar}" Height="30" Command="{Binding Path=OpenTables}" CommandParameter="{Binding ElementName=grdName}">
+                    <DockPanel Width="220">
+                        <Image Source="/Images/dinner-table.png"/>
+                        <Label Content="Tables" Foreground="White" FontFamily="Times new roman" />
+                    </DockPanel>
+                </Button>
+                <Button Style="{DynamicResource menubutonlar}" Height="30" Command="{Binding Path=OpenReservations}" CommandParameter="{Binding ElementName=grdName}" >
+                    <DockPanel Width="220">
+                        <Image Source="/Images/reserved.png"/>
+                        <Label Content="Reservations" Foreground="White" FontFamily="Times new roman" />
+                    </DockPanel>
+                </Button>
+                <Button Style="{DynamicResource menubutonlar}" Height="30" Command="{Binding Path=OpenPositions}" CommandParameter="{Binding ElementName=grdName}">
+                    <DockPanel Width="220">
+                        <Image Source="/Images/brand-engagement.png"/>
+                        <Label Content="Positions" Foreground="White" FontFamily="Times new roman" />
+                    </DockPanel>
+                </Button>
+                <Button Style="{DynamicResource menubutonlar}" Height="30" Command="{Binding Path=OpenDepartments}" CommandParameter="{Binding ElementName=grdName}" >
+                    <DockPanel Width="220">
+                        <Image Source="/Images/corporate.png"/>
+                        <Label Content="Departments" Foreground="White" FontFamily="Times new roman" />
+                    </DockPanel>
+                </Button>
+				<Button Style="{DynamicResource menubutonlar}" Height="30" Command="{Binding Path=OpenDiscounts}" CommandParameter="{Binding ElementName=grdName}">
+                    <DockPanel Width="220">
+                        <Image Source="/Images/tag.png"/>
+                        <Label Content="Discounts" Foreground="White" FontFamily="Times new roman" />
+                    </DockPanel>
+                </Button>
+                <Button Style="{DynamicResource menubutonlar}" Height="30" Command="{Binding Path=OpenCategories}" CommandParameter="{Binding ElementName=grdName}">
+                    <DockPanel Width="220">
+                        <Image Source="/Images/sorting.png"/>
+                        <Label Content="Categories" Foreground="White" FontFamily="Times new roman" />
+                    </DockPanel>
+                </Button>
+                <Button Style="{DynamicResource menubutonlar}" Height="30" Command="{Binding Path=OpenMenuItems}" CommandParameter="{Binding ElementName=grdName}" >
+                    <DockPanel Width="220">
+                        <Image Source="/Images/spaghetti.png"/>
+                        <Label Content="MenuItems" Foreground="White" FontFamily="Times new roman" />
+                    </DockPanel>
+                </Button>
+            </StackPanel>
+        </Border>
+        <Border Grid.Column="1" Grid.Row="0">
+            <TextBlock Text="RESTAURANT MANAGEMENT SYSTEM" FontStretch="UltraExpanded" FontSize="25" FontWeight="Bold" Foreground="OrangeRed"  Padding="10" FontStyle="Italic" TextAlignment="Center"        />
+        </Border>
+        <Border Grid.Column="1" Grid.Row="1" >
+            <Grid Name="grdName">
+                <Image Source="/Images/cooking.png" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Grid>
+            
+        </Border>
+    </Grid>
+    
+</Window>
