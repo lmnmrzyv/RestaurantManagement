@@ -1,4 +1,6 @@
-﻿using System;
+﻿using RestaurantManagement.ViewModels;
+using RestaurantManagement.Views;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -6,7 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace RestaurantManagement
+namespace Library
 {
     /// <summary>
     /// Interaction logic for App.xaml
@@ -15,10 +17,10 @@ namespace RestaurantManagement
     {
         public App()
         {
-            //var mainPageViewModel = new MainPageViewModel();
+            var mainPageViewModel = new MainPageViewModel();
             var mainPage = new MainPage();
 
-            //mainPage.DataContext = mainPageViewModel;
+            mainPage.DataContext = mainPageViewModel;
 
             MainWindow = mainPage;
 

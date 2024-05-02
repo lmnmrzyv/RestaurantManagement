@@ -59,10 +59,55 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Commands\OpenCategoriesCommand.cs" />
+    <Compile Include="Commands\OpenCustomersCommand.cs" />
+    <Compile Include="Commands\OpenDepartmentsCommand.cs" />
+    <Compile Include="Commands\OpenDiscountsCommand.cs" />
+    <Compile Include="Commands\OpenEmployeesCommand.cs" />
+    <Compile Include="Commands\OpenMenuItemsCommand.cs" />
+    <Compile Include="Commands\OpenOrderDetailsCommand.cs" />
+    <Compile Include="Commands\OpenOrdersCommand.cs" />
+    <Compile Include="Commands\OpenPositionsCommand.cs" />
+    <Compile Include="Commands\OpenReservationsCommand.cs" />
+    <Compile Include="Commands\OpenTablesCommand.cs" />
+    <Compile Include="ViewModels\MainPageViewModel.cs" />
+    <Compile Include="Views\MainPage.xaml.cs">
+      <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MainPage.xaml.cs">
-      <DependentUpon>MainPage.xaml</DependentUpon>
+    <Compile Include="Views\Controls\CategoriesControl.xaml.cs">
+      <DependentUpon>CategoriesControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Controls\CustomersControl.xaml.cs">
+      <DependentUpon>CustomersControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Controls\DepartmentsControl.xaml.cs">
+      <DependentUpon>DepartmentsControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Controls\DiscountsControl.xaml.cs">
+      <DependentUpon>DiscountsControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Controls\EmployeesControl.xaml.cs">
+      <DependentUpon>EmployeesControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Controls\MenuItemsControl.xaml.cs">
+      <DependentUpon>MenuItemsControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Controls\OrderDetailsControl.xaml.cs">
+      <DependentUpon>OrderDetailsControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Controls\OrdersControl.xaml.cs">
+      <DependentUpon>OrdersControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Controls\PositionsControl.xaml.cs">
+      <DependentUpon>PositionsControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Controls\ReservationsControl.xaml.cs">
+      <DependentUpon>ReservationsControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Controls\TablesControl.xaml.cs">
+      <DependentUpon>TablesControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -90,18 +135,93 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Commands\" />
-    <Folder Include="ViewModels\" />
-    <Folder Include="Views\Controls\" />
+    <Resource Include="Images\brand-engagement.png" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="MainPage.xaml">
+    <Page Include="Views\Controls\CategoriesControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Controls\CustomersControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Controls\DepartmentsControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Controls\DiscountsControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Controls\EmployeesControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Controls\MenuItemsControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Controls\OrderDetailsControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Controls\OrdersControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Controls\PositionsControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Controls\ReservationsControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Controls\TablesControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\restaurant.png" />
+    <Resource Include="Images\corporate.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\dinner-table.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\meal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\online-order.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\receipt.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\reserved.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\sorting.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\spaghetti.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\tag.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\tray.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\waitress.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\cooking.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

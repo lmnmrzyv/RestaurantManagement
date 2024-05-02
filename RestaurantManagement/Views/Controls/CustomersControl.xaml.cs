@@ -10,19 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace RestaurantManagement
+namespace RestaurantManagement.Views.Controls
 {
     /// <summary>
-    /// Interaction logic for MainPage.xaml
+    /// Interaction logic for CustomersControl.xaml
     /// </summary>
-    public partial class MainPage : Window
+    public partial class CustomersControl : UserControl
     {
-        public MainPage()
+        public CustomersControl()
         {
             InitializeComponent();
         }
-
     }
 }
