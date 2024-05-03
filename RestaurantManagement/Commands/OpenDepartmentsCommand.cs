@@ -1,4 +1,9 @@
-﻿using RestaurantManagement.Views.Controls;
+﻿using DataAccessManager.Domain.Entities;
+using DataAccessManager.Domain.Interfaces;
+using RestaurantManagement.Mappers;
+using RestaurantManagement.Models;
+using RestaurantManagement.ViewModels;
+using RestaurantManagement.Views.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +16,11 @@ namespace RestaurantManagement.Commands
 {
     public class OpenDepartmentsCommand:ICommand
     {
+        private readonly IUnitOfWork _db;
+        public OpenDepartmentsCommand(IUnitOfWork db)
+        {
+            _db = db;
+        }
         public event EventHandler CanExecuteChanged;
 
         public bool CanExecute(object parameter)
@@ -27,9 +37,30 @@ namespace RestaurantManagement.Commands
 
             grid.Children.Clear();
 
-            var departmentsControl = new DepartmentsControl();
+            var control = new DepartmentsControl();
+            var viewModel = new DepartmentsViewModel();
 
-            grid.Children.Add(departmentsControl);
+            var departments = _db.DepartmentRepository.GetAll();
+
+            var departmentsModel = new List<DepartmentsModel>();
+
+            var departmentsMapper = new DepartmentMapper();
+            var no = 1;
+
+            foreach (var department in departments)
+            {
+                var departmentModel = departmentsMapper.Map(department);
+
+                departmentModel.No = no++;
+
+                departmentsModel.Add(departmentModel);
+            }
+
+            viewModel.Departments = departmentsModel;
+
+            control.DataContext = viewModel;
+
+            grid.Children.Add(control);
         }
     }
 }

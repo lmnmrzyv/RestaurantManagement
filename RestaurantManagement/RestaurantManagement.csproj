@@ -70,6 +70,11 @@
     <Compile Include="Commands\OpenPositionsCommand.cs" />
     <Compile Include="Commands\OpenReservationsCommand.cs" />
     <Compile Include="Commands\OpenTablesCommand.cs" />
+    <Compile Include="Mappers\DepartmentMapper.cs" />
+    <Compile Include="Mappers\IMapper.cs" />
+    <Compile Include="Models\DepartmentsModel.cs" />
+    <Compile Include="Models\IModel.cs" />
+    <Compile Include="ViewModels\DepartmentsViewModel.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
     <Compile Include="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
@@ -222,6 +227,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\cooking.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DataAccessManager\DataAccessManager.csproj">
+      <Project>{d1bdd8e2-041e-4b08-8f24-a3adede89581}</Project>
+      <Name>DataAccessManager</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

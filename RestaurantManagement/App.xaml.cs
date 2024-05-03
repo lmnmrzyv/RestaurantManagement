@@ -1,4 +1,6 @@
-﻿using RestaurantManagement.ViewModels;
+﻿using DataAccessManager.DataAccess.SqlServer;
+using DataAccessManager.Domain.Interfaces;
+using RestaurantManagement.ViewModels;
 using RestaurantManagement.Views;
 using System;
 using System.Collections.Generic;
@@ -17,10 +19,12 @@ namespace Library
     {
         public App()
         {
-            var mainPageViewModel = new MainPageViewModel();
-            var mainPage = new MainPage();
-
-            mainPage.DataContext = mainPageViewModel;
+            IUnitOfWork db = new SqlUnitOfWork("MLFAMILY\\SQLEXPRESS01", "RestaurantManagement");
+            var mainPageViewModel = new MainPageViewModel(db);
+            var mainPage = new MainPage
+            {
+                DataContext = mainPageViewModel
+            };
 
             MainWindow = mainPage;
 

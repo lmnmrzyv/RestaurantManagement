@@ -72,8 +72,8 @@
                 </Grid>
             </StackPanel>
 
-            <ListView Grid.Row="1" ItemsSource="{Binding Genres}"
-                  SelectedItem="{Binding SelectedGenre,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource listViewCustom}">
+            <ListView Grid.Row="1">
+                SelectedItem="{Binding SelectedGenre,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource listViewCustom}">
                 <ListView.View>
                     <GridView >
                         <GridViewColumn DisplayMemberBinding="{Binding Path=No}" Header="No"  Width="25"/>

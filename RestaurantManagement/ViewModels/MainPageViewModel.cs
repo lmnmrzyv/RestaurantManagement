@@ -1,4 +1,5 @@
-﻿using RestaurantManagement.Commands;
+﻿using DataAccessManager.Domain.Interfaces;
+using RestaurantManagement.Commands;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +10,9 @@ namespace RestaurantManagement.ViewModels
 {
     internal class MainPageViewModel
     {
-        public MainPageViewModel()
+        public MainPageViewModel(IUnitOfWork db)
         {
-            OpenDepartments = new OpenDepartmentsCommand();
+            OpenDepartments = new OpenDepartmentsCommand(db);
             OpenEmployees = new OpenEmployeesCommand();
             OpenReservations = new OpenReservationsCommand();
             OpenCategories = new OpenCategoriesCommand();
