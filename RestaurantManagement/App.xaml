@@ -148,58 +148,8 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <Style x:Key="CircleButton" TargetType="Button">
-            <Setter Property="OverridesDefaultStyle" Value="True"/>
-            <Setter Property="Margin" Value="2"/>
-            <Setter Property="FocusVisualStyle" Value="{StaticResource MyFocusVisual2}"/>
-            <Setter Property="Background" Value="OrangeRed"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Grid>
-                            <Ellipse Fill="{TemplateBinding Background}"/>
-                            <Ellipse>
-                                <Ellipse.Fill>
-                                    <RadialGradientBrush>
-                                        <GradientStop Offset="0" Color="#00000000"/>
-                                        <GradientStop Offset="0.88" Color="#00000000"/>
-                                        <GradientStop Offset="1" Color="#80000000"/>
-                                    </RadialGradientBrush>
-                                </Ellipse.Fill>
-                            </Ellipse>
-                            <Ellipse Margin="10" x:Name="highlightCircle" >
-                                <Ellipse.Fill >
-                                    <LinearGradientBrush >
-                                        <GradientStop Offset="0" Color="#50FFFFFF"/>
-                                        <GradientStop Offset="0.5" Color="#00FFFFFF"/>
-                                        <GradientStop Offset="1" Color="#50FFFFFF"/>
-                                    </LinearGradientBrush>
-                                </Ellipse.Fill>
-                            </Ellipse>
-                            <ContentPresenter x:Name="content" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Grid>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsPressed" Value="True">
-                                <Setter TargetName="highlightCircle" Property="Fill">
-                                    <Setter.Value>
-                                        <LinearGradientBrush StartPoint="0.3,0" EndPoint="0.7,1">
-                                            <GradientStop Offset="0" Color="#50FFFFFF"/>
-                                            <GradientStop Offset="0.5" Color="#00FFFFFF"/>
-                                            <GradientStop Offset="1" Color="#50FFFFFF"/>
-                                        </LinearGradientBrush>
-                                    </Setter.Value>
-                                </Setter>
-                                <Setter TargetName="content" Property="RenderTransform">
-                                    <Setter.Value>
-                                        <TranslateTransform Y="0.5" X="0.5"/>
-                                    </Setter.Value>
-                                </Setter>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
+       
+
 
         <Style x:Key="minibutonlar" TargetType="Button">
             <Setter Property="Foreground" Value="#FF787878"/>
@@ -316,92 +266,171 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <Style x:Key="CircleButton" TargetType="Button" BasedOn="{StaticResource BaseButton}">
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="FocusVisualStyle" Value="{StaticResource MyFocusVisual2}"/>
+            <Setter Property="Background" Value="OrangeRed"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            <Ellipse Fill="{TemplateBinding Background}"/>
+                            <Ellipse>
+                                <Ellipse.Fill>
+                                    <RadialGradientBrush>
+                                        <GradientStop Offset="0" Color="#00000000"/>
+                                        <GradientStop Offset="0.88" Color="#00000000"/>
+                                        <GradientStop Offset="1" Color="#80000000"/>
+                                    </RadialGradientBrush>
+                                </Ellipse.Fill>
+                            </Ellipse>
+                            <Ellipse Margin="10" x:Name="highlightCircle">
+                                <Ellipse.Fill>
+                                    <LinearGradientBrush>
+                                        <GradientStop Offset="0" Color="#50FFFFFF"/>
+                                        <GradientStop Offset="0.5" Color="#00FFFFFF"/>
+                                        <GradientStop Offset="1" Color="#50FFFFFF"/>
+                                    </LinearGradientBrush>
+                                </Ellipse.Fill>
+                            </Ellipse>
+                            <ContentPresenter x:Name="content" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="highlightCircle" Property="Fill">
+                                    <Setter.Value>
+                                        <LinearGradientBrush StartPoint="0.3,0" EndPoint="0.7,1">
+                                            <GradientStop Offset="0" Color="#50FFFFFF"/>
+                                            <GradientStop Offset="0.5" Color="#00FFFFFF"/>
+                                            <GradientStop Offset="1" Color="#50FFFFFF"/>
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="content" Property="RenderTransform">
+                                    <Setter.Value>
+                                        <TranslateTransform Y="0.5" X="0.5"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
 
-        <Style TargetType="{x:Type Button}" BasedOn="{StaticResource CircleButton}" x:Key="btnAdd">
+        <Style x:Key="CustomButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="OrangeRed"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="10,5"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Grid>
+                            <Border x:Name="border" CornerRadius="5" Background="{TemplateBinding Background}">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="DarkOrange"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="Red"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="border" Property="Background" Value="#FFA5A5A5"/>
+                                <Setter Property="Foreground" Value="#FF767676"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="{x:Type Button}" BasedOn="{StaticResource CustomButtonStyle}" x:Key="btnAdd">
             <Setter Property="Content" Value="Add" />
             <Setter Property="Command" Value="{Binding Add}"/>
             <Setter Property="Foreground" Value="White"/>
+            <Setter Property="IsEnabled" Value="True"/>
+            <Setter Property="Visibility" Value="Visible"/>
             <Style.Triggers>
-                <DataTrigger Binding="{Binding CurrentSituation}" Value="2">
-                    <Setter Property="Content" Value="Yadda Saxla"/>
+                <DataTrigger Binding="{Binding CurrentState}" Value="1">
+                    <Setter Property="Visibility" Value="Collapsed"/>
                 </DataTrigger>
-                <DataTrigger Binding="{Binding CurrentSituation}" Value="3">
+                <DataTrigger Binding="{Binding CurrentState}" Value="2">
                     <Setter Property="IsEnabled" Value="False"/>
                 </DataTrigger>
-                <DataTrigger Binding="{Binding CurrentSituation}" Value="4">
+                <DataTrigger Binding="{Binding CurrentState}" Value="3">
                     <Setter Property="IsEnabled" Value="False"/>
                 </DataTrigger>
             </Style.Triggers>
         </Style>
 
-        <Style TargetType="{x:Type Button}" BasedOn="{StaticResource CircleButton}" x:Key="btnChange">
+        <Style TargetType="{x:Type Button}" BasedOn="{StaticResource CustomButtonStyle}" x:Key="btnChange">
             <Setter Property="Content" Value="Edit"/>
             <Setter Property="Command" Value="{Binding Edit}"/>
             <Setter Property="Foreground" Value="White"/>
+            <Setter Property="IsEnabled" Value="False"/>
+            <Setter Property="Visibility" Value="Visible"/>
             <Style.Triggers>
-                <DataTrigger Binding="{Binding CurrentSituation}" Value="1">
-                    <Setter Property="IsEnabled" Value="False"/>
+                <DataTrigger Binding="{Binding CurrentState}" Value="2">
+                    <Setter Property="IsEnabled" Value="True"/>
                 </DataTrigger>
-                <DataTrigger Binding="{Binding CurrentSituation}" Value="2">
-                    <Setter Property="IsEnabled" Value="False"/>
-                </DataTrigger>
-                <DataTrigger Binding="{Binding CurrentSituation}" Value="3">
-                    <Setter Property="Content" Value="Yadda Saxla"/>
+                <DataTrigger Binding="{Binding CurrentState}" Value="3">
+                    <Setter Property="Visibility" Value="Collapsed"/>
                 </DataTrigger>
             </Style.Triggers>
         </Style>
 
-        <Style TargetType="{x:Type Button}" BasedOn="{StaticResource CircleButton}" x:Key="btnSave">
+        <Style TargetType="{x:Type Button}" BasedOn="{StaticResource CustomButtonStyle}" x:Key="btnSave">
             <Setter Property="Content" Value="Save"/>
             <Setter Property="Command" Value="{Binding Save}"/>
             <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Visibility" Value="Visible"/>
             <Style.Triggers>
-                <DataTrigger Binding="{Binding CurrentSituation}" Value="1">
-                    <Setter Property="IsEnabled" Value="False"/>
+                <DataTrigger Binding="{Binding CurrentState}" Value="0">
+                    <Setter Property="Visibility" Value="Collapsed"/>
                 </DataTrigger>
-                <DataTrigger Binding="{Binding CurrentSituation}" Value="2">
-                    <Setter Property="IsEnabled" Value="False"/>
-                </DataTrigger>
-                <DataTrigger Binding="{Binding CurrentSituation}" Value="3">
-                    <Setter Property="Content" Value="Yadda Saxla"/>
+                <DataTrigger Binding="{Binding CurrentState}" Value="2">
+                    <Setter Property="Visibility" Value="Collapsed"/>
                 </DataTrigger>
             </Style.Triggers>
         </Style>
 
-        <Style TargetType="{x:Type Button}" BasedOn="{StaticResource CircleButton}" x:Key="btnReject">
+        <Style TargetType="{x:Type Button}" BasedOn="{StaticResource CustomButtonStyle}" x:Key="btnReject">
             <Setter Property="Content" Value="Reject"/>
             <Setter Property="Command" Value="{Binding Reject}"/>
             <Setter Property="Foreground" Value="White"/>
             <Style.Triggers>
-                <DataTrigger Binding="{Binding CurrentSituation}" Value="1">
+                <DataTrigger Binding="{Binding CurrentState}" Value="0">
                     <Setter Property="IsEnabled" Value="False"/>
                 </DataTrigger>
             </Style.Triggers>
         </Style>
 
-        <Style TargetType="{x:Type Button}" BasedOn="{StaticResource CircleButton}" x:Key="btnDelete">
+        <Style TargetType="{x:Type Button}" BasedOn="{StaticResource CustomButtonStyle}" x:Key="btnDelete">
             <Setter Property="Content" Value="Delete"/>
             <Setter Property="Command" Value="{Binding Delete}"/>
             <Setter Property="Foreground" Value="White"/>
+            <Setter Property="IsEnabled" Value="False"/>
             <Style.Triggers>
-                <DataTrigger Binding="{Binding CurrentSituation}" Value="1">
-                    <Setter Property="IsEnabled" Value="False"/>
-                </DataTrigger>
-                <DataTrigger Binding="{Binding CurrentSituation}" Value="2">
-                    <Setter Property="IsEnabled" Value="False"/>
-                </DataTrigger>
-                <DataTrigger Binding="{Binding CurrentSituation}" Value="3">
-                    <Setter Property="IsEnabled" Value="False"/>
+                <DataTrigger Binding="{Binding CurrentState}" Value="2">
+                    <Setter Property="IsEnabled" Value="True"/>
                 </DataTrigger>
             </Style.Triggers>
         </Style>
 
         <Style TargetType="{x:Type Grid}" x:Key="grdForm">
             <Style.Triggers>
-                <DataTrigger Binding="{Binding CurrentSituation}" Value="1">
+                <DataTrigger Binding="{Binding CurrentState}" Value="0">
                     <Setter Property="IsEnabled" Value="False"/>
                 </DataTrigger>
-                <DataTrigger Binding="{Binding CurrentSituation}" Value="4">
+                <DataTrigger Binding="{Binding CurrentState}" Value="2">
                     <Setter Property="IsEnabled" Value="False"/>
                 </DataTrigger>
             </Style.Triggers>
@@ -409,10 +438,10 @@
 
         <Style TargetType="{x:Type ListView}" x:Key="listViewCustom">
             <Style.Triggers>
-                <DataTrigger Binding="{Binding CurrentSituation}" Value="2">
+                <DataTrigger Binding="{Binding CurrentState}" Value="1">
                     <Setter Property="IsEnabled" Value="False"/>
                 </DataTrigger>
-                <DataTrigger Binding="{Binding CurrentSituation}" Value="3">
+                <DataTrigger Binding="{Binding CurrentState}" Value="3">
                     <Setter Property="IsEnabled" Value="False"/>
                 </DataTrigger>
             </Style.Triggers>
@@ -425,5 +454,6 @@
             <Setter Property="Padding" Value="0"/>
             <Setter Property="FontSize" Value="14"/>
         </Style>
+
     </Application.Resources>
 </Application>

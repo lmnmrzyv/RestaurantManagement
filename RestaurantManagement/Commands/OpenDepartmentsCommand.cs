@@ -38,7 +38,7 @@ namespace RestaurantManagement.Commands
             grid.Children.Clear();
 
             var control = new DepartmentsControl();
-            var viewModel = new DepartmentsViewModel();
+            var viewModel = new DepartmentsViewModel(_db);
 
             var departments = _db.DepartmentRepository.GetAll();
 

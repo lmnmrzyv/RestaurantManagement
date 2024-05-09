@@ -27,7 +27,7 @@ namespace DataAccessManager.DataAccess.SqlServer
                 {
                     command.Parameters.AddWithValue("@Name", item.Name);
                     command.Parameters.AddWithValue("@Surname", item.Surname);
-                    command.Parameters.AddWithValue("@PositionId", item.PositionId);
+                    command.Parameters.AddWithValue("@PositionId", item.Position);
                     command.Parameters.AddWithValue("@EducationLevel", item.EducationLevel ?? (object)DBNull.Value);
                     command.Parameters.AddWithValue("@PerformanceRating", item.PerformanceRating);
 
@@ -50,7 +50,7 @@ namespace DataAccessManager.DataAccess.SqlServer
                     command.Parameters.AddWithValue("@Id", item.Id);
                     command.Parameters.AddWithValue("@Name", item.Name);
                     command.Parameters.AddWithValue("@Surname", item.Surname);
-                    command.Parameters.AddWithValue("@PositionId", item.PositionId);
+                    command.Parameters.AddWithValue("@PositionId", item.Position);
                     command.Parameters.AddWithValue("@EducationLevel", item.EducationLevel ?? (object)DBNull.Value);
                     command.Parameters.AddWithValue("@PerformanceRating", item.PerformanceRating);
                     command.ExecuteNonQuery();
@@ -81,7 +81,12 @@ namespace DataAccessManager.DataAccess.SqlServer
             {
                 connection.Open();
 
-                string query = @"Select Id,Name,Surname,PositionId,EducationLevel,PerformanceRating,IsActive from Employees where Id=@Id and IsActive=1";
+                string query = @"Select e.Id,e.Name,e.Surname,e.EducationLevel,e.PerformanceRating,e.IsActive
+                                 p.Id,p.Name
+                                 from Employees as e
+                                 inner join Positions as p
+                                 on e.PositionId=p.Id
+                                 where Id=@Id and IsActive=1";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
@@ -95,11 +100,15 @@ namespace DataAccessManager.DataAccess.SqlServer
                         employee.Id = reader.GetInt32(reader.GetOrdinal("Id"));
                         employee.Name = reader.GetString(reader.GetOrdinal("Name"));
                         employee.Surname = reader.GetString(reader.GetOrdinal("Surname"));
-                        employee.PositionId = reader.GetInt32(reader.GetOrdinal("PositionId"));
                         employee.EducationLevel = reader.IsDBNull(reader.GetOrdinal("EducationLevel")) ? null : reader.GetString(reader.GetOrdinal("EducationLevel"));
                         employee.PerformanceRating = reader.GetDecimal(reader.GetOrdinal("PerformanceRating"));
                         employee.IsActive = reader.GetBoolean(reader.GetOrdinal("IsActive"));
 
+                        Position position = new Position();
+                        position.Id=reader.GetInt32(reader.GetOrdinal("Id"));
+                        position.Name=reader.GetString(reader.GetOrdinal("Name"));
+
+                        employee.Position=position;
                         return employee;
                     }
                 }
@@ -113,30 +122,39 @@ namespace DataAccessManager.DataAccess.SqlServer
             {
                 connection.Open();
                 List<Employee> employees = new List<Employee>();
-                string query = @"Select Id,Name,Surname,PositionId,EducationLevel,PerformanceRating,IsActive from Employees where  IsActive=1";
+                string query = @"SELECT e.Id AS EmployeeId, e.Name, e.Surname, e.EducationLevel, e.PerformanceRating, e.IsActive,
+                         p.Id AS PositionId, p.Name AS PositionName
+                         FROM Employees AS e
+                         INNER JOIN Positions AS p
+                         ON e.PositionId = p.Id
+                         WHERE e.IsActive = 1";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     SqlDataReader reader = command.ExecuteReader();
-                    while(reader.Read())
+                    while (reader.Read())
                     {
                         Employee employee = new Employee();
-                        employee.Id = reader.GetInt32(reader.GetOrdinal("Id"));
+                        employee.Id = reader.GetInt32(reader.GetOrdinal("EmployeeId"));
                         employee.Name = reader.GetString(reader.GetOrdinal("Name"));
                         employee.Surname = reader.GetString(reader.GetOrdinal("Surname"));
-                        employee.PositionId = reader.GetInt32(reader.GetOrdinal("PositionId"));
                         employee.EducationLevel = reader.IsDBNull(reader.GetOrdinal("EducationLevel")) ? null : reader.GetString(reader.GetOrdinal("EducationLevel"));
                         employee.PerformanceRating = reader.GetDecimal(reader.GetOrdinal("PerformanceRating"));
                         employee.IsActive = reader.GetBoolean(reader.GetOrdinal("IsActive"));
+                        Position position = new Position();
+                        position.Id = reader.GetInt32(reader.GetOrdinal("PositionId"));
+                        position.Name = reader.GetString(reader.GetOrdinal("PositionName"));
 
+                        employee.Position = position;
                         employees.Add(employee);
                     }
                     return employees;
                 }
-
             }
-        }
-
         
+
     }
+
+
+}
 }

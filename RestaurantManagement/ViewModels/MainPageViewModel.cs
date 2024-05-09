@@ -13,8 +13,8 @@ namespace RestaurantManagement.ViewModels
         public MainPageViewModel(IUnitOfWork db)
         {
             OpenDepartments = new OpenDepartmentsCommand(db);
-            OpenEmployees = new OpenEmployeesCommand();
-            OpenReservations = new OpenReservationsCommand();
+            OpenEmployees = new OpenEmployeesCommand(db);
+            OpenReservations = new OpenReservationsCommand(db);
             OpenCategories = new OpenCategoriesCommand();
             OpenMenuItems = new OpenMenuItemsCommand();
             OpenOrders = new OpenOrdersCommand();
