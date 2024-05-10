@@ -70,12 +70,16 @@
     <Compile Include="Commands\OpenPositionsCommand.cs" />
     <Compile Include="Commands\OpenReservationsCommand.cs" />
     <Compile Include="Commands\OpenTablesCommand.cs" />
+    <Compile Include="Enums\Situation.cs" />
     <Compile Include="Mappers\DepartmentMapper.cs" />
     <Compile Include="Mappers\IMapper.cs" />
+    <Compile Include="Mappers\TableMapper.cs" />
     <Compile Include="Models\DepartmentsModel.cs" />
     <Compile Include="Models\IModel.cs" />
+    <Compile Include="Models\TablesModel.cs" />
     <Compile Include="ViewModels\DepartmentsViewModel.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
+    <Compile Include="ViewModels\TablesViewModel.cs" />
     <Compile Include="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
