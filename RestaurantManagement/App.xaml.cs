@@ -19,7 +19,8 @@ namespace RestaurantManagement
     {
         public App()
         {
-            IUnitOfWork db = new SqlUnitOfWork("DESKTOP-0RTBK57", "RestaurantManagement");
+            IUnitOfWork db = new SqlUnitOfWork("MLFAMILY\\SQLEXPRESS01", "RestaurantManagement");
+           
             var mainPageViewModel = new MainPageViewModel(db);
             var mainPage = new MainPage
             {

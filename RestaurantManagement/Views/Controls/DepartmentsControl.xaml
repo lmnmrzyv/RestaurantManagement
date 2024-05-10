@@ -6,88 +6,37 @@
              xmlns:local="clr-namespace:RestaurantManagement.Views.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Border Background="DarkGray" BorderThickness="5">
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-
-            <StackPanel Grid.Row="0">
-                <!--<components:ControlHeader/>
-            <components:ErrorDialog Height="0" x:Name="ErrorDialog"/>-->
-
-                <Grid Background="LightGray" >
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="5*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-
-                    <Grid Grid.Column="0" Style="{StaticResource grdForm}" Margin="0 0 30 0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-
-                        <StackPanel Grid.Column="0">
-                            <TextBlock Height="25" FontSize="15" HorizontalAlignment="Left" Margin="5 0 0 0" FontFamily="TIMES NEW ROMAN">Name</TextBlock>
-                            <TextBox FontSize="15" Height="25" Width="250" FontFamily="TIMES NEW ROMAN" HorizontalAlignment="Left" Margin="5" Text="{Binding CurrentGenre.Name,Mode=TwoWay}"/>
-                        </StackPanel>
-
-                        <StackPanel Grid.Column="1">
-                            <TextBlock Height="25" Margin="5 0 0 0 " FontSize="15" FontFamily="TIMES NEW ROMAN" HorizontalAlignment="Left" >Note</TextBlock>
-                            <TextBox Height="60" FontSize="15" Margin="5 0 0 0" FontFamily="TIMES NEW ROMAN"  Text="{Binding CurrentGenre.Note ,Mode=TwoWay}"/>
-                        </StackPanel>
-
-                    </Grid>
-
-                    <StackPanel Grid.Column="1">
-                        <Button Style="{StaticResource btnAdd}" Height="30" Margin="4 4">
-                            <Button.BitmapEffect>
-                                <DropShadowBitmapEffect Color="DarkOrange" Direction="320" Softness="1" ShadowDepth="10" Opacity="0.5" />
-                            </Button.BitmapEffect>
-                        </Button>
-                        <Button Style="{StaticResource btnChange}" Height="30" Margin="4 4">
-                            <Button.BitmapEffect>
-                                <DropShadowBitmapEffect Color="DarkOrange" Direction="320" Softness="1" ShadowDepth="10" Opacity="0.5" />
-                            </Button.BitmapEffect>
-                        </Button>
-                        <Button Style="{StaticResource btnSave}" Height="30" Margin="4 4">
-                            <Button.BitmapEffect>
-                                <DropShadowBitmapEffect Color="DarkOrange" Direction="320" Softness="1" ShadowDepth="10" Opacity="0.5" />
-                            </Button.BitmapEffect>
-                        </Button>
-                        <Button Style="{StaticResource btnReject}" Height="30" Margin="4 4">
-                            <Button.BitmapEffect>
-                                <DropShadowBitmapEffect Color="DarkOrange" Direction="320" Softness="1" ShadowDepth="10" Opacity="0.5" />
-                            </Button.BitmapEffect>
-                        </Button>
-                        <Button Style="{StaticResource btnDelete}" Height="30" Margin="4 4">
-                            <Button.BitmapEffect>
-                                <DropShadowBitmapEffect Color="DarkOrange" Direction="320" Softness="1" ShadowDepth="10" Opacity="0.5" />
-                            </Button.BitmapEffect>
-                        </Button>
+    <Border Background="White" BorderThickness="5">
+        <StackPanel>
+            <Border Background="LightGray" Margin="0 0 0 10">
+                <Grid Margin="10" Style="{StaticResource grdForm}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="100"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0">
+                        <TextBlock Height="25" FontSize="15" HorizontalAlignment="Left" FontFamily="TIMES NEW ROMAN" Foreground="Black">Name</TextBlock>
+                        <TextBox FontSize="15" Height="25" HorizontalAlignment="Left" Width="200" FontFamily="TIMES NEW ROMAN" Text="{Binding CurrentDepartments.Name,Mode=TwoWay}"/>
                     </StackPanel>
                 </Grid>
+            </Border>
+
+            <StackPanel Orientation="Horizontal" Margin="10">
+                <Button Style="{StaticResource btnAdd}" Width="120" Height="40" Margin="5"/>
+                <Button Style="{StaticResource btnChange}" Width="120" Height="40" Margin="5"/>
+                <Button Style="{StaticResource btnSave}" Width="120" Height="40" Margin="5"/>
+                <Button Style="{StaticResource btnReject}" Width="120" Height="40" Margin="5"/>
+                <Button Style="{StaticResource btnDelete}" Width="120" Height="40" Margin="5"/>
             </StackPanel>
 
-            <ListView Grid.Row="1" ItemsSource="{Binding Genres}" 
-                  SelectedItem="{Binding SelectedGenre,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource listViewCustom}">
+            <ListView ItemsSource="{Binding Departments}" SelectedItem="{Binding SelectedDepartments,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource listViewCustom}" Margin="10">
                 <ListView.View>
-                    <GridView >
-                        <GridViewColumn DisplayMemberBinding="{Binding Path=No}" Header="No"  Width="25"/>
+                    <GridView>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=No}" Header="No" Width="50"/>
                         <GridViewColumn DisplayMemberBinding="{Binding Path=Name}" Header="Name" Width="200"/>
-                        <GridViewColumn DisplayMemberBinding="{Binding Path=Note}" Header="Note" Width="500"/>
                     </GridView>
                 </ListView.View>
             </ListView>
-
-            <!--<Grid Grid.Row="2" Style="{StaticResource grdSearch}">
-            <DockPanel>
-                <components:Search/>
-            </DockPanel>
-        </Grid>-->
-        </Grid>
+        </StackPanel>
     </Border>
 </UserControl>
