@@ -426,6 +426,7 @@
         </Style>
 
         <Style TargetType="{x:Type Grid}" x:Key="grdForm">
+            <Setter Property="IsEnabled" Value="True"/>
             <Style.Triggers>
                 <DataTrigger Binding="{Binding CurrentState}" Value="0">
                     <Setter Property="IsEnabled" Value="False"/>

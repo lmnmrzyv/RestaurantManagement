@@ -6,6 +6,7 @@ using RestaurantManagement.ViewModels;
 using RestaurantManagement.Views.Controls;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -56,7 +57,7 @@ namespace RestaurantManagement.Commands
                 departmentsModel.Add(departmentModel);
             }
 
-            viewModel.Departments = departmentsModel;
+            viewModel.Departments = new ObservableCollection<DepartmentsModel>(departmentsModel);
 
             control.DataContext = viewModel;
 

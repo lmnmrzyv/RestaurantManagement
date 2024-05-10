@@ -30,7 +30,7 @@ namespace RestaurantManagement.ViewModels
                 OnPropertyChanged(nameof(CurrentState));
             }
         }
-
+        
         public List<EmployeesModel> Employees { get; set; }
 
         public AddCommand Add => new AddCommand(this);

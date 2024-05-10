@@ -1,4 +1,5 @@
 ﻿using RestaurantManagement.Enums;
+using RestaurantManagement.Models;
 using RestaurantManagement.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -11,10 +12,10 @@ namespace RestaurantManagement.Commands.Departments
 {
     public class RejectCommand : ICommand
     {
-        private readonly DepartmentsViewModel _currentState;
-        public RejectCommand(DepartmentsViewModel currentState)
+        private readonly DepartmentsViewModel _viewModel;
+        public RejectCommand(DepartmentsViewModel viewModel)
         {
-            _currentState = currentState;
+            _viewModel = viewModel;
         }
         public event EventHandler CanExecuteChanged;
 
@@ -25,7 +26,10 @@ namespace RestaurantManagement.Commands.Departments
 
         public void Execute(object parameter)
         {
-            _currentState.CurrentState = State.NORMAL;
+            _viewModel.SelectedDepartments = null;
+            _viewModel.CurrentDepartments = new DepartmentsModel();
+            _viewModel.CurrentState = State.NORMAL;
+            
         }
     }
 }
