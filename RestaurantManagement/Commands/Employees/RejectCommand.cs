@@ -1,4 +1,5 @@
 ﻿using RestaurantManagement.Enums;
+using RestaurantManagement.Models;
 using RestaurantManagement.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -25,6 +26,8 @@ namespace RestaurantManagement.Commands.Employees
 
         public void Execute(object parameter)
         {
+            _currentState.SelectedEmployees = null;
+            _currentState.CurrentEmployees=new EmployeesModel();
             _currentState.CurrentState = State.NORMAL;
         }
     }

@@ -5,6 +5,7 @@ using RestaurantManagement.ViewModels;
 using RestaurantManagement.Views.Controls;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,6 +21,7 @@ namespace RestaurantManagement.Commands
         public OpenEmployeesCommand(IUnitOfWork db)
         {
             _db = db;
+            
         }
         public bool CanExecute(object parameter)
         {
@@ -53,7 +55,7 @@ namespace RestaurantManagement.Commands
                 employeesModel.Add(employeeModel);
             }
 
-            viewModel.Employees = employeesModel;
+            viewModel.Employees = new ObservableCollection<EmployeesModel>(employeesModel);
             employeesControl.DataContext = viewModel;
 
             grid.Children.Add(employeesControl);
