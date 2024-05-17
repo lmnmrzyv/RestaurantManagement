@@ -88,6 +88,11 @@
     <Compile Include="Commands\Reservations\EditCommand.cs" />
     <Compile Include="Commands\Reservations\RejectCommand.cs" />
     <Compile Include="Commands\Reservations\SaveCommand.cs" />
+    <Compile Include="Commands\Tables\AddCommand.cs" />
+    <Compile Include="Commands\Tables\DeleteCommand.cs" />
+    <Compile Include="Commands\Tables\EditCommand.cs" />
+    <Compile Include="Commands\Tables\RejectCommand.cs" />
+    <Compile Include="Commands\Tables\SaveCommand.cs" />
     <Compile Include="Enums\State.cs" />
     <Compile Include="Mappers\DepartmentMapper.cs" />
     <Compile Include="Mappers\EmployeeMapper.cs" />
