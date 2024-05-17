@@ -50,7 +50,7 @@ namespace RestaurantManagement.Commands
 
             foreach (var department in departments)
             {
-                var departmentModel = departmentsMapper.Map(department);
+                var departmentModel = departmentsMapper.MapEntityToModel(department,new DepartmentsModel());
 
                 departmentModel.No = no++;
 

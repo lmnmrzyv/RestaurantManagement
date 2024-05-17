@@ -19,7 +19,9 @@ namespace RestaurantManagement
     {
         public App()
         {
-            IUnitOfWork db = new SqlUnitOfWork("MLFAMILY\\SQLEXPRESS01", "RestaurantManagement");
+            var dbAddress = ConfigurationManager.AppSettings["databaseAddress"];
+            var dbName = ConfigurationManager.AppSettings["databaseName"];
+            IUnitOfWork db = new SqlUnitOfWork(dbAddress, dbName);
            
             var mainPageViewModel = new MainPageViewModel(db);
             var mainPage = new MainPage

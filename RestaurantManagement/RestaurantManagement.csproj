@@ -36,6 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.SqlClient, Version=4.6.1.6, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Data.SqlClient.4.8.6\lib\net461\System.Data.SqlClient.dll</HintPath>
@@ -96,18 +97,21 @@
     <Compile Include="Enums\State.cs" />
     <Compile Include="Mappers\DepartmentMapper.cs" />
     <Compile Include="Mappers\EmployeeMapper.cs" />
-    <Compile Include="Mappers\IMapper.cs" />
+    <Compile Include="Mappers\Mapper.cs" />
+    <Compile Include="Mappers\PositionMapper.cs" />
     <Compile Include="Mappers\ReservationMapper.cs" />
     <Compile Include="Mappers\TableMapper.cs" />
     <Compile Include="Models\DepartmentsModel.cs" />
     <Compile Include="Models\EmployeesModel.cs" />
     <Compile Include="Models\IModel.cs" />
+    <Compile Include="Models\PositionModel.cs" />
     <Compile Include="Models\TablesModel.cs" />
     <Compile Include="Models\ReservationsModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\DepartmentsViewModel.cs" />
     <Compile Include="ViewModels\EmployeesViewModel.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
+    <Compile Include="ViewModels\PositionViewModel.cs" />
     <Compile Include="ViewModels\ReservationsViewModel.cs" />
     <Compile Include="ViewModels\TablesViewModel.cs" />
     <Compile Include="Views\MainPage.xaml.cs">

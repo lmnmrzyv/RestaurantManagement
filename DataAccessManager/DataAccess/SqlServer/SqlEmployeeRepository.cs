@@ -20,22 +20,23 @@ namespace DataAccessManager.DataAccess.SqlServer
             {
                 connection.Open();
 
-                string query = @"INSERT INTO Employees (Name,Surname,PositionId,EducationLevel,PerformanceRating,IsActive) output inserted.Id VALUES (@Name,@Surname,
-                               @PositionId,@EducationLevel,@PerformanceRating,1)";
+                string query = @"INSERT INTO Employees (Name, Surname, PositionId, EducationLevel, PerformanceRating, IsActive) 
+                         OUTPUT inserted.Id 
+                         VALUES (@Name, @Surname, @PositionId, @EducationLevel, @PerformanceRating, 1)";
 
-                using (SqlCommand command = new SqlCommand(query,connection))
+                using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@Name", item.Name);
                     command.Parameters.AddWithValue("@Surname", item.Surname);
-                    command.Parameters.AddWithValue("@PositionId", item.Position);
+                    command.Parameters.AddWithValue("@PositionId", item.Position.Id); 
                     command.Parameters.AddWithValue("@EducationLevel", item.EducationLevel ?? (object)DBNull.Value);
                     command.Parameters.AddWithValue("@PerformanceRating", item.PerformanceRating);
 
                     return (int)command.ExecuteScalar();
                 }
-                
             }
         }
+
         public void Update(Employee item)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))

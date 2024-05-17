@@ -5,6 +5,7 @@ using RestaurantManagement.Mappers;
 using RestaurantManagement.Models;
 using RestaurantManagement.ViewModels;
 using System;
+using RestaurantManagement.Mappers;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -32,7 +33,7 @@ namespace RestaurantManagement.Commands.Departments
         public void Execute(object parameter)
         {
             var mapper = new DepartmentMapper();
-            var departments = mapper.Map(_currentState.CurrentDepartments);
+            var departments = mapper.MapModelToEntity(new Department(), _currentState.CurrentDepartments);
 
             _db.DepartmentRepository.Add(departments);
 

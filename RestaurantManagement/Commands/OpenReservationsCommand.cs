@@ -44,7 +44,7 @@ namespace RestaurantManagement.Commands
 
             foreach (var reservation in reservations)
             {
-                var reservationModel = reservationMapper.Map(reservation);
+                var reservationModel = reservationMapper.MapEntityToModel(reservation,new ReservationsModel());
                 reservationModel.No = no++;
                 reservationsModel.Add(reservationModel);
             }

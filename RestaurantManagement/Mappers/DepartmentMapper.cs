@@ -8,26 +8,8 @@ using System.Threading.Tasks;
 
 namespace RestaurantManagement.Mappers
 {
-    public class DepartmentMapper : IMapper<DepartmentsModel, Department>
+    public class DepartmentMapper : Mapper<DepartmentsModel, Department>
     {
-        public DepartmentsModel Map(Department entity)
-        {
-            var departmentModel = new DepartmentsModel();
-
-            departmentModel.Name = entity.Name;
-            
-
-            return departmentModel;
-        }
-
-        public Department Map(DepartmentsModel model)
-        {
-            var department = new Department();
-
-            department.Name = model.Name;
-           
-
-            return department;
-        }
+        
     }
 }

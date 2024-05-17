@@ -18,6 +18,7 @@ namespace RestaurantManagement.ViewModels
         {
             _db = db;
             CurrentDepartments=new DepartmentsModel();
+            
         }
         private  State _state;
         public State CurrentState 
