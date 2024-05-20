@@ -142,14 +142,14 @@
     <Compile Include="Mappers\PositionMapper.cs" />
     <Compile Include="Mappers\ReservationMapper.cs" />
     <Compile Include="Mappers\TableMapper.cs" />
-    <Compile Include="Models\CategoryModel.cs" />
+    <Compile Include="Models\CategoriesModel.cs" />
     <Compile Include="Models\CustomersModel.cs" />
     <Compile Include="Models\DepartmentsModel.cs" />
     <Compile Include="Models\DiscountsModel.cs" />
     <Compile Include="Models\EmployeesModel.cs" />
     <Compile Include="Models\IModel.cs" />
-    <Compile Include="Models\MenuItemModel.cs" />
-    <Compile Include="Models\OrderModel.cs" />
+    <Compile Include="Models\MenuItemsModel.cs" />
+    <Compile Include="Models\OrdersModel.cs" />
     <Compile Include="Models\PositionModel.cs" />
     <Compile Include="Models\TablesModel.cs" />
     <Compile Include="Models\ReservationsModel.cs" />

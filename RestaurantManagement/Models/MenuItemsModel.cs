@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RestaurantManagement.Models
 {
-    public class MenuItemModel : IModel
+    public class MenuItemsModel : IModel
     {
         public int No { get; set; }
         public string name { get; set; }

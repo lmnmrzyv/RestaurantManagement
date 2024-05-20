@@ -8,7 +8,7 @@ using DataAccessManager.Domain.Entities;
 
 namespace RestaurantManagement.Mappers
 {
-    public class CategoryMapper : Mapper<CategoryModel, Category>
+    public class CategoryMapper : Mapper<CategoriesModel, Category>
     {
     }
 }

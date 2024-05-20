@@ -17,7 +17,7 @@ namespace RestaurantManagement.ViewModels
         public CategoriesViewModel(IUnitOfWork db)
         {
             _db = db;
-            CurrentCategories = new CategoryModel();
+            CurrentCategories = new CategoriesModel();
 
         }
         private State _state;
@@ -30,9 +30,9 @@ namespace RestaurantManagement.ViewModels
                 OnPropertyChanged(nameof(CurrentState));
             }
         }
-        private CategoryModel _currentCategories;
+        private CategoriesModel _currentCategories;
 
-        public CategoryModel CurrentCategories
+        public CategoriesModel CurrentCategories
         {
             get => _currentCategories;
             set
@@ -42,9 +42,9 @@ namespace RestaurantManagement.ViewModels
             }
         }
 
-        private CategoryModel _selectedCategories;
+        private CategoriesModel _selectedCategories;
 
-        public CategoryModel SelectedCategories
+        public CategoriesModel SelectedCategories
         {
             get => _selectedCategories;
             set
@@ -58,13 +58,13 @@ namespace RestaurantManagement.ViewModels
                 }
                 else
                 {
-                    CurrentCategories = new CategoryModel();
+                    CurrentCategories = new CategoriesModel();
                     CurrentState = State.NORMAL;
                 }
                 OnPropertyChanged(nameof(SelectedCategories));
             }
         }
-        public ObservableCollection<CategoryModel> Categories { get; set; }
+        public ObservableCollection<CategoriesModel> Categories { get; set; }
 
         public AddCommand Add => new AddCommand(this);
         public SaveCommand Save => new SaveCommand(_db, this);

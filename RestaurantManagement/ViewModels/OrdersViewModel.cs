@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using RestaurantManagement.Commands.Orders;
 
 namespace RestaurantManagement.ViewModels
 {
@@ -16,7 +17,7 @@ namespace RestaurantManagement.ViewModels
         public OrdersViewModel(IUnitOfWork db)
         {
             _db = db;
-            CurrentOrders = new OrderModel();
+            CurrentOrders = new OrdersModel();
 
         }
         private State _state;
@@ -29,9 +30,9 @@ namespace RestaurantManagement.ViewModels
                 OnPropertyChanged(nameof(CurrentState));
             }
         }
-        private OrderModel _currentOrders;
+        private OrdersModel _currentOrders;
 
-        public OrderModel CurrentOrders
+        public OrdersModel CurrentOrders
         {
             get => _currentOrders;
             set
@@ -41,9 +42,9 @@ namespace RestaurantManagement.ViewModels
             }
         }
 
-        private OrderModel _selectedOrders;
+        private OrdersModel _selectedOrders;
 
-        public OrderModel SelectedOrders
+        public OrdersModel SelectedOrders
         {
             get => _selectedOrders;
             set
@@ -59,13 +60,13 @@ namespace RestaurantManagement.ViewModels
                 }
                 else
                 {
-                    CurrentOrders = new OrderModel();
+                    CurrentOrders = new OrdersModel();
                     CurrentState = State.NORMAL;
                 }
                 OnPropertyChanged(nameof(SelectedOrders));
             }
         }
-        public ObservableCollection<OrderModel> Orders { get; set; }
+        public ObservableCollection<OrdersModel> Orders { get; set; }
 
         public AddCommand Add => new AddCommand(this);
         public SaveCommand Save => new SaveCommand(_db, this);

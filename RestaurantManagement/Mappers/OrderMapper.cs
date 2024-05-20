@@ -8,7 +8,7 @@ using RestaurantManagement.Models;
 
 namespace RestaurantManagement.Mappers
 {
-    public class OrderMapper : Mapper<OrderModel, Order>
+    public class OrderMapper : Mapper<OrdersModel, Order>
     {
     }
 }
