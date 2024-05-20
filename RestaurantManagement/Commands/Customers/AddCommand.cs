@@ -1,4 +1,6 @@
-﻿using System;
+﻿using RestaurantManagement.Enums;
+using RestaurantManagement.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +11,11 @@ namespace RestaurantManagement.Commands.Customers
 {
     public class AddCommand : ICommand
     {
+        private readonly CustomersViewModel _currentState;
+        public AddCommand(CustomersViewModel currentState)
+        {
+            _currentState = currentState;
+        }
         public event EventHandler CanExecuteChanged;
 
         public bool CanExecute(object parameter)
@@ -18,7 +25,7 @@ namespace RestaurantManagement.Commands.Customers
 
         public void Execute(object parameter)
         {
-            throw new NotImplementedException();
+            _currentState.CurrentState = State.CREATED;
         }
     }
 }

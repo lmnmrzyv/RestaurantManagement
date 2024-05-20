@@ -1,4 +1,5 @@
 ﻿using DataAccessManager.Domain.Interfaces;
+using RestaurantManagement.Commands.Discounts;
 using RestaurantManagement.Enums;
 using RestaurantManagement.Models;
 using System;
@@ -76,4 +77,4 @@ namespace RestaurantManagement.ViewModels
         public EditCommand Edit => new EditCommand(this);
     }
 }
-}
+
