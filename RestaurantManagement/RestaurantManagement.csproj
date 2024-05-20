@@ -93,17 +93,6 @@
     <Compile Include="Commands\MenuItems\EditCommand.cs" />
     <Compile Include="Commands\MenuItems\RejectCommand.cs" />
     <Compile Include="Commands\MenuItems\SaveCommand.cs" />
-    <Compile Include="Commands\OpenCategoriesCommand.cs" />
-    <Compile Include="Commands\OpenCustomersCommand.cs" />
-    <Compile Include="Commands\OpenDepartmentsCommand.cs" />
-    <Compile Include="Commands\OpenDiscountsCommand.cs" />
-    <Compile Include="Commands\OpenEmployeesCommand.cs" />
-    <Compile Include="Commands\OpenMenuItemsCommand.cs" />
-    <Compile Include="Commands\OpenOrderDetailsCommand.cs" />
-    <Compile Include="Commands\OpenOrdersCommand.cs" />
-    <Compile Include="Commands\OpenPositionsCommand.cs" />
-    <Compile Include="Commands\OpenReservationsCommand.cs" />
-    <Compile Include="Commands\OpenTablesCommand.cs" />
     <Compile Include="Commands\Orders\AddCommand.cs" />
     <Compile Include="Commands\Orders\DeleteCommand.cs" />
     <Compile Include="Commands\Orders\EditCommand.cs" />
