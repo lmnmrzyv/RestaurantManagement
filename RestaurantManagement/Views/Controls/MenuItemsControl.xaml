@@ -9,15 +9,31 @@
     <Border Background="White" BorderThickness="5">
         <StackPanel>
             <Border Background="LightGray" Margin="0 0 0 10">
-                <Grid Margin="10">
+                <Grid Margin="10"  Style="{StaticResource grdForm}" >
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="70"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <StackPanel Grid.Row="0">
+                    <Grid.ColumnDefinitions >
+                        <ColumnDefinition Width="300"/>
+                        <ColumnDefinition Width="300"/>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Row="0" Grid.Column="0" >
                         <TextBlock Height="25" FontSize="15" HorizontalAlignment="Left" FontFamily="TIMES NEW ROMAN" Foreground="Black">Name</TextBlock>
-                        <TextBox FontSize="15" Height="25" HorizontalAlignment="Left" Width="200" FontFamily="TIMES NEW ROMAN" Text="{Binding CurrentGenre.Name,Mode=TwoWay}"/>
+                        <TextBox FontSize="15" Height="25" HorizontalAlignment="Left" Width="200" FontFamily="TIMES NEW ROMAN" Text="{Binding CurrentMenuItem.name,Mode=TwoWay}"/>
                     </StackPanel>
+
+                    <StackPanel Grid.Row="0" Grid.Column="2">
+                        <TextBlock Height="25" FontSize="15" HorizontalAlignment="Left" FontFamily="TIMES NEW ROMAN" Foreground="Black">Description</TextBlock>
+                        <TextBox FontSize="15" Height="25" HorizontalAlignment="Left" Width="200" FontFamily="TIMES NEW ROMAN" Text="{Binding CurrentMenuItem.description,Mode=TwoWay}"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="0" Grid.Column="1">
+                        <TextBlock Height="25" FontSize="15" HorizontalAlignment="Left" FontFamily="TIMES NEW ROMAN" Foreground="Black">Price</TextBlock>
+                        <TextBox FontSize="15" Height="25" HorizontalAlignment="Left" Width="200" FontFamily="TIMES NEW ROMAN" Text="{Binding CurrentMenuItem.price,Mode=TwoWay}"/>
+                    </StackPanel>
+
                 </Grid>
             </Border>
 
@@ -29,11 +45,13 @@
                 <Button Style="{StaticResource btnDelete}" Width="120" Height="40" Margin="5"/>
             </StackPanel>
 
-            <ListView ItemsSource="{Binding Departments}" SelectedItem="{Binding SelectedGenre,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource listViewCustom}" Margin="10">
+            <ListView ItemsSource="{Binding MenuItem}" SelectedItem="{Binding SelectedOrder,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource listViewCustom}" Margin="10">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn DisplayMemberBinding="{Binding Path=No}" Header="No" Width="50"/>
-                        <GridViewColumn DisplayMemberBinding="{Binding Path=Name}" Header="Name" Width="200"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=name}" Header="Name" Width="100"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=description}" Header="Description" Width="100"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=price}" Header="Price" Width="150"/>
                     </GridView>
                 </ListView.View>
             </ListView>
