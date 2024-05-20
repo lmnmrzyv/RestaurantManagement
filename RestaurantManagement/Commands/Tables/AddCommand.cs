@@ -11,8 +11,8 @@ namespace RestaurantManagement.Commands.Tables
 {
     public class AddCommand : ICommand
     {
-        private readonly DepartmentsViewModel _currentState;
-        public AddCommand(DepartmentsViewModel currentState) 
+        private readonly TablesViewModel _currentState;
+        public AddCommand(TablesViewModel currentState) 
         {
             _currentState=currentState;
         }
