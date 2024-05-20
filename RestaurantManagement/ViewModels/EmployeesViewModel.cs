@@ -54,22 +54,6 @@ namespace RestaurantManagement.ViewModels
                 OnPropertyChanged(nameof(CurrentEmployees));
             }
         }
-        private Position _selectedPosition;
-        public Position SelectedPosition
-        {
-            get { return _selectedPosition; }
-            set
-            {
-                _selectedPosition = value;
-                if (_selectedPosition != null)
-                {
-                    CurrentEmployees.Position = _selectedPosition;
-                }
-                MessageBox.Show("Selected Position Id: " + _selectedPosition?.Id); 
-                OnPropertyChanged(nameof(SelectedPosition));
-            }
-        }
-
         private EmployeesModel _selectedEmployees;
         public EmployeesModel SelectedEmployees
         {
