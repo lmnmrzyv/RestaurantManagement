@@ -109,6 +109,17 @@
     <Compile Include="Commands\Orders\EditCommand.cs" />
     <Compile Include="Commands\Orders\RejectCommand.cs" />
     <Compile Include="Commands\Orders\SaveCommand.cs" />
+    <Compile Include="Commands\OpenItemsCommand\OpenCategoriesCommand.cs" />
+    <Compile Include="Commands\OpenItemsCommand\OpenCustomersCommand.cs" />
+    <Compile Include="Commands\OpenItemsCommand\OpenDepartmentsCommand.cs" />
+    <Compile Include="Commands\OpenItemsCommand\OpenDiscountsCommand.cs" />
+    <Compile Include="Commands\OpenItemsCommand\OpenEmployeesCommand.cs" />
+    <Compile Include="Commands\OpenItemsCommand\OpenMenuItemsCommand.cs" />
+    <Compile Include="Commands\OpenItemsCommand\OpenOrderDetailsCommand.cs" />
+    <Compile Include="Commands\OpenItemsCommand\OpenOrdersCommand.cs" />
+    <Compile Include="Commands\OpenItemsCommand\OpenPositionsCommand.cs" />
+    <Compile Include="Commands\OpenItemsCommand\OpenReservationsCommand.cs" />
+    <Compile Include="Commands\OpenItemsCommand\OpenTablesCommand.cs" />
     <Compile Include="Commands\Reservations\AddCommand.cs" />
     <Compile Include="Commands\Reservations\DeleteCommand.cs" />
     <Compile Include="Commands\Reservations\EditCommand.cs" />
