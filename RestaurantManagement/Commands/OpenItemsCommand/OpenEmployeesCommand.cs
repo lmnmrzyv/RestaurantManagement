@@ -48,7 +48,7 @@ namespace RestaurantManagement.Commands
 
             foreach ( var employee in employees)
             {
-                var employeeModel=employeesMapper.Map(employee);
+                var employeeModel=employeesMapper.MapEntityToModel(employee,new EmployeesModel());
 
                 employeeModel.No = no++;
 

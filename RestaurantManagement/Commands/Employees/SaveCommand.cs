@@ -1,4 +1,5 @@
-﻿using DataAccessManager.Domain.Interfaces;
+﻿using DataAccessManager.Domain.Entities;
+using DataAccessManager.Domain.Interfaces;
 using RestaurantManagement.Mappers;
 using RestaurantManagement.Models;
 using RestaurantManagement.ViewModels;
@@ -30,7 +31,7 @@ namespace RestaurantManagement.Commands.Employees
         public void Execute(object parameter)
         {
             var mapper = new EmployeeMapper();
-            var employees = mapper.Map(_currentState.CurrentEmployees);
+            var employees =  mapper.MapModelToEntity(new Employee(), _currentState.CurrentEmployees);
 
             _db.EmployeeRepository.Add(employees);
 
