@@ -63,11 +63,21 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Commands\Customers\AddCommand.cs" />
+    <Compile Include="Commands\Customers\DeleteCommand.cs" />
+    <Compile Include="Commands\Customers\EditCommand.cs" />
+    <Compile Include="Commands\Customers\RejectCommand.cs" />
+    <Compile Include="Commands\Customers\SaveCommand.cs" />
     <Compile Include="Commands\Departments\AddCommand.cs" />
     <Compile Include="Commands\Departments\DeleteCommand.cs" />
     <Compile Include="Commands\Departments\EditCommand.cs" />
     <Compile Include="Commands\Departments\RejectCommand.cs" />
     <Compile Include="Commands\Departments\SaveCommand.cs" />
+    <Compile Include="Commands\Discounts\AddCommand.cs" />
+    <Compile Include="Commands\Discounts\DeleteCommand.cs" />
+    <Compile Include="Commands\Discounts\EditCommand.cs" />
+    <Compile Include="Commands\Discounts\RejectCommand.cs" />
+    <Compile Include="Commands\Discounts\SaveCommand.cs" />
     <Compile Include="Commands\Employees\AddCommand.cs" />
     <Compile Include="Commands\Employees\DeleteCommand.cs" />
     <Compile Include="Commands\Employees\EditCommand.cs" />
@@ -89,21 +99,32 @@
     <Compile Include="Commands\Reservations\EditCommand.cs" />
     <Compile Include="Commands\Reservations\RejectCommand.cs" />
     <Compile Include="Commands\Reservations\SaveCommand.cs" />
+    <Compile Include="Commands\Tables\AddCommand.cs" />
+    <Compile Include="Commands\Tables\DeleteCommand.cs" />
+    <Compile Include="Commands\Tables\EditCommand.cs" />
+    <Compile Include="Commands\Tables\RejectCommand.cs" />
+    <Compile Include="Commands\Tables\SaveCommand.cs" />
     <Compile Include="Enums\State.cs" />
+    <Compile Include="Mappers\CustomerMapper.cs" />
     <Compile Include="Mappers\DepartmentMapper.cs" />
+    <Compile Include="Mappers\DiscountMapper.cs" />
     <Compile Include="Mappers\EmployeeMapper.cs" />
     <Compile Include="Mappers\Mapper.cs" />
     <Compile Include="Mappers\PositionMapper.cs" />
     <Compile Include="Mappers\ReservationMapper.cs" />
     <Compile Include="Mappers\TableMapper.cs" />
+    <Compile Include="Models\CustomersModel.cs" />
     <Compile Include="Models\DepartmentsModel.cs" />
+    <Compile Include="Models\DiscountsModel.cs" />
     <Compile Include="Models\EmployeesModel.cs" />
     <Compile Include="Models\IModel.cs" />
     <Compile Include="Models\PositionModel.cs" />
     <Compile Include="Models\TablesModel.cs" />
     <Compile Include="Models\ReservationsModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
+    <Compile Include="ViewModels\CustomersViewModel.cs" />
     <Compile Include="ViewModels\DepartmentsViewModel.cs" />
+    <Compile Include="ViewModels\DiscountsViewModel.cs" />
     <Compile Include="ViewModels\EmployeesViewModel.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
     <Compile Include="ViewModels\PositionViewModel.cs" />
