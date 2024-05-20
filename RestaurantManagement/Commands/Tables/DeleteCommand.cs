@@ -10,8 +10,8 @@ namespace RestaurantManagement.Commands.Tables
 {
     public class DeleteCommand : ICommand
     {
-        private readonly DepartmentsViewModel _currentState;
-        public DeleteCommand(DepartmentsViewModel currentState)
+        private readonly TablesViewModel _currentState;
+        public DeleteCommand(TablesViewModel currentState)
         {
             _currentState = currentState;
         }

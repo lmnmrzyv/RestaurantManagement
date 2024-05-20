@@ -12,8 +12,8 @@ namespace RestaurantManagement.Commands.Tables
 {
     public class RejectCommand : ICommand
     {
-        private readonly DepartmentsViewModel _viewModel;
-        public RejectCommand(DepartmentsViewModel viewModel)
+        private readonly TablesViewModel _viewModel;
+        public RejectCommand(TablesViewModel viewModel)
         {
             _viewModel = viewModel;
         }
@@ -26,8 +26,8 @@ namespace RestaurantManagement.Commands.Tables
 
         public void Execute(object parameter)
         {
-            _viewModel.SelectedDepartments = null;
-            _viewModel.CurrentDepartments = new DepartmentsModel();
+            _viewModel.SelectedTables = null;
+            _viewModel.CurrentTables = new TablesModel();
             _viewModel.CurrentState = State.NORMAL;
             
         }

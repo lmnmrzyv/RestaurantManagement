@@ -15,9 +15,9 @@ namespace RestaurantManagement.Commands.Tables
 {
     public class SaveCommand : ICommand
     {
-        private readonly DepartmentsViewModel _currentState;
+        private readonly TablesViewModel _currentState;
         private readonly IUnitOfWork _db;
-        public SaveCommand(IUnitOfWork db,DepartmentsViewModel currentState)
+        public SaveCommand(IUnitOfWork db, TablesViewModel currentState)
         {
             _db = db;
             _currentState = currentState;
@@ -31,17 +31,17 @@ namespace RestaurantManagement.Commands.Tables
 
         public void Execute(object parameter)
         {
-            var mapper = new DepartmentMapper();
-            var departments = mapper.Map(_currentState.CurrentDepartments);
+            var mapper = new TableMapper();
+            var tables = mapper.MapModelToEntity(new Table(),_currentState.CurrentTables);
 
-            _db.DepartmentRepository.Add(departments);
+            _db.TableRepository.Add(tables);
 
-            var lastElementNo=_currentState.Departments.LastOrDefault()?.No ?? 0;
+            var lastElementNo=_currentState.DTables.LastOrDefault()?.No ?? 0;
 
-            _currentState.CurrentDepartments.No = lastElementNo+1;
+            _currentState.CurrentTables.No = lastElementNo+1;
 
-            _currentState.Departments.Add(_currentState.CurrentDepartments);
-            _currentState.CurrentDepartments = new DepartmentsModel();
+            _currentState.DTables.Add(_currentState.CurrentTables);
+            _currentState.CurrentTables = new TablesModel();
 
             _currentState.CurrentState = State.NORMAL;
         }
