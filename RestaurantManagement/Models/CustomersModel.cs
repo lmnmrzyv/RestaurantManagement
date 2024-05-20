@@ -6,7 +6,13 @@ using System.Threading.Tasks;
 
 namespace RestaurantManagement.Models
 {
-    internal class CustomersModel
+    public class CustomersModel : IModel
     {
+        public int No { get; set; }
+        public string Name { get; set; }
+        public string Surname { get; set; }
+        public string PhoneNum { get; set; }
+        public string Mail { get; set; }
+
     }
 }
