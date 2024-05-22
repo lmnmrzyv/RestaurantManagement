@@ -9,6 +9,7 @@ namespace RestaurantManagement.Models
 {
     public class ReservationsModel : IModel
     {
+        public int Id { get; set; } 
         public int No {  get; set; }
         public DateTime ReservationDate { get; set; }
         public int NumberOfPeople {  get; set; }

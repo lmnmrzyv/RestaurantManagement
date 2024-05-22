@@ -1,23 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using DataAccessManager.Domain.Entities;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using RestaurantManagement.Models;
 using System.Reflection;
 
 namespace RestaurantManagement.Mappers
 {
-    public class Mapper<TModel, TEntity> where TEntity : IDbEntity
-                                              where TModel : IModel
+    public class Mapper<TModel, TEntity>
+        where TEntity : IDbEntity
+        where TModel : IModel
     {
-        public  TEntity MapModelToEntity(TEntity entity, TModel model)
+        public TEntity MapModelToEntity(TEntity entity, TModel model)
         {
-            Type entitytype = entity.GetType();
+            Type entityType = entity.GetType();
             Type modelType = model.GetType();
 
-            PropertyInfo[] propertyInfosEntity = entitytype.GetProperties();
+            PropertyInfo[] propertyInfosEntity = entityType.GetProperties();
             PropertyInfo[] propertyInfosModel = modelType.GetProperties();
 
             for (int i = 0; i < propertyInfosEntity.Length; i++)
@@ -26,26 +24,32 @@ namespace RestaurantManagement.Mappers
                 {
                     if (propertyInfosEntity[i].Name == propertyInfosModel[j].Name)
                     {
-
-                        var value = propertyInfosModel[j].GetValue(model);
-                        propertyInfosEntity[i].SetValue(entity, value);
-                        Console.WriteLine($"{propertyInfosEntity[i].Name}: {value}");
+                        var modelValue = propertyInfosModel[j].GetValue(model);
+                        if (modelValue != null)
+                        {
+                            if (propertyInfosEntity[i].PropertyType.IsEnum)
+                            {
+                                var enumValue = Enum.Parse(propertyInfosEntity[i].PropertyType, modelValue.ToString());
+                                propertyInfosEntity[i].SetValue(entity, enumValue);
+                            }
+                            else
+                            {
+                                propertyInfosEntity[i].SetValue(entity, modelValue);
+                            }
+                        }
                         break;
                     }
-
-
-
                 }
-
             }
             return entity;
         }
-        public  TModel MapEntityToModel(TEntity entity, TModel model)
+
+        public TModel MapEntityToModel(TEntity entity, TModel model)
         {
-            Type entitytype = entity.GetType();
+            Type entityType = entity.GetType();
             Type modelType = model.GetType();
 
-            PropertyInfo[] propertyInfosEntity = entitytype.GetProperties();
+            PropertyInfo[] propertyInfosEntity = entityType.GetProperties();
             PropertyInfo[] propertyInfosModel = modelType.GetProperties();
 
             for (int i = 0; i < propertyInfosEntity.Length; i++)
@@ -54,17 +58,22 @@ namespace RestaurantManagement.Mappers
                 {
                     if (propertyInfosEntity[i].Name == propertyInfosModel[j].Name)
                     {
-
-                        var value = propertyInfosEntity[i].GetValue(entity);
-
-                        propertyInfosModel[j].SetValue(model, value);
-                        Console.WriteLine($"{propertyInfosModel[j].Name}: {value}");
+                        var entityValue = propertyInfosEntity[i].GetValue(entity);
+                        if (entityValue != null)
+                        {
+                            if (propertyInfosModel[j].PropertyType.IsEnum)
+                            {
+                                var enumValue = Enum.Parse(propertyInfosModel[j].PropertyType, entityValue.ToString());
+                                propertyInfosModel[j].SetValue(model, enumValue);
+                            }
+                            else
+                            {
+                                propertyInfosModel[j].SetValue(model, entityValue);
+                            }
+                        }
                         break;
                     }
-
-
                 }
-
             }
             return model;
         }

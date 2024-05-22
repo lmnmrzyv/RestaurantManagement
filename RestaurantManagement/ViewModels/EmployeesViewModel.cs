@@ -1,4 +1,5 @@
 ﻿using DataAccessManager.Domain.Entities;
+using DataAccessManager.Domain.EnumsDB;
 using DataAccessManager.Domain.Interfaces;
 using RestaurantManagement.Commands.Employees;
 using RestaurantManagement.Enums;
@@ -24,6 +25,7 @@ namespace RestaurantManagement.ViewModels
             _db = db;
             CurrentEmployees=new EmployeesModel();
             CurrentEmployees.Position = new Position();
+
             LoadPositions();
         }
 
@@ -68,6 +70,7 @@ namespace RestaurantManagement.ViewModels
                     CurrentEmployees.PerformanceRating = SelectedEmployees.PerformanceRating;
                     CurrentEmployees.Surname= SelectedEmployees.Surname;
                     CurrentEmployees.Name= SelectedEmployees.Name;
+                    CurrentEmployees.Id=SelectedEmployees.Id;
                     CurrentState = State.SELECTED;
                 }
                 else
@@ -79,11 +82,13 @@ namespace RestaurantManagement.ViewModels
             }
         }
 
+        public List<EducationLevel> EducationLevels => Enum.GetValues(typeof(EducationLevel)).Cast<EducationLevel>().ToList();
+
         public ObservableCollection<EmployeesModel> Employees { get; set; }
 
         public AddCommand Add => new AddCommand(this);
         public SaveCommand Save => new SaveCommand(_db,this);
-        public DeleteCommand Delete => new DeleteCommand(this);
+        public DeleteCommand Delete => new DeleteCommand(_db,this);
         public RejectCommand Reject => new RejectCommand(this);
         public EditCommand Edit => new EditCommand(this);
 

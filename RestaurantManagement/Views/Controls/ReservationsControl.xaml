@@ -10,7 +10,7 @@
     <Border Background="White" BorderThickness="5">
         <StackPanel>
             <Border Background="LightGray" Margin="0 0 0 10">
-                <Grid Margin="10">
+                <Grid Margin="10"  Style="{StaticResource grdForm}" >
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
@@ -21,15 +21,15 @@
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Row="0" Grid.Column="0">
                         <TextBlock Height="25" FontSize="15" Padding="5" HorizontalAlignment="Left" FontFamily="TIMES NEW ROMAN" Foreground="Black">Reservation Date</TextBlock>
-                        <TextBox FontSize="15" Height="25" HorizontalAlignment="Left" Width="200" FontFamily="TIMES NEW ROMAN" Text="{Binding CurrentGenre.Name,Mode=TwoWay}"/>
+                        <TextBox FontSize="15" Height="25" HorizontalAlignment="Left" Width="200" FontFamily="TIMES NEW ROMAN" Text="{Binding CurrentReservation.ReservationDate,Mode=TwoWay}"/>
                         <TextBlock Height="25" FontSize="15" Padding="5" HorizontalAlignment="Left" FontFamily="TIMES NEW ROMAN" Foreground="Black">Number of People</TextBlock>
-                        <TextBox FontSize="15" Height="25" HorizontalAlignment="Left" Width="200" FontFamily="TIMES NEW ROMAN" Text="{Binding CurrentGenre.Name,Mode=TwoWay}"/>
+                        <TextBox FontSize="15" Height="25" HorizontalAlignment="Left" Width="200" FontFamily="TIMES NEW ROMAN" Text="{Binding CurrentReservation.NumberOfPeople,Mode=TwoWay}"/>
                     </StackPanel>
                     <StackPanel Grid.Row="0" Grid.Column="1">
                         <TextBlock Height="25" FontSize="15" Padding="5" HorizontalAlignment="Left" FontFamily="TIMES NEW ROMAN" Foreground="Black">Table</TextBlock>
-                        <TextBox FontSize="15" Height="25" HorizontalAlignment="Left" Width="200" FontFamily="TIMES NEW ROMAN" Text="{Binding CurrentGenre.Name,Mode=TwoWay}"/>
+                        <TextBox FontSize="15" Height="25" HorizontalAlignment="Left" Width="200" FontFamily="TIMES NEW ROMAN" Text="{Binding CurrentReservation.Table,Mode=TwoWay}"/>
                         <TextBlock Height="25" FontSize="15" Padding="5" HorizontalAlignment="Left" FontFamily="TIMES NEW ROMAN" Foreground="Black">Customer</TextBlock>
-                        <TextBox FontSize="15" Height="25" HorizontalAlignment="Left" Width="200" FontFamily="TIMES NEW ROMAN" Text="{Binding CurrentGenre.Name,Mode=TwoWay}"/>
+                        <TextBox FontSize="15" Height="25" HorizontalAlignment="Left" Width="200" FontFamily="TIMES NEW ROMAN" Text="{Binding CurrentReservation.Customer,Mode=TwoWay}"/>
                     </StackPanel>
                 </Grid>
             </Border>
@@ -42,13 +42,13 @@
                 <Button Style="{StaticResource btnDelete}" Width="120" Height="40" Margin="5"/>
             </StackPanel>
 
-            <ListView ItemsSource="{Binding Reservations}" SelectedItem="{Binding SelectedGenre,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource listViewCustom}" Margin="10">
+            <ListView ItemsSource="{Binding Reservations}" SelectedItem="{Binding SelectedReservation,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource listViewCustom}" Margin="10">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn DisplayMemberBinding="{Binding Path=No}" Header="No" Width="50"/>
                         <GridViewColumn DisplayMemberBinding="{Binding Path=ReservationDate}" Header="Reservation Date" Width="150"/>
                         <GridViewColumn DisplayMemberBinding="{Binding Path=NumberOfPeople}" Header="Number of People" Width="50"/>
-                        <GridViewColumn DisplayMemberBinding="{Binding Path=Table.TableNumber}" Header="Table" Width="100" />
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=Table.Id}" Header="Table" Width="100" />
                         <GridViewColumn>
                             <GridViewColumn.Header>
                                 <TextBlock Text="Customer" Width="150"/>
