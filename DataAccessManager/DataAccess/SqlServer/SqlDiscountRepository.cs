@@ -1,4 +1,5 @@
 ﻿using DataAccessManager.Domain.Entities;
+using DataAccessManager.Domain.EnumsDB;
 using DataAccessManager.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -21,15 +22,14 @@ namespace DataAccessManager.DataAccess.SqlServer
             {
                 connection.Open();
 
-                string query = @"INSERT INTO Discounts (startTime,endTime,Status, CategoryId,percent,IsActive)
+                string query = @"INSERT INTO Discounts (startTime,endTime, CategoryId,percent,IsActive)
                                output inserted.Id VALUES (@startTime,@endTime,@Status, @CategoryId,@percent,1);";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@startTime", item.startTime);
                     command.Parameters.AddWithValue("@endTime", item.endTime);
-                    command.Parameters.AddWithValue("@Status", item.Status);
-                    command.Parameters.AddWithValue("@CategoryId", item.CategoryId);
+                    command.Parameters.AddWithValue("@CategoryId", item.Category);
                     command.Parameters.AddWithValue("@percent", item.Percent);
 
                     return (int)command.ExecuteScalar();
@@ -70,17 +70,20 @@ namespace DataAccessManager.DataAccess.SqlServer
                         if (reader.Read() == false)
                             return null;
 
-                        Discount Discount = new Discount();
+                        Discount discount = new Discount();
 
-                        Discount.Id = reader.GetInt32(reader.GetOrdinal("Id"));
-                        Discount.startTime = reader.GetDateTime(reader.GetOrdinal("startTime"));
-                        Discount.endTime = reader.GetDateTime(reader.GetOrdinal("endTime"));
-                        Discount.Status = reader.GetBoolean(reader.GetOrdinal("Status"));
-                        Discount.CategoryId = reader.GetInt32(reader.GetOrdinal("CategoryId"));
-                        Discount.Percent = reader.GetInt32(reader.GetOrdinal("Percent"));
-                        Discount.IsActive = reader.GetBoolean(reader.GetOrdinal("IsActive"));
+                        discount.Id = reader.GetInt32(reader.GetOrdinal("Id"));
+                        discount.startTime = reader.GetDateTime(reader.GetOrdinal("startTime"));
+                        discount.endTime = reader.GetDateTime(reader.GetOrdinal("endTime"));
+                        discount.Percent = reader.GetInt32(reader.GetOrdinal("Percent"));
+                        discount.IsActive = reader.GetBoolean(reader.GetOrdinal("IsActive"));
+                        discount.Category = new Category
+                        {
+                            Id = reader.GetInt32(reader.GetOrdinal("CategoryId")),
+                            name = reader.GetString(reader.GetOrdinal("CategoryName"))
+                        };
 
-                        return Discount;
+                        return discount;
                     }
                 }
             }
@@ -106,10 +109,13 @@ namespace DataAccessManager.DataAccess.SqlServer
                             discount.Id = reader.GetInt32(reader.GetOrdinal("Id"));
                             discount.startTime = reader.GetDateTime(reader.GetOrdinal("startTime"));
                             discount.endTime = reader.GetDateTime(reader.GetOrdinal("endTime"));
-                            discount.Status = reader.GetBoolean(reader.GetOrdinal("Status"));
-                            discount.CategoryId = reader.GetInt32(reader.GetOrdinal("CategoryId"));
                             discount.Percent = reader.GetInt32(reader.GetOrdinal("Percent"));
                             discount.IsActive = reader.GetBoolean(reader.GetOrdinal("IsActive"));
+                            discount.Category = new Category
+                            {
+                                Id = reader.GetInt32(reader.GetOrdinal("PositionId")),
+                                name = reader.GetString(reader.GetOrdinal("PositionName"))
+                            };
                             discounts.Add(discount);
                         }
 
@@ -125,14 +131,13 @@ namespace DataAccessManager.DataAccess.SqlServer
             {
                 connection.Open();
 
-                string query = "UPDATE Discounts SET startTime = @startTime, endTime = @endTime, Status = @Status,CategoryId = @CategoryId, Percent= @Percent WHERE Id = @Id";
+                string query = "UPDATE Discounts SET startTime = @startTime, endTime = @endTime, CategoryId = @CategoryId, Percent= @Percent WHERE Id = @Id";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@startTime", item.startTime);
                     command.Parameters.AddWithValue("@endTime", item.endTime);
-                    command.Parameters.AddWithValue("@Status", item.Status);
-                    command.Parameters.AddWithValue("@CategoryId", item.CategoryId);
+                    command.Parameters.AddWithValue("@CategoryId", item.Category);
                     command.Parameters.AddWithValue("@Percent", item.Percent);
 
                     command.ExecuteNonQuery();

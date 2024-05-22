@@ -9,15 +9,29 @@
     <Border Background="White" BorderThickness="5">
         <StackPanel>
             <Border Background="LightGray" Margin="0 0 0 10">
-                <Grid Margin="10">
+                <Grid Margin="10"  Style="{StaticResource grdForm}" >
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
+                        <RowDefinition />
+                        <RowDefinition />
                     </Grid.RowDefinitions>
-                    <StackPanel Grid.Row="0">
+                    <Grid.ColumnDefinitions >
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Row="0" Grid.Column="0" >
                         <TextBlock Height="25" FontSize="15" HorizontalAlignment="Left" FontFamily="TIMES NEW ROMAN" Foreground="Black">Name</TextBlock>
-                        <TextBox FontSize="15" Height="25" HorizontalAlignment="Left" Width="200" FontFamily="TIMES NEW ROMAN" Text="{Binding CurrentGenre.Name,Mode=TwoWay}"/>
+                        <TextBox FontSize="15" Height="25" HorizontalAlignment="Left" Width="200" FontFamily="TIMES NEW ROMAN" Text="{Binding CurrentCustomers.Name,Mode=TwoWay}"/>
+                        <TextBlock Height="25" FontSize="15" HorizontalAlignment="Left" FontFamily="TIMES NEW ROMAN" Foreground="Black">Surname</TextBlock>
+                        <TextBox FontSize="15" Height="25" HorizontalAlignment="Left" Width="200" FontFamily="TIMES NEW ROMAN" Text="{Binding CurrentCustomers.Surname,Mode=TwoWay}"/>
                     </StackPanel>
+
+                    <StackPanel Grid.Row="0" Grid.Column="1">
+                        <TextBlock Height="25" FontSize="15" HorizontalAlignment="Left" FontFamily="TIMES NEW ROMAN" Foreground="Black">Phone Number</TextBlock>
+                        <TextBox FontSize="15" Height="25" HorizontalAlignment="Left" Width="200" FontFamily="TIMES NEW ROMAN" Text="{Binding CurrentCustomers.PhoneNum,Mode=TwoWay}"/>
+                        <TextBlock Height="25" FontSize="15" HorizontalAlignment="Left" FontFamily="TIMES NEW ROMAN" Foreground="Black">Mail Address</TextBlock>
+                        <TextBox FontSize="15" Height="25" HorizontalAlignment="Left" Width="200" FontFamily="TIMES NEW ROMAN" Text="{Binding CurrentCustomers.Mail,Mode=TwoWay}"/>
+                    </StackPanel>
+
                 </Grid>
             </Border>
 
@@ -29,11 +43,14 @@
                 <Button Style="{StaticResource btnDelete}" Width="120" Height="40" Margin="5"/>
             </StackPanel>
 
-            <ListView ItemsSource="{Binding Departments}" SelectedItem="{Binding SelectedGenre,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource listViewCustom}" Margin="10">
+            <ListView ItemsSource="{Binding Customers}" SelectedItem="{Binding SelectedCustomers,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource listViewCustom}" Margin="10">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn DisplayMemberBinding="{Binding Path=No}" Header="No" Width="50"/>
-                        <GridViewColumn DisplayMemberBinding="{Binding Path=Name}" Header="Name" Width="200"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=Name}" Header="Name" Width="175"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=Surname}" Header="Surname" Width="175"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=PhoneNum}" Header="Phone Number" Width="175"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=Mail}" Header="Mail Address" Width="175"/>
                     </GridView>
                 </ListView.View>
             </ListView>

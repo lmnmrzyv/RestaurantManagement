@@ -1,4 +1,5 @@
 ﻿using RestaurantManagement.Enums;
+using RestaurantManagement.Models;
 using RestaurantManagement.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -25,6 +26,8 @@ namespace RestaurantManagement.Commands.Reservations
 
         public void Execute(object parameter)
         {
+            _currentState.SelectedReservation = null;
+            _currentState.CurrentReservation = new ReservationsModel();
             _currentState.CurrentState = State.NORMAL;
         }
     }

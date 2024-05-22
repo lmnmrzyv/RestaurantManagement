@@ -16,16 +16,18 @@ namespace RestaurantManagement.Commands
 {
     public class OpenTablesCommand : ICommand
     {
+        public event EventHandler CanExecuteChanged;
         private readonly IUnitOfWork _db;
         public OpenTablesCommand(IUnitOfWork db)
         {
             _db = db;
         }
+
         public bool CanExecute(object parameter)
         {
             return true;
         }
-        public event EventHandler CanExecuteChanged;
+       
         public void Execute(object parameter)
         {
             var grid = parameter as Grid;

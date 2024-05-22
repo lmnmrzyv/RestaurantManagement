@@ -18,7 +18,7 @@ namespace RestaurantManagement.ViewModels
             OpenCategories = new OpenCategoriesCommand();
             OpenMenuItems = new OpenMenuItemsCommand();
             OpenOrders = new OpenOrdersCommand();
-            OpenCustomers = new OpenCustomersCommand();
+            OpenCustomers = new OpenCustomersCommand(db);
             OpenDiscounts = new OpenDiscountsCommand();
             OpenPositions = new OpenPositionsCommand();
             OpenOrderDetails = new OpenOrderDetailsCommand();

@@ -29,9 +29,8 @@
                         <TextBlock Height="25" FontSize="15" HorizontalAlignment="Left" FontFamily="TIMES NEW ROMAN" Foreground="Black">Position</TextBlock>
                         <ComboBox ItemsSource="{Binding Positions}" SelectedItem="{Binding CurrentEmployees.Position , Mode=TwoWay}"  SelectedValuePath="Id" DisplayMemberPath="Name" Height="25" HorizontalAlignment="Left" Width="200"/>
 
-
                         <TextBlock Height="25" FontSize="15" HorizontalAlignment="Left" FontFamily="TIMES NEW ROMAN" Foreground="Black">Education Level</TextBlock>
-                        <TextBox FontSize="15" Height="25" HorizontalAlignment="Left" Width="200" FontFamily="TIMES NEW ROMAN" Text="{Binding CurrentEmployees.EducationLevel,Mode=TwoWay}"/>
+                        <ComboBox ItemsSource="{Binding EducationLevels}" SelectedItem="{Binding CurrentEmployees.EducationLevel, Mode=TwoWay}" Height="25" HorizontalAlignment="Left" Width="200"/>
                     </StackPanel>
                     <StackPanel Grid.Row="0" Grid.Column="2">
                         <TextBlock Height="25" FontSize="15" HorizontalAlignment="Left" FontFamily="TIMES NEW ROMAN" Foreground="Black">Performance Rating</TextBlock>

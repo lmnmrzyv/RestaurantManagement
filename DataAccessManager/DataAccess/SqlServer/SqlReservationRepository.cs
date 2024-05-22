@@ -23,14 +23,14 @@ namespace DataAccessManager.DataAccess.SqlServer
                 connection.Open();
 
                 string query = @"INSERT INTO Reservations (ReservationDate,NumberOfPeople,TableId,CustomerId,IsActive) output inserted.Id VALUES 
-                 (@ReservationDate,@NumberOfPeople, @Table,@Customer,1)";
+                 (@ReservationDate,@NumberOfPeople, @TableId,@CustomerId,1)";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@ReservationDate", item.ReservationDate);
                     command.Parameters.AddWithValue("@NumberOfPeople", item.NumberOfPeople);
-                    command.Parameters.AddWithValue("@Table", item.Table);
-                    command.Parameters.AddWithValue("@Customer", item.Customer);
+                    command.Parameters.AddWithValue("@TableId", item.Table.Id);
+                    command.Parameters.AddWithValue("@CustomerId", item.Customer.Id);
                    // command.Parameters.AddWithValue("@IsActive", item.IsActive);
                     
 
@@ -46,16 +46,16 @@ namespace DataAccessManager.DataAccess.SqlServer
                 connection.Open();
 
                 string query = @"UPDATE Reservations SET ReservationDate=@ReservationDate,NumberOfPeople=@NumberOfPeople
-                , TableId=@Table,CustomerId=@Customer where Id=@Id";
+                , Table=@Table,Customer=@Customer where Id=@Id";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@Id", item.Id);
                     command.Parameters.AddWithValue("@ReservationDate", item.ReservationDate);
                     command.Parameters.AddWithValue("@NumberOfPeople", item.NumberOfPeople);
-                    command.Parameters.AddWithValue("@TableId", item.Table);
-                    command.Parameters.AddWithValue("@CustomerId", item.Customer);
-  
+                    command.Parameters.AddWithValue("@Table", item.Table.TableNumber);
+                    command.Parameters.AddWithValue("@Customer", item.Customer.Name + item.Customer.Surname);
+
                     command.ExecuteNonQuery();
                 }
 
@@ -68,7 +68,7 @@ namespace DataAccessManager.DataAccess.SqlServer
             {
                 connection.Open();
 
-                string query = @"UPDATE Reservations SET IsActive=0 where Id=@Id";
+                string query = @"DELETE FROM Reservations SET IsActive=0 where Id=@Id";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
