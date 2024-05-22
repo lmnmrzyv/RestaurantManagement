@@ -29,7 +29,7 @@ namespace DataAccessManager.DataAccess.SqlServer
                     command.Parameters.AddWithValue("@startTime", item.startTime);
                     command.Parameters.AddWithValue("@endTime", item.endTime);
                     command.Parameters.AddWithValue("@Status", item.Status);
-                    command.Parameters.AddWithValue("@CategoryId", item.CategoryId);
+                    command.Parameters.AddWithValue("@CategoryId", item.Category);
                     command.Parameters.AddWithValue("@percent", item.Percent);
 
                     return (int)command.ExecuteScalar();
@@ -76,7 +76,7 @@ namespace DataAccessManager.DataAccess.SqlServer
                         Discount.startTime = reader.GetDateTime(reader.GetOrdinal("startTime"));
                         Discount.endTime = reader.GetDateTime(reader.GetOrdinal("endTime"));
                         Discount.Status = reader.GetBoolean(reader.GetOrdinal("Status"));
-                        Discount.CategoryId = reader.GetInt32(reader.GetOrdinal("CategoryId"));
+                        Discount.Category = reader.GetInt32(reader.GetOrdinal("CategoryId"));
                         Discount.Percent = reader.GetInt32(reader.GetOrdinal("Percent"));
                         Discount.IsActive = reader.GetBoolean(reader.GetOrdinal("IsActive"));
 
@@ -107,7 +107,7 @@ namespace DataAccessManager.DataAccess.SqlServer
                             discount.startTime = reader.GetDateTime(reader.GetOrdinal("startTime"));
                             discount.endTime = reader.GetDateTime(reader.GetOrdinal("endTime"));
                             discount.Status = reader.GetBoolean(reader.GetOrdinal("Status"));
-                            discount.CategoryId = reader.GetInt32(reader.GetOrdinal("CategoryId"));
+                            discount.Category = reader.GetInt32(reader.GetOrdinal("CategoryId"));
                             discount.Percent = reader.GetInt32(reader.GetOrdinal("Percent"));
                             discount.IsActive = reader.GetBoolean(reader.GetOrdinal("IsActive"));
                             discounts.Add(discount);
@@ -132,7 +132,7 @@ namespace DataAccessManager.DataAccess.SqlServer
                     command.Parameters.AddWithValue("@startTime", item.startTime);
                     command.Parameters.AddWithValue("@endTime", item.endTime);
                     command.Parameters.AddWithValue("@Status", item.Status);
-                    command.Parameters.AddWithValue("@CategoryId", item.CategoryId);
+                    command.Parameters.AddWithValue("@CategoryId", item.Category);
                     command.Parameters.AddWithValue("@Percent", item.Percent);
 
                     command.ExecuteNonQuery();

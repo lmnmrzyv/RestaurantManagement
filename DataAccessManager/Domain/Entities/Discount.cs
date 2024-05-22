@@ -9,8 +9,7 @@ namespace DataAccessManager.Domain.Entities
         public int Id { get; set; }
         public DateTime startTime { get; set; }
         public DateTime endTime { get; set; }
-        public bool Status { get; set; }
-        public int CategoryId { get; set; }
+        public Category Category { get; set; }
         public int Percent {  get; set; }
         public bool IsActive { get ; set ; }
     }
