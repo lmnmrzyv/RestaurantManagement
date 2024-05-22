@@ -47,10 +47,10 @@
                 <ListView.View>
                     <GridView>
                         <GridViewColumn DisplayMemberBinding="{Binding Path=No}" Header="No" Width="50"/>
-                        <GridViewColumn DisplayMemberBinding="{Binding Path=Name}" Header="Name" Width="200"/>
-                        <GridViewColumn DisplayMemberBinding="{Binding Path=Surname}" Header="Surname" Width="200"/>
-                        <GridViewColumn DisplayMemberBinding="{Binding Path=PhoneNum}" Header="Phone Number" Width="200"/>
-                        <GridViewColumn DisplayMemberBinding="{Binding Path=Mail}" Header="Mail Address" Width="200"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=Name}" Header="Name" Width="175"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=Surname}" Header="Surname" Width="175"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=PhoneNum}" Header="Phone Number" Width="175"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=Mail}" Header="Mail Address" Width="175"/>
                     </GridView>
                 </ListView.View>
             </ListView>
