@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DataAccessManager.Domain.Interfaces;
-using RestaurantManagement.Commands.Tables;
 using RestaurantManagement.Enums;
 using RestaurantManagement.Models;
 
