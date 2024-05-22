@@ -54,6 +54,7 @@ namespace RestaurantManagement.ViewModels
                 {
                     CurrentDepartments.No=SelectedDepartments.No;
                     CurrentDepartments.Name=SelectedDepartments.Name;
+                    CurrentDepartments.Id = SelectedDepartments.Id;
                     CurrentState = State.SELECTED;
                 }
                 else
@@ -68,7 +69,7 @@ namespace RestaurantManagement.ViewModels
 
         public AddCommand Add => new AddCommand(this);
         public SaveCommand Save => new SaveCommand(_db,this);
-        public DeleteCommand Delete => new DeleteCommand(this);
+        public DeleteCommand Delete => new DeleteCommand(_db,this);
         public RejectCommand Reject => new RejectCommand(this);
         public EditCommand Edit => new EditCommand(this);
     }

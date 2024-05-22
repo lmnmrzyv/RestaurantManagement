@@ -1,8 +1,4 @@
-﻿using DataAccessManager.Domain.Interfaces;
-using RestaurantManagement.Mappers;
-using RestaurantManagement.Models;
-using RestaurantManagement.ViewModels;
-using RestaurantManagement.Views.Controls;
+﻿using RestaurantManagement.Views.Controls;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -16,11 +12,13 @@ namespace RestaurantManagement.Commands
 {
     public class OpenTablesCommand : ICommand
     {
+        public event EventHandler CanExecuteChanged;
         private readonly IUnitOfWork _db;
         public OpenTablesCommand(IUnitOfWork db)
         {
             _db = db;
         }
+
         public bool CanExecute(object parameter)
         {
             return true;

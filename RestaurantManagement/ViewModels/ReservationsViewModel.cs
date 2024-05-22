@@ -5,6 +5,7 @@ using RestaurantManagement.Enums;
 using RestaurantManagement.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,11 +15,29 @@ namespace RestaurantManagement.ViewModels
     public class ReservationsViewModel:BaseViewModel
     {
         private readonly IUnitOfWork _db;
+        public ObservableCollection<Customer> Customers { get; set; }
+        public ObservableCollection<Table> Tables { get; set; }
         public ReservationsViewModel(IUnitOfWork db)
         {
             _db = db;
+            CurrentReservation = new ReservationsModel();
+            CurrentReservation.Customer=new Customer();
+            CurrentReservation.Table=new Table();
+            LoadCustomers();
+            LoadTables();
         }
+        private void LoadCustomers()
+        {
+            var customers = _db.CustomerRepository.GetAll();
 
+            Customers = new ObservableCollection<Customer>(customers);
+        }
+        private void LoadTables()
+        {
+            var tables = _db.TableRepository.GetAll();
+
+            Tables = new ObservableCollection<Table>(tables);
+        }
         private State _state;
         public State CurrentState
         {
@@ -50,17 +69,27 @@ namespace RestaurantManagement.ViewModels
                 _selectedReservation= value;
                 if(_selectedReservation!=null)
                 {
-
+                    CurrentReservation.ReservationDate = SelectedReservation.ReservationDate;
+                    CurrentReservation.NumberOfPeople=SelectedReservation.NumberOfPeople;
+                    CurrentReservation.Customer=SelectedReservation.Customer;
+                    CurrentReservation.No=SelectedReservation.No;
+                    CurrentReservation.Id=SelectedReservation.Id;
+                    CurrentState = State.SELECTED;
+                }
+                else
+                {
+                    CurrentReservation=new ReservationsModel();
+                    CurrentState = State.NORMAL;
                 }
                 OnPropertyChanged(nameof(SelectedReservation));
             }
         }
 
 
-        public List<ReservationsModel> Reservations { get; set; }
+        public ObservableCollection<ReservationsModel> Reservations { get; set; }
         public AddCommand Add => new AddCommand(this);
-        public SaveCommand Save => new SaveCommand(this);
-        public DeleteCommand Delete => new DeleteCommand(this);
+        public SaveCommand Save => new SaveCommand(_db,this);
+        public DeleteCommand Delete => new DeleteCommand(_db,this);
         public RejectCommand Reject => new RejectCommand(this);
         public EditCommand Edit => new EditCommand(this);
     }
