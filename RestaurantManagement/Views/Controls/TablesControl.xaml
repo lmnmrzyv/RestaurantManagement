@@ -14,10 +14,17 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <StackPanel Grid.Row="0">
-                        <TextBlock Height="25" FontSize="15" HorizontalAlignment="Left" FontFamily="TIMES NEW ROMAN" Foreground="Black">Name</TextBlock>
-                        <TextBox FontSize="15" Height="25" HorizontalAlignment="Left" Width="200" FontFamily="TIMES NEW ROMAN" Text="{Binding CurrentGenre.Name,Mode=TwoWay}"/>
-                    </StackPanel>
+                    <WrapPanel>
+                        <StackPanel Grid.Row="0">
+                            <TextBlock Height="25" FontSize="15" HorizontalAlignment="Left" FontFamily="TIMES NEW ROMAN" Foreground="Black">TableNumber</TextBlock>
+                            <TextBox FontSize="15" Height="25" HorizontalAlignment="Left" Width="200" FontFamily="TIMES NEW ROMAN" Text="{Binding CurrentTables.TableNumber,Mode=TwoWay}"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="0" Margin="50 0 0 0">
+                            <TextBlock Height="25" FontSize="15" HorizontalAlignment="Left" FontFamily="TIMES NEW ROMAN" Foreground="Black">Capacity</TextBlock>
+                            <TextBox FontSize="15" Height="25" HorizontalAlignment="Left" Width="200" FontFamily="TIMES NEW ROMAN" Text="{Binding CurrentTables.Capacity,Mode=TwoWay}"/>
+                        </StackPanel>
+                    </WrapPanel>
+                    
                 </Grid>
             </Border>
 
@@ -29,11 +36,13 @@
                 <Button Style="{StaticResource btnDelete}" Width="120" Height="40" Margin="5"/>
             </StackPanel>
 
-            <ListView ItemsSource="{Binding Departments}" SelectedItem="{Binding SelectedGenre,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource listViewCustom}" Margin="10">
+            <ListView ItemsSource="{Binding Tables, Mode=TwoWay}"
+                      SelectedItem="{Binding SelectedTables,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource listViewCustom}" Margin="10">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn DisplayMemberBinding="{Binding Path=No}" Header="No" Width="50"/>
-                        <GridViewColumn DisplayMemberBinding="{Binding Path=Name}" Header="Name" Width="200"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=No, Mode=TwoWay}" Header="No" Width="50"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=TableNumber}" Header="TableNumber" Width="200"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=Capacity}" Header="Capacity" Width="200"/>
                     </GridView>
                 </ListView.View>
             </ListView>

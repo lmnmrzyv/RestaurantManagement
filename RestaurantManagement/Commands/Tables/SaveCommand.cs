@@ -15,12 +15,12 @@ namespace RestaurantManagement.Commands.Tables
 {
     public class SaveCommand : ICommand
     {
-        private readonly DepartmentsViewModel _currentState;
+        private readonly TablesViewModel _viewModel;
         private readonly IUnitOfWork _db;
-        public SaveCommand(IUnitOfWork db,DepartmentsViewModel currentState)
+        public SaveCommand(IUnitOfWork db, TablesViewModel viewmodel)
         {
             _db = db;
-            _currentState = currentState;
+            _viewModel = viewmodel;
         }
         public event EventHandler CanExecuteChanged;
 
@@ -31,19 +31,25 @@ namespace RestaurantManagement.Commands.Tables
 
         public void Execute(object parameter)
         {
-            var mapper = new DepartmentMapper();
-            var departments = mapper.Map(_currentState.CurrentDepartments);
-
-            _db.DepartmentRepository.Add(departments);
-
-            var lastElementNo=_currentState.Departments.LastOrDefault()?.No ?? 0;
-
-            _currentState.CurrentDepartments.No = lastElementNo+1;
-
-            _currentState.Departments.Add(_currentState.CurrentDepartments);
-            _currentState.CurrentDepartments = new DepartmentsModel();
-
-            _currentState.CurrentState = State.NORMAL;
+            var mapper = new TableMapper();
+            var tables = mapper.MapModelToEntity(new Table(), _viewModel.CurrentTables);
+            tables.IsActive= true;
+            if(tables.Id==0)
+            {
+                _viewModel.CurrentTables.Id = _db.TableRepository.Add(tables);
+                var lastElementNo = _viewModel.Tables.LastOrDefault()?.No ?? 0;
+                _viewModel.CurrentTables.No = lastElementNo + 1;
+                _viewModel.Tables.Add(_viewModel.CurrentTables);
+            }
+            else
+            {
+                // var existingTable= _db.TableRepository.Get(tables.Id);
+                _db.TableRepository.Update(tables);
+                var updatedElement = _viewModel.Tables.First(x => x.Id == tables.Id);
+                var index=_viewModel.Tables.IndexOf(updatedElement);
+                _viewModel.Tables[index]=_viewModel.CurrentTables;
+            }
+            _viewModel.SelectedTables = null;
         }
     }
 }
