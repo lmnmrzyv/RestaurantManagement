@@ -1,5 +1,6 @@
 ﻿using DataAccessManager.Domain.Entities;
 using DataAccessManager.Domain.Interfaces;
+using RestaurantManagement.Enums;
 using RestaurantManagement.Mappers;
 using RestaurantManagement.Models;
 using RestaurantManagement.ViewModels;
@@ -10,13 +11,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace RestaurantManagement.Commands.Employees
+namespace RestaurantManagement.Commands.Orders
 {
     public class SaveCommand : ICommand
     {
-        private readonly EmployeesViewModel _currentState;
+        private readonly OrdersViewModel _currentState;
         private readonly IUnitOfWork _db;
-        public SaveCommand(IUnitOfWork db,EmployeesViewModel currentState)
+        public SaveCommand(IUnitOfWork db, OrdersViewModel currentState)
         {
             _db = db;
             _currentState = currentState;
@@ -30,18 +31,19 @@ namespace RestaurantManagement.Commands.Employees
 
         public void Execute(object parameter)
         {
-            var mapper = new EmployeeMapper();
-            var employees =  mapper.MapModelToEntity(new Employee(), _currentState.CurrentEmployees);
+            var mapper = new OrderMapper();
+            var orders = mapper.MapModelToEntity(new Order(), _currentState.CurrentOrders);
 
-            _db.EmployeeRepository.Add(employees);
+            _db.OrderRepository.Add(orders);
 
-            var lastElementNo = _currentState.Employees.LastOrDefault()?.No ?? 0;
+            var lastElementNo = _currentState.Orders.LastOrDefault()?.No ?? 0;
 
-            _currentState.CurrentEmployees.No=lastElementNo+1;
-            _currentState.Employees.Add(_currentState.CurrentEmployees);
-            _currentState.CurrentEmployees = new EmployeesModel();
+            _currentState.CurrentOrders.No = lastElementNo + 1;
 
-            _currentState.CurrentState = Enums.State.NORMAL;
+            _currentState.Orders.Add(_currentState.CurrentOrders);
+            _currentState.CurrentOrders = new OrdersModel();
+
+            _currentState.CurrentState = State.NORMAL;
         }
     }
 }

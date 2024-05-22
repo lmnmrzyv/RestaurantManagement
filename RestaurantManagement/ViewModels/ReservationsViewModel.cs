@@ -30,6 +30,32 @@ namespace RestaurantManagement.ViewModels
                 OnPropertyChanged(nameof(CurrentState));
             }
         }
+        private ReservationsModel _currentReservation;
+        public ReservationsModel CurrentReservation
+        {
+            get=> _currentReservation;
+            set
+            {
+                _currentReservation= value;
+                OnPropertyChanged(nameof(CurrentReservation));
+            }
+        }
+
+        private ReservationsModel _selectedReservation;
+        public ReservationsModel SelectedReservation
+        {
+            get=>_selectedReservation;
+            set
+            {
+                _selectedReservation= value;
+                if(_selectedReservation!=null)
+                {
+
+                }
+                OnPropertyChanged(nameof(SelectedReservation));
+            }
+        }
+
 
         public List<ReservationsModel> Reservations { get; set; }
         public AddCommand Add => new AddCommand(this);
