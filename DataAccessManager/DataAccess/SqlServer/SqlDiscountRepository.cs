@@ -109,9 +109,13 @@ namespace DataAccessManager.DataAccess.SqlServer
                             discount.Id = reader.GetInt32(reader.GetOrdinal("Id"));
                             discount.startTime = reader.GetDateTime(reader.GetOrdinal("startTime"));
                             discount.endTime = reader.GetDateTime(reader.GetOrdinal("endTime"));
-                            discount.Category = reader.GetInt32(reader.GetOrdinal("CategoryId"));
                             discount.Percent = reader.GetInt32(reader.GetOrdinal("Percent"));
                             discount.IsActive = reader.GetBoolean(reader.GetOrdinal("IsActive"));
+                            discount.Category = new Category
+                            {
+                                Id = reader.GetInt32(reader.GetOrdinal("PositionId")),
+                                name = reader.GetString(reader.GetOrdinal("PositionName"))
+                            };
                             discounts.Add(discount);
                         }
 
