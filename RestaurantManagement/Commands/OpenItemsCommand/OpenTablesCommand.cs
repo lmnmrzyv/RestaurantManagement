@@ -1,7 +1,7 @@
-﻿using DataAccessManager.Domain.Interfaces;
-using RestaurantManagement.Views.Controls;
+﻿using RestaurantManagement.Views.Controls;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,7 +23,7 @@ namespace RestaurantManagement.Commands
         {
             return true;
         }
-
+        public event EventHandler CanExecuteChanged;
         public void Execute(object parameter)
         {
             var grid = parameter as Grid;
@@ -33,9 +33,21 @@ namespace RestaurantManagement.Commands
 
             grid.Children.Clear();
 
-            var tablesControl = new TablesControl();
-
-            grid.Children.Add(tablesControl);
+            var control = new TablesControl();
+            var viewModel= new TablesViewModel(_db);
+            var tables = _db.TableRepository.GetAll();
+            var tableModels= new List<TablesModel>();
+            var tableMapper= new TableMapper();
+            var no = 1;
+            foreach ( var table in tables)
+            {
+                var tableModel = tableMapper.MapEntityToModel(table,new TablesModel());
+                tableModel.No = no++;
+                tableModels.Add(tableModel);
+            }
+            viewModel.Tables= new ObservableCollection<TablesModel>(tableModels);
+            control.DataContext = viewModel;
+            grid.Children.Add(control);
         }
     }
 }

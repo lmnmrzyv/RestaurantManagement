@@ -5,7 +5,6 @@ using RestaurantManagement.Mappers;
 using RestaurantManagement.Models;
 using RestaurantManagement.ViewModels;
 using System;
-using RestaurantManagement.Mappers;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

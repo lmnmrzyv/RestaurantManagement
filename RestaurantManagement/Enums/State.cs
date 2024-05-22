@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 namespace RestaurantManagement.Enums
 {
      public enum State
-    {
+     {
         NORMAL,
         CREATED,
         SELECTED,
         EDİT
-    }
+     }
 }

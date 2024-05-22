@@ -16,10 +16,10 @@ namespace RestaurantManagement.ViewModels
         private readonly IUnitOfWork _db;
         public TablesViewModel(IUnitOfWork db)
         {
-            _db = db;
+           _db = db;
             CurrentTables = new TablesModel();
         }
-        
+        /*public List<TablesModel> Tables { get; set; }*/
         
         private State _state;
         public State CurrentState
@@ -53,9 +53,10 @@ namespace RestaurantManagement.ViewModels
                 _selectedTables = value;
                 if (_selectedTables != null)
                 {
-                    CurrentTables.No = SelectedTables.No;
+                    CurrentTables=SelectedTables.Clone();
+                    /*CurrentTables.No = SelectedTables.No;
                     CurrentTables.TableNumber = SelectedTables.TableNumber;
-                    CurrentTables.Capacity = SelectedTables.Capacity;
+                    CurrentTables.Capacity = SelectedTables.Capacity;*/
                     CurrentState = State.SELECTED;
                 }
                 else
@@ -66,12 +67,14 @@ namespace RestaurantManagement.ViewModels
                 OnPropertyChanged(nameof(SelectedTables));
             }
         }
-        public ObservableCollection<TablesModel> DTables { get; set; }
+        public ObservableCollection<TablesModel> Tables { get; set; }
 
         public AddCommand Add => new AddCommand(this);
         public SaveCommand Save => new SaveCommand(_db, this);
-        public DeleteCommand Delete => new DeleteCommand(this);
+        public DeleteCommand Delete => new DeleteCommand(_db,this);
         public RejectCommand Reject => new RejectCommand(this);
         public EditCommand Edit => new EditCommand(this);
+
+        //public object Tables { get; internal set; }
     }
 }
