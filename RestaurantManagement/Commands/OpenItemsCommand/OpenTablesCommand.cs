@@ -1,4 +1,8 @@
-﻿using RestaurantManagement.Views.Controls;
+﻿using DataAccessManager.Domain.Interfaces;
+using RestaurantManagement.Mappers;
+using RestaurantManagement.Models;
+using RestaurantManagement.ViewModels;
+using RestaurantManagement.Views.Controls;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -23,7 +27,7 @@ namespace RestaurantManagement.Commands
         {
             return true;
         }
-        public event EventHandler CanExecuteChanged;
+       
         public void Execute(object parameter)
         {
             var grid = parameter as Grid;

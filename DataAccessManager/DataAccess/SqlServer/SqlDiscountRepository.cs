@@ -70,20 +70,20 @@ namespace DataAccessManager.DataAccess.SqlServer
                         if (reader.Read() == false)
                             return null;
 
-                        Discount Discount = new Discount();
+                        Discount discount = new Discount();
 
-                        Discount.Id = reader.GetInt32(reader.GetOrdinal("Id"));
-                        Discount.startTime = reader.GetDateTime(reader.GetOrdinal("startTime"));
-                        Discount.endTime = reader.GetDateTime(reader.GetOrdinal("endTime"));
-                        Discount.Percent = reader.GetInt32(reader.GetOrdinal("Percent"));
-                        Discount.IsActive = reader.GetBoolean(reader.GetOrdinal("IsActive"));
-                        Discount.Category = new Category
+                        discount.Id = reader.GetInt32(reader.GetOrdinal("Id"));
+                        discount.startTime = reader.GetDateTime(reader.GetOrdinal("startTime"));
+                        discount.endTime = reader.GetDateTime(reader.GetOrdinal("endTime"));
+                        discount.Percent = reader.GetInt32(reader.GetOrdinal("Percent"));
+                        discount.IsActive = reader.GetBoolean(reader.GetOrdinal("IsActive"));
+                        discount.Category = new Category
                         {
                             Id = reader.GetInt32(reader.GetOrdinal("CategoryId")),
                             name = reader.GetString(reader.GetOrdinal("CategoryName"))
                         };
 
-                        return Discount;
+                        return discount;
                     }
                 }
             }
