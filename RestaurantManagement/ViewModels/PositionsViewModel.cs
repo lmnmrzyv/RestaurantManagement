@@ -4,20 +4,21 @@ using RestaurantManagement.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using RestaurantManagement.Commands.Positions;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace RestaurantManagement.ViewModels
 {
-    public class PositionViewModel:BaseViewModel
+    public class PositionsViewModel:BaseViewModel
     {
         private readonly IUnitOfWork _db;
 
-        public PositionViewModel(IUnitOfWork db)
+        public PositionsViewModel(IUnitOfWork db)
         {
             _db = db;
-            CurrentPosition = new PositionModel();
+            CurrentPosition = new PositionsModel();
 
 
         }
@@ -33,8 +34,8 @@ namespace RestaurantManagement.ViewModels
                 OnPropertyChanged(nameof(CurrentState));
             }
         }
-        private PositionModel _currentPosition;
-        public PositionModel CurrentPosition
+        private PositionsModel _currentPosition;
+        public PositionsModel CurrentPosition
         {
             get => _currentPosition;
             set
@@ -43,8 +44,8 @@ namespace RestaurantManagement.ViewModels
                 OnPropertyChanged(nameof(CurrentPosition));
             }
         }
-        private PositionModel _selectedPosition;
-        public PositionModel SelectedPosition
+        private PositionsModel _selectedPosition;
+        public PositionsModel SelectedPosition
         {
             get => _selectedPosition;
 
@@ -58,13 +59,18 @@ namespace RestaurantManagement.ViewModels
                 }
                 else
                 {
-                    CurrentPosition = new PositionModel();
+                    CurrentPosition = new PositionsModel();
                     CurrentState = State.NORMAL;
                 }
                 OnPropertyChanged(nameof(SelectedPosition));
             }
         }
 
-        public ObservableCollection<EmployeesModel> Employees { get; set; }
+        public ObservableCollection<PositionsModel> Positions { get; set; }
+        public AddCommand Add => new AddCommand(this);
+        public SaveCommand Save => new SaveCommand(_db, this);
+        public DeleteCommand Delete => new DeleteCommand(_db, this);
+        public RejectCommand Reject => new RejectCommand(this);
+        public EditCommand Edit => new EditCommand(this);
     }
 }

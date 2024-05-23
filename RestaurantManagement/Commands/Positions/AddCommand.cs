@@ -7,14 +7,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace RestaurantManagement.Commands.Tables
+namespace RestaurantManagement.Commands.Positions
 {
     public class AddCommand : ICommand
     {
-        private readonly TablesViewModel _currentState;
-        public AddCommand(TablesViewModel currentState) 
+        private readonly PositionsViewModel _currentState;
+        public AddCommand(PositionsViewModel currentState) 
         {
-            _currentState = currentState;
+            _currentState=currentState;
         }
         public event EventHandler CanExecuteChanged;
 

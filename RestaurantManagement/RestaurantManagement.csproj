@@ -114,6 +114,11 @@
     <Compile Include="Commands\OpenItemsCommand\OpenPositionsCommand.cs" />
     <Compile Include="Commands\OpenItemsCommand\OpenReservationsCommand.cs" />
     <Compile Include="Commands\OpenItemsCommand\OpenTablesCommand.cs" />
+    <Compile Include="Commands\Positions\AddCommand.cs" />
+    <Compile Include="Commands\Positions\DeleteCommand.cs" />
+    <Compile Include="Commands\Positions\EditCommand.cs" />
+    <Compile Include="Commands\Positions\RejectCommand.cs" />
+    <Compile Include="Commands\Positions\SaveCommand.cs" />
     <Compile Include="Commands\Reservations\AddCommand.cs" />
     <Compile Include="Commands\Reservations\DeleteCommand.cs" />
     <Compile Include="Commands\Reservations\EditCommand.cs" />
@@ -146,7 +151,7 @@
     <Compile Include="Models\MenuItemsModel.cs" />
     <Compile Include="Models\OrderDetailsModel.cs" />
     <Compile Include="Models\OrdersModel.cs" />
-    <Compile Include="Models\PositionModel.cs" />
+    <Compile Include="Models\PositionsModel.cs" />
     <Compile Include="Models\TablesModel.cs" />
     <Compile Include="Models\ReservationsModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
@@ -159,7 +164,7 @@
     <Compile Include="ViewModels\MenuItemsViewModel.cs" />
     <Compile Include="ViewModels\OrderDetailsViewModel.cs" />
     <Compile Include="ViewModels\OrdersViewModel.cs" />
-    <Compile Include="ViewModels\PositionViewModel.cs" />
+    <Compile Include="ViewModels\PositionsViewModel.cs" />
     <Compile Include="ViewModels\ReservationsViewModel.cs" />
     <Compile Include="ViewModels\TablesViewModel.cs" />
     <Compile Include="Views\MainPage.xaml.cs">
