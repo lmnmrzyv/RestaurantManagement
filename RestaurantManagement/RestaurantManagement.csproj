@@ -93,6 +93,11 @@
     <Compile Include="Commands\MenuItems\EditCommand.cs" />
     <Compile Include="Commands\MenuItems\RejectCommand.cs" />
     <Compile Include="Commands\MenuItems\SaveCommand.cs" />
+    <Compile Include="Commands\OrderDetails\AddCommand.cs" />
+    <Compile Include="Commands\OrderDetails\DeleteCommand.cs" />
+    <Compile Include="Commands\OrderDetails\EditCommand.cs" />
+    <Compile Include="Commands\OrderDetails\RejectCommand.cs" />
+    <Compile Include="Commands\OrderDetails\SaveCommand.cs" />
     <Compile Include="Commands\Orders\AddCommand.cs" />
     <Compile Include="Commands\Orders\DeleteCommand.cs" />
     <Compile Include="Commands\Orders\EditCommand.cs" />
@@ -109,6 +114,11 @@
     <Compile Include="Commands\OpenItemsCommand\OpenPositionsCommand.cs" />
     <Compile Include="Commands\OpenItemsCommand\OpenReservationsCommand.cs" />
     <Compile Include="Commands\OpenItemsCommand\OpenTablesCommand.cs" />
+    <Compile Include="Commands\Positions\AddCommand.cs" />
+    <Compile Include="Commands\Positions\DeleteCommand.cs" />
+    <Compile Include="Commands\Positions\EditCommand.cs" />
+    <Compile Include="Commands\Positions\RejectCommand.cs" />
+    <Compile Include="Commands\Positions\SaveCommand.cs" />
     <Compile Include="Commands\Reservations\AddCommand.cs" />
     <Compile Include="Commands\Reservations\DeleteCommand.cs" />
     <Compile Include="Commands\Reservations\EditCommand.cs" />
@@ -127,6 +137,7 @@
     <Compile Include="Mappers\EmployeeMapper.cs" />
     <Compile Include="Mappers\Mapper.cs" />
     <Compile Include="Mappers\MenuItemMapper.cs" />
+    <Compile Include="Mappers\OrderDetailMapper.cs" />
     <Compile Include="Mappers\OrderMapper.cs" />
     <Compile Include="Mappers\PositionMapper.cs" />
     <Compile Include="Mappers\ReservationMapper.cs" />
@@ -138,8 +149,9 @@
     <Compile Include="Models\EmployeesModel.cs" />
     <Compile Include="Models\IModel.cs" />
     <Compile Include="Models\MenuItemsModel.cs" />
+    <Compile Include="Models\OrderDetailsModel.cs" />
     <Compile Include="Models\OrdersModel.cs" />
-    <Compile Include="Models\PositionModel.cs" />
+    <Compile Include="Models\PositionsModel.cs" />
     <Compile Include="Models\TablesModel.cs" />
     <Compile Include="Models\ReservationsModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
@@ -150,8 +162,9 @@
     <Compile Include="ViewModels\EmployeesViewModel.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
     <Compile Include="ViewModels\MenuItemsViewModel.cs" />
+    <Compile Include="ViewModels\OrderDetailsViewModel.cs" />
     <Compile Include="ViewModels\OrdersViewModel.cs" />
-    <Compile Include="ViewModels\PositionViewModel.cs" />
+    <Compile Include="ViewModels\PositionsViewModel.cs" />
     <Compile Include="ViewModels\ReservationsViewModel.cs" />
     <Compile Include="ViewModels\TablesViewModel.cs" />
     <Compile Include="Views\MainPage.xaml.cs">

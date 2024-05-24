@@ -7,36 +7,53 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Border Background="White" BorderThickness="5">
-        <StackPanel>
-            <Border Background="LightGray" Margin="0 0 0 10">
-                <Grid Margin="10">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    <StackPanel Grid.Row="0">
-                        <TextBlock Height="25" FontSize="15" HorizontalAlignment="Left" FontFamily="TIMES NEW ROMAN" Foreground="Black">Name</TextBlock>
-                        <TextBox FontSize="15" Height="25" HorizontalAlignment="Left" Width="200" FontFamily="TIMES NEW ROMAN" Text="{Binding CurrentGenre.Name,Mode=TwoWay}"/>
-                    </StackPanel>
-                </Grid>
-            </Border>
+		<StackPanel>
+			<Border Background="LightGray" Margin="0 0 0 10">
+				<Grid Margin="10"  Style="{StaticResource grdForm}" >
+					<Grid.RowDefinitions>
+						<RowDefinition Height="100"/>
+						<RowDefinition Height="Auto"/>
+					</Grid.RowDefinitions>
+					<Grid.ColumnDefinitions >
+						<ColumnDefinition Width="400"/>
+						<ColumnDefinition />
+					</Grid.ColumnDefinitions>
+					<StackPanel Grid.Row="0" Grid.Column="0" >
+						<TextBlock Height="25" FontSize="15" HorizontalAlignment="Left" FontFamily="TIMES NEW ROMAN" Foreground="Black">Start Time</TextBlock>
+						<TextBox FontSize="15" Height="25" HorizontalAlignment="Left" Width="200" FontFamily="TIMES NEW ROMAN" Text="{Binding CurrentDiscount.startTime,Mode=TwoWay}"/>
+						<TextBlock Height="25" FontSize="15" HorizontalAlignment="Left" FontFamily="TIMES NEW ROMAN" Foreground="Black">End Time</TextBlock>
+						<TextBox FontSize="15" Height="25" HorizontalAlignment="Left" Width="200" FontFamily="TIMES NEW ROMAN" Text="{Binding CurrentDiscount.endTime,Mode=TwoWay}"/>
+					</StackPanel>
+					<StackPanel Grid.Row="0" Grid.Column="1">
+						<TextBlock Height="25" FontSize="15" HorizontalAlignment="Left" FontFamily="TIMES NEW ROMAN" Foreground="Black">Category</TextBlock>
+						<ComboBox ItemsSource="{Binding Categories}" SelectedItem="{Binding CurrentDiscount.Category , Mode=TwoWay}"  SelectedValuePath="Id" DisplayMemberPath="name" Height="25" HorizontalAlignment="Left" Width="200"/>
 
-            <StackPanel Orientation="Horizontal" Margin="10">
-                <Button Style="{StaticResource btnAdd}" Width="120" Height="40" Margin="5"/>
-                <Button Style="{StaticResource btnChange}" Width="120" Height="40" Margin="5"/>
-                <Button Style="{StaticResource btnSave}" Width="120" Height="40" Margin="5"/>
-                <Button Style="{StaticResource btnReject}" Width="120" Height="40" Margin="5"/>
-                <Button Style="{StaticResource btnDelete}" Width="120" Height="40" Margin="5"/>
-            </StackPanel>
 
-            <ListView ItemsSource="{Binding Departments}" SelectedItem="{Binding SelectedGenre,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource listViewCustom}" Margin="10">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn DisplayMemberBinding="{Binding Path=No}" Header="No" Width="50"/>
-                        <GridViewColumn DisplayMemberBinding="{Binding Path=Name}" Header="Name" Width="200"/>
-                    </GridView>
-                </ListView.View>
-            </ListView>
-        </StackPanel>
-    </Border>
+						<TextBlock Height="25" FontSize="15" HorizontalAlignment="Left" FontFamily="TIMES NEW ROMAN" Foreground="Black">Percent</TextBlock>
+						<TextBox FontSize="15" Height="25" HorizontalAlignment="Left" Width="200" FontFamily="TIMES NEW ROMAN" Text="{Binding CurrentDiscount.Percent,Mode=TwoWay}"/>
+					</StackPanel>
+				</Grid>
+			</Border>
+
+			<StackPanel Orientation="Horizontal" Margin="10">
+				<Button Style="{StaticResource btnAdd}" Width="120" Height="40" Margin="5"/>
+				<Button Style="{StaticResource btnChange}" Width="120" Height="40" Margin="5"/>
+				<Button Style="{StaticResource btnSave}" Width="120" Height="40" Margin="5"/>
+				<Button Style="{StaticResource btnReject}" Width="120" Height="40" Margin="5"/>
+				<Button Style="{StaticResource btnDelete}" Width="120" Height="40" Margin="5"/>
+			</StackPanel>
+
+			<ListView ItemsSource="{Binding Discounts}" SelectedItem="{Binding SelectedDiscount,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource listViewCustom}" Margin="10">
+				<ListView.View>
+					<GridView>
+						<GridViewColumn DisplayMemberBinding="{Binding Path=No}" Header="No" Width="50"/>
+						<GridViewColumn DisplayMemberBinding="{Binding Path=startTime}" Header="Start Time" Width="100"/>
+						<GridViewColumn DisplayMemberBinding="{Binding Path=endTime}" Header="End Time" Width="100"/>
+						<GridViewColumn DisplayMemberBinding="{Binding Path=Category.Id}" Header="Category" Width="100"/>
+						<GridViewColumn DisplayMemberBinding="{Binding Path=Percent}" Header="Percent" Width="150"/>
+					</GridView>
+				</ListView.View>
+			</ListView>
+		</StackPanel>
+	</Border>
 </UserControl>

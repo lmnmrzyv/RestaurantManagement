@@ -9,7 +9,7 @@
     <Border Background="White" BorderThickness="5">
         <StackPanel>
             <Border Background="LightGray" Margin="0 0 0 10">
-                <Grid Margin="10">
+                <Grid Margin="10" Style="{StaticResource grdForm}">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>

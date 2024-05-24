@@ -7,12 +7,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace RestaurantManagement.Commands.Tables
+namespace RestaurantManagement.Commands.OrderDetails
 {
-    public class AddCommand : ICommand
+    public class EditCommand : ICommand
     {
-        private readonly TablesViewModel _currentState;
-        public AddCommand(TablesViewModel currentState) 
+        private readonly OrderDetailsViewModel _currentState;
+        public EditCommand(OrderDetailsViewModel currentState)
         {
             _currentState = currentState;
         }
@@ -25,7 +25,7 @@ namespace RestaurantManagement.Commands.Tables
 
         public void Execute(object parameter)
         {
-            _currentState.CurrentState = State.CREATED;
+            _currentState.CurrentState = State.EDİT;
         }
     }
 }

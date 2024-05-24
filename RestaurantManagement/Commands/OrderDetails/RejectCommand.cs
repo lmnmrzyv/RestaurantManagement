@@ -1,4 +1,5 @@
 ﻿using RestaurantManagement.Enums;
+using RestaurantManagement.Models;
 using RestaurantManagement.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -7,14 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace RestaurantManagement.Commands.Tables
+namespace RestaurantManagement.Commands.OrderDetails
 {
-    public class AddCommand : ICommand
+    public class RejectCommand : ICommand
     {
-        private readonly TablesViewModel _currentState;
-        public AddCommand(TablesViewModel currentState) 
+        private readonly OrderDetailsViewModel _viewModel;
+        public RejectCommand(OrderDetailsViewModel viewModel)
         {
-            _currentState = currentState;
+            _viewModel = viewModel;
         }
         public event EventHandler CanExecuteChanged;
 
@@ -25,7 +26,9 @@ namespace RestaurantManagement.Commands.Tables
 
         public void Execute(object parameter)
         {
-            _currentState.CurrentState = State.CREATED;
+            _viewModel.CurrentOrderDetails = new OrderDetailsModel();
+            _viewModel.CurrentState = State.NORMAL;
+            
         }
     }
 }
