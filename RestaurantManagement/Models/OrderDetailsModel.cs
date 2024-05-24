@@ -20,6 +20,7 @@ namespace RestaurantManagement.Models
         {
             var orderDetailModel = new OrderDetailsModel();
             orderDetailModel.Id = Id;
+            orderDetailModel.No = No;
             orderDetailModel.OrderId = OrderId;
             orderDetailModel.MenuItemId = MenuItemId;
             orderDetailModel.Quantity = Quantity;

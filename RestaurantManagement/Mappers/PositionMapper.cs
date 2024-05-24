@@ -10,9 +10,6 @@ namespace RestaurantManagement.Mappers
 {
     public class PositionMapper : Mapper<PositionsModel, Position>
     {
-        internal object MapEntityToModel(Table position, PositionsModel positionsModel)
-        {
-            throw new NotImplementedException();
-        }
+
     }
 }

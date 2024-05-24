@@ -54,7 +54,7 @@ namespace RestaurantManagement.ViewModels
                 _selectedPosition = value;
                 if (_selectedPosition != null)
                 {
-                    CurrentPosition.Name = SelectedPosition.Name;
+                    CurrentPosition = SelectedPosition.Clone();
                     CurrentState = State.SELECTED;
                 }
                 else
