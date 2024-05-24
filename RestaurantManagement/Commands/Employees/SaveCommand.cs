@@ -1,5 +1,6 @@
 ﻿using DataAccessManager.Domain.Entities;
 using DataAccessManager.Domain.Interfaces;
+using RestaurantManagement.Enums;
 using RestaurantManagement.Mappers;
 using RestaurantManagement.Models;
 using RestaurantManagement.ViewModels;
@@ -8,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace RestaurantManagement.Commands.Employees
@@ -31,17 +33,44 @@ namespace RestaurantManagement.Commands.Employees
         public void Execute(object parameter)
         {
             var mapper = new EmployeeMapper();
-            var employees =  mapper.MapModelToEntity(new Employee(), _currentState.CurrentEmployees);
+            var employee = mapper.MapModelToEntity(new Employee(), _currentState.CurrentEmployees);
 
-            _db.EmployeeRepository.Add(employees);
+            // Yeni bir departman mı oluşturuluyor yoksa mevcut bir departman mı güncelleniyor kontrol et
+            if (employee.Id == 0)
+            {
+                // Yeni departmanı veritabanına ekle ve dönen ID ile modeli güncelle
+                _currentState.CurrentEmployees.Id = _db.EmployeeRepository.Add(employee);
 
-            var lastElementNo = _currentState.Employees.LastOrDefault()?.No ?? 0;
+                // Departmanın yeni numarasını belirle
+                var lastElementNo = _currentState.Employees.LastOrDefault()?.No ?? 0;
+                _currentState.CurrentEmployees.No = lastElementNo + 1;
 
-            _currentState.CurrentEmployees.No=lastElementNo+1;
-            _currentState.Employees.Add(_currentState.CurrentEmployees);
-            _currentState.CurrentEmployees = new EmployeesModel();
+                // Mevcut departman modelini observable koleksiyona ekle
+                _currentState.Employees.Add(_currentState.CurrentEmployees);
 
-            _currentState.CurrentState = Enums.State.NORMAL;
+                MessageBox.Show("Başarıyla oluşturuldu", "Başarılı", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {
+                // Gerekirse mevcut departmanı veritabanından al
+                var existingDepartment = _db.EmployeeRepository.Get(employee.Id);
+
+                // Mevcut departmanı veritabanında güncelle
+                _db.EmployeeRepository.Update(employee);
+
+                // Observable koleksiyondaki departmanın indeksini bul
+                var index = _currentState.Employees.IndexOf(_currentState.Employees.First(x => x.Id == employee.Id));
+
+                // Observable koleksiyondaki departman modelini güncelle
+                _currentState.Employees[index] = _currentState.CurrentEmployees;
+
+                MessageBox.Show("Başarıyla güncellendi", "Başarılı", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+
+            // Mevcut departman modelini sıfırla
+           // _currentState.CurrentEmployees = new EmployeesModel();
+           // _currentState.SelectedEmployees = null;
+            _currentState.CurrentState = State.NORMAL;
         }
     }
 }

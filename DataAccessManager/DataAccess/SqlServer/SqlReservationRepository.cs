@@ -22,8 +22,9 @@ namespace DataAccessManager.DataAccess.SqlServer
             {
                 connection.Open();
 
-                string query = @"INSERT INTO Reservations (ReservationDate,NumberOfPeople,TableId,CustomerId,IsActive) output inserted.Id VALUES 
-                 (@ReservationDate,@NumberOfPeople, @TableId,@CustomerId,1)";
+                string query = @"INSERT INTO Reservations (ReservationDate, NumberOfPeople, TableId, CustomerId, IsActive) 
+                         OUTPUT inserted.Id 
+                         VALUES (@ReservationDate, @NumberOfPeople, @TableId, @CustomerId, 1)";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
@@ -31,14 +32,12 @@ namespace DataAccessManager.DataAccess.SqlServer
                     command.Parameters.AddWithValue("@NumberOfPeople", item.NumberOfPeople);
                     command.Parameters.AddWithValue("@TableId", item.Table.Id);
                     command.Parameters.AddWithValue("@CustomerId", item.Customer.Id);
-                   // command.Parameters.AddWithValue("@IsActive", item.IsActive);
-                    
 
                     return (int)command.ExecuteScalar();
                 }
-
             }
         }
+
         public void Update(Reservation item)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))

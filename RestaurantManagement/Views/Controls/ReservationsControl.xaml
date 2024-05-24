@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:RestaurantManagement.Views.Controls"
+             xmlns:local="clr-namespace:RestaurantManagement.Views.Controls" xmlns:viewmodels="clr-namespace:RestaurantManagement.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:ReservationsViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Border Background="White" BorderThickness="5">
@@ -26,10 +26,27 @@
                         <TextBox FontSize="15" Height="25" HorizontalAlignment="Left" Width="200" FontFamily="TIMES NEW ROMAN" Text="{Binding CurrentReservation.NumberOfPeople,Mode=TwoWay}"/>
                     </StackPanel>
                     <StackPanel Grid.Row="0" Grid.Column="1">
-                        <TextBlock Height="25" FontSize="15" Padding="5" HorizontalAlignment="Left" FontFamily="TIMES NEW ROMAN" Foreground="Black">Table</TextBlock>
-                        <TextBox FontSize="15" Height="25" HorizontalAlignment="Left" Width="200" FontFamily="TIMES NEW ROMAN" Text="{Binding CurrentReservation.Table,Mode=TwoWay}"/>
-                        <TextBlock Height="25" FontSize="15" Padding="5" HorizontalAlignment="Left" FontFamily="TIMES NEW ROMAN" Foreground="Black">Customer</TextBlock>
-                        <TextBox FontSize="15" Height="25" HorizontalAlignment="Left" Width="200" FontFamily="TIMES NEW ROMAN" Text="{Binding CurrentReservation.Customer,Mode=TwoWay}"/>
+                        <TextBlock Height="25" FontSize="15" HorizontalAlignment="Left" FontFamily="TIMES NEW ROMAN" Foreground="Black">Table Capacity</TextBlock>
+                        <ComboBox ItemsSource="{Binding Tables}" SelectedItem="{Binding CurrentReservation.Table , Mode=TwoWay}"  SelectedValuePath="Id" DisplayMemberPath="Capacity" Height="25" HorizontalAlignment="Left" Width="200"/>
+                        <TextBlock Height="25" FontSize="15" HorizontalAlignment="Left" FontFamily="TIMES NEW ROMAN" Foreground="Black">Customer</TextBlock>
+                      <!--  <ComboBox ItemsSource="{Binding Customers}" SelectedItem="{Binding CurrentReservation.Customer , Mode=TwoWay}"  SelectedValuePath="Id" DisplayMemberPath="Name"  Height="25" HorizontalAlignment="Left" Width="200"/> !-->
+                        <ComboBox ItemsSource="{Binding Customers}" 
+                              SelectedItem="{Binding CurrentReservation.Customer, Mode=TwoWay}" 
+                              Height="25" 
+                              HorizontalAlignment="Left" 
+                              Width="200">      
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding Name}" />
+                                        <TextBlock Text=" " />
+                                        <TextBlock Text="{Binding Surname}" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+
+
                     </StackPanel>
                 </Grid>
             </Border>

@@ -53,7 +53,7 @@ namespace RestaurantManagement.ViewModels
                 _selectedTables = value;
                 if (_selectedTables != null)
                 {
-                    CurrentTables=SelectedTables.Clone();
+                   // CurrentTables=SelectedTables.Clone();
                     /*CurrentTables.No = SelectedTables.No;
                     CurrentTables.TableNumber = SelectedTables.TableNumber;
                     CurrentTables.Capacity = SelectedTables.Capacity;*/
