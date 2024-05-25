@@ -455,6 +455,14 @@
             <Setter Property="Padding" Value="0"/>
             <Setter Property="FontSize" Value="14"/>
         </Style>
+        <Style TargetType="{x:Type Grid}" x:Key="grdSearch">
+            <Setter Property="IsEnabled" Value="False"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding CurrentState}" Value="0">
+                    <Setter Property="IsEnabled" Value="True"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
 
     </Application.Resources>
 </Application>

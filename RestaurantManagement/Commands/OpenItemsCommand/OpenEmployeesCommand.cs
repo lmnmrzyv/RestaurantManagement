@@ -55,7 +55,9 @@ namespace RestaurantManagement.Commands
                 employeesModel.Add(employeeModel);
             }
 
-            viewModel.Employees = new ObservableCollection<EmployeesModel>(employeesModel);
+            viewModel.AllEmployees = employeesModel;
+            viewModel.Employees= new ObservableCollection<EmployeesModel>(employeesModel);
+
             employeesControl.DataContext = viewModel;
 
             grid.Children.Add(employeesControl);

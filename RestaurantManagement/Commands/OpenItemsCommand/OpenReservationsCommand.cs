@@ -49,6 +49,7 @@ namespace RestaurantManagement.Commands
                 reservationModel.No = no++;
                 reservationsModel.Add(reservationModel);
             }
+            viewModel.AllReservations= reservationsModel;
             viewModel.Reservations= new ObservableCollection<ReservationsModel>(reservationsModel);
             reservationsControl.DataContext= viewModel;
             grid.Children.Add(reservationsControl);

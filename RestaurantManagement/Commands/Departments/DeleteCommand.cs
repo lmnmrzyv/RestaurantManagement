@@ -1,7 +1,9 @@
 ﻿using DataAccessManager.Domain.Interfaces;
+using RestaurantManagement.Models;
 using RestaurantManagement.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -45,6 +47,7 @@ namespace RestaurantManagement.Commands.Departments
             {
                 _currentState.Departments[i].No = i + 1;
             }
+            _currentState.Departments=new ObservableCollection<DepartmentsModel>(_currentState.Departments);
         }
     }
 }

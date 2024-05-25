@@ -8,17 +8,29 @@ using DataAccessManager.Domain.Interfaces;
 using RestaurantManagement.Enums;
 using RestaurantManagement.Models;
 using RestaurantManagement.Commands.OrderDetails;
+using DataAccessManager.Domain.Entities;
 
 namespace RestaurantManagement.ViewModels
 {
     public class OrderDetailsViewModel: BaseViewModel
     {
         private readonly IUnitOfWork _db;
+        public ObservableCollection<MenuItem> MenuItems { get; set; }
         public OrderDetailsViewModel(IUnitOfWork db)
         {
             _db = db;
             CurrentOrderDetails = new OrderDetailsModel();
+            CurrentOrderDetails.MenuItem = new MenuItem();
+            LoadMenuItems();
         }
+        private void LoadMenuItems()
+        {
+            var menuItems = _db.MenuItemRepository.GetAll();
+
+            MenuItems = new ObservableCollection<MenuItem>(menuItems);
+        }
+
+
         private State _state;
         public State CurrentState
         {

@@ -25,8 +25,8 @@ namespace DataAccessManager.DataAccess.SqlServer
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    command.Parameters.AddWithValue("@OrderId", item.OrderId);
-                    command.Parameters.AddWithValue("@MenuItemId", item.MenuItemId);
+                    //command.Parameters.AddWithValue("@OrderId", item.Order);
+                    command.Parameters.AddWithValue("@MenuItemId", item.MenuItem);
                     command.Parameters.AddWithValue("@Quantity", item.Quantity);
                     command.Parameters.AddWithValue("@Amount", item.Amount);
                    // command.Parameters.AddWithValue("@IsActive", item.IsActive);
@@ -73,11 +73,16 @@ namespace DataAccessManager.DataAccess.SqlServer
 
                         OrderDetail orderDetail = new OrderDetail();
                         orderDetail.Id = reader.GetInt32(reader.GetOrdinal("Id"));
-                        orderDetail.OrderId = reader.GetInt32(reader.GetOrdinal("OrderId"));
-                        orderDetail.MenuItemId = reader.GetInt32(reader.GetOrdinal("MenuItemId"));
                         orderDetail.Quantity = reader.GetInt32(reader.GetOrdinal("Quantity"));
                         orderDetail.Amount = reader.GetDecimal(reader.GetOrdinal("Amount"));
                         orderDetail.IsActive = reader.GetBoolean(reader.GetOrdinal("IsActive"));
+                        Order orders = new Order();
+                        orders.Id= reader.GetInt32(reader.GetOrdinal("OrderId"));
+                        MenuItem menu = new MenuItem();
+                        menu.Id= reader.GetInt32(reader.GetOrdinal("MenuItemId"));
+                        menu.name = reader.GetString(reader.GetOrdinal("name"));
+                        orderDetail.Order = orders;
+                        orderDetail.MenuItem = menu;
                         return orderDetail;
                     }
                 }
@@ -101,11 +106,16 @@ namespace DataAccessManager.DataAccess.SqlServer
                     {
                         OrderDetail orderDetail = new OrderDetail();
                         orderDetail.Id = reader.GetInt32(reader.GetOrdinal("Id"));
-                        orderDetail.OrderId = reader.GetInt32(reader.GetOrdinal("OrderId"));
-                        orderDetail.MenuItemId = reader.GetInt32(reader.GetOrdinal("MenuItemId"));
                         orderDetail.Quantity = reader.GetInt32(reader.GetOrdinal("Quantity"));
                         orderDetail.Amount = reader.GetDecimal(reader.GetOrdinal("Amount"));
                         orderDetail.IsActive = reader.GetBoolean(reader.GetOrdinal("IsActive"));
+                        Order orders = new Order();
+                        orders.Id = reader.GetInt32(reader.GetOrdinal("OrderId"));
+                        MenuItem menu = new MenuItem();
+                        menu.Id = reader.GetInt32(reader.GetOrdinal("MenuItemId"));
+                        menu.name = reader.GetString(reader.GetOrdinal("name"));
+                        orderDetail.Order = orders;
+                        orderDetail.MenuItem = menu;
                         orderDetails.Add(orderDetail);
                     }
                     return orderDetails;
@@ -125,8 +135,8 @@ namespace DataAccessManager.DataAccess.SqlServer
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@Id", item.Id);
-                    command.Parameters.AddWithValue("@OrderId", item.OrderId);
-                    command.Parameters.AddWithValue("@MenuItemId", item.MenuItemId);
+                   // command.Parameters.AddWithValue("@OrderId", item.Order);
+                    command.Parameters.AddWithValue("@MenuItemId", item.MenuItem);
                     command.Parameters.AddWithValue("@Quantity", item.Quantity);
                     command.Parameters.AddWithValue("@Amount", item.Amount);
                     command.ExecuteNonQuery();

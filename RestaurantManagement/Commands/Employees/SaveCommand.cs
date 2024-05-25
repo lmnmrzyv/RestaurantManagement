@@ -34,7 +34,7 @@ namespace RestaurantManagement.Commands.Employees
         {
             var mapper = new EmployeeMapper();
             var employee = mapper.MapModelToEntity(new Employee(), _currentState.CurrentEmployees);
-
+            employee.IsActive=true;
             // Yeni bir departman mı oluşturuluyor yoksa mevcut bir departman mı güncelleniyor kontrol et
             if (employee.Id == 0)
             {
@@ -42,7 +42,7 @@ namespace RestaurantManagement.Commands.Employees
                 _currentState.CurrentEmployees.Id = _db.EmployeeRepository.Add(employee);
 
                 // Departmanın yeni numarasını belirle
-                var lastElementNo = _currentState.Employees.LastOrDefault()?.No ?? 0;
+                var lastElementNo = _currentState.AllEmployees.LastOrDefault()?.No ?? 0;
                 _currentState.CurrentEmployees.No = lastElementNo + 1;
 
                 // Mevcut departman modelini observable koleksiyona ekle
@@ -68,8 +68,8 @@ namespace RestaurantManagement.Commands.Employees
             }
 
             // Mevcut departman modelini sıfırla
-           // _currentState.CurrentEmployees = new EmployeesModel();
-           // _currentState.SelectedEmployees = null;
+           // _currentState.CurrentDepartments = new EmployeesModel();
+           // _currentState.SelectedDepartments = null;
             _currentState.CurrentState = State.NORMAL;
         }
     }

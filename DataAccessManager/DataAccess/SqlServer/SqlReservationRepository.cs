@@ -45,15 +45,15 @@ namespace DataAccessManager.DataAccess.SqlServer
                 connection.Open();
 
                 string query = @"UPDATE Reservations SET ReservationDate=@ReservationDate,NumberOfPeople=@NumberOfPeople
-                , Table=@Table,Customer=@Customer where Id=@Id";
+                , TableId=@TableId,CustomerId=@CustomerId where Id=@Id";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@Id", item.Id);
                     command.Parameters.AddWithValue("@ReservationDate", item.ReservationDate);
                     command.Parameters.AddWithValue("@NumberOfPeople", item.NumberOfPeople);
-                    command.Parameters.AddWithValue("@Table", item.Table.TableNumber);
-                    command.Parameters.AddWithValue("@Customer", item.Customer.Name + item.Customer.Surname);
+                    command.Parameters.AddWithValue("@TableId", item.Table.Id);
+                    command.Parameters.AddWithValue("@CustomerId", item.Customer.Id);
 
                     command.ExecuteNonQuery();
                 }
@@ -67,7 +67,7 @@ namespace DataAccessManager.DataAccess.SqlServer
             {
                 connection.Open();
 
-                string query = @"DELETE FROM Reservations SET IsActive=0 where Id=@Id";
+                string query = @"Update  Reservations SET IsActive=0 where Id=@Id";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {

@@ -3,6 +3,7 @@ using DataAccessManager.Domain.Interfaces;
 using RestaurantManagement.Commands.Reservations;
 using RestaurantManagement.Enums;
 using RestaurantManagement.Models;
+using RestaurantManagement.ViewModels.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -12,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace RestaurantManagement.ViewModels
 {
-    public class ReservationsViewModel : BaseViewModel
+    public class ReservationsViewModel : BaseViewModel,IControl
     {
         private readonly IUnitOfWork _db;
         public ObservableCollection<Customer> Customers { get; set; }
@@ -72,9 +73,11 @@ namespace RestaurantManagement.ViewModels
                 if (_selectedReservation != null)
                 {
                     CurrentReservation.Customer= _selectedReservation.Customer;
+                    CurrentReservation.NumberOfPeople= _selectedReservation.NumberOfPeople;
                     CurrentReservation.Table= _selectedReservation.Table;
                     CurrentReservation.No= _selectedReservation.No;
                     CurrentReservation.ReservationDate= _selectedReservation.ReservationDate;
+                    CurrentReservation.Id= _selectedReservation.Id;
                     CurrentState = State.SELECTED;
                 }
                 else
@@ -83,14 +86,46 @@ namespace RestaurantManagement.ViewModels
                     CurrentState = State.NORMAL;
                 }
                 OnPropertyChanged(nameof(SelectedReservation));
+                OnPropertyChanged(nameof(CurrentReservation));
             }
         }
 
-        public ObservableCollection<ReservationsModel> Reservations { get; set; }
+        private ObservableCollection<ReservationsModel> _reservations;
+        public ObservableCollection<ReservationsModel> Reservations
+        {
+            get => _reservations;
+            set
+            {
+                _reservations = value;
+                OnPropertyChanged(nameof(Reservations));
+            }
+        }
+        public List<ReservationsModel> AllReservations { get; set; }
+
+        private string _searchText;
+        public string SearchText
+        {
+            get => _searchText;
+            set
+            {
+                _searchText = value;
+                OnPropertyChanged(nameof(SearchText));
+
+                var lowerSearchText = SearchText.ToLower();
+
+                var filteredReservations = AllReservations.Where(x => x.NumberOfPeople.ToString().ToLower().Contains(lowerSearchText) ||
+                                                       (x.ReservationDate.ToString().ToLower().Contains(lowerSearchText)) || (x.Table.ToString().ToLower().Contains(lowerSearchText)) || (x.Customer.ToString().ToLower().Contains(lowerSearchText)));
+
+                Reservations = new ObservableCollection<ReservationsModel>(filteredReservations);
+            }
+        }
+
         public AddCommand Add => new AddCommand(this);
         public SaveCommand Save => new SaveCommand(_db, this);
         public DeleteCommand Delete => new DeleteCommand(_db, this);
         public RejectCommand Reject => new RejectCommand(this);
         public EditCommand Edit => new EditCommand(this);
+
+        public string Header => "Reservations";
     }
 }

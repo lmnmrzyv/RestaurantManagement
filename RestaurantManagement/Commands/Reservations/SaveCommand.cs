@@ -52,7 +52,7 @@ namespace RestaurantManagement.Commands.Reservations
             else
             {
                 // Gerekirse mevcut departmanı veritabanından al
-                var existingDepartment = _db.DepartmentRepository.Get(reservation.Id);
+                var existingDepartment = _db.ReservationRepository.Get(reservation.Id);
 
                 // Mevcut departmanı veritabanında güncelle
                 _db.ReservationRepository.Update(reservation);
