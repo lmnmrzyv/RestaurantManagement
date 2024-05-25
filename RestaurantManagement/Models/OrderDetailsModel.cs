@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataAccessManager.Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -11,8 +12,8 @@ namespace RestaurantManagement.Models
     {
         public int Id { get; set; }
         public int No { get; set; }
-        public int OrderId { get; set; }
-        public int MenuItemId { get; set; }
+        public Order Order { get; set; }
+        public MenuItem MenuItem { get; set; }
         public int Quantity { get; set; }
         public decimal Amount { get; set; }
 
@@ -21,8 +22,8 @@ namespace RestaurantManagement.Models
             var orderDetailModel = new OrderDetailsModel();
             orderDetailModel.Id = Id;
             orderDetailModel.No = No;
-            orderDetailModel.OrderId = OrderId;
-            orderDetailModel.MenuItemId = MenuItemId;
+            orderDetailModel.Order = Order;
+            orderDetailModel.MenuItem = MenuItem;
             orderDetailModel.Quantity = Quantity;
             orderDetailModel.Amount = Amount;
 

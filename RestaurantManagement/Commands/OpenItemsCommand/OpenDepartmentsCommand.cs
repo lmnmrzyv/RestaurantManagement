@@ -57,6 +57,7 @@ namespace RestaurantManagement.Commands
                 departmentsModel.Add(departmentModel);
             }
 
+            viewModel.AllDepartments = departmentsModel;
             viewModel.Departments = new ObservableCollection<DepartmentsModel>(departmentsModel);
 
             control.DataContext = viewModel;

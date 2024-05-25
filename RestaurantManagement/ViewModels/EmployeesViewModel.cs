@@ -4,6 +4,7 @@ using DataAccessManager.Domain.Interfaces;
 using RestaurantManagement.Commands.Employees;
 using RestaurantManagement.Enums;
 using RestaurantManagement.Models;
+using RestaurantManagement.ViewModels.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -15,7 +16,7 @@ using System.Windows;
 
 namespace RestaurantManagement.ViewModels
 {
-    public class EmployeesViewModel:BaseViewModel
+    public class EmployeesViewModel:BaseViewModel,IControl
     {
 
         private readonly IUnitOfWork _db;
@@ -71,6 +72,7 @@ namespace RestaurantManagement.ViewModels
                     CurrentEmployees.Surname= SelectedEmployees.Surname;
                     CurrentEmployees.Name= SelectedEmployees.Name;
                     CurrentEmployees.Id=SelectedEmployees.Id;
+                    CurrentEmployees.No=SelectedEmployees.No;
                     CurrentState = State.SELECTED;
                 }
                 else
@@ -79,18 +81,47 @@ namespace RestaurantManagement.ViewModels
                     CurrentState = State.NORMAL;
                 }
                 OnPropertyChanged(nameof(SelectedEmployees));
+                OnPropertyChanged(nameof(CurrentEmployees));
+            }
+        }
+        private ObservableCollection<EmployeesModel> _employees { get; set; }
+        public ObservableCollection<EmployeesModel> Employees
+        {
+            get => _employees;
+            set
+            {
+                _employees = value;
+                OnPropertyChanged(nameof(Employees));
             }
         }
 
         public List<EducationLevel> EducationLevels => Enum.GetValues(typeof(EducationLevel)).Cast<EducationLevel>().ToList();
 
-        public ObservableCollection<EmployeesModel> Employees { get; set; }
+        public List<EmployeesModel> AllEmployees { get; set; }
 
+        private string _searchText;
+        public string SearchText
+        {
+            get => _searchText;
+            set
+            {
+                _searchText = value;
+                OnPropertyChanged(nameof(SearchText));
+
+                var lowerSearchText = SearchText.ToLower();
+
+                var filteredEmployees = AllEmployees.Where(x => x.Name.ToLower().Contains(lowerSearchText) ||
+                                                       (x.Surname.ToLower().Contains(lowerSearchText)) || (x.Position.ToString().ToLower().Contains(lowerSearchText)) || (x.EducationLevel.ToString().ToLower().Contains(lowerSearchText)) || (x.PerformanceRating.ToString().ToLower().Contains(lowerSearchText)));
+
+                Employees = new ObservableCollection<EmployeesModel>(filteredEmployees);
+            }
+        }
         public AddCommand Add => new AddCommand(this);
         public SaveCommand Save => new SaveCommand(_db,this);
         public DeleteCommand Delete => new DeleteCommand(_db,this);
         public RejectCommand Reject => new RejectCommand(this);
         public EditCommand Edit => new EditCommand(this);
 
+        public string Header => "Employees";
     }
 }
