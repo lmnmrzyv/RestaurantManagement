@@ -35,10 +35,10 @@
                 <Button Style="{StaticResource btnDelete}" Width="120" Height="40" Margin="5"/>
             </StackPanel>
 
-            <ListView ItemsSource="{Binding Departments}" SelectedItem="{Binding SelectedGenre,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource listViewCustom}" Margin="10">
+            <ListView ItemsSource="{Binding Positions, Mode=TwoWay}" SelectedItem="{Binding SelectedPosition,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource listViewCustom}" Margin="10">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn DisplayMemberBinding="{Binding Path=No}" Header="No" Width="50"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=No, Mode=TwoWay}" Header="No" Width="50"/>
                         <GridViewColumn DisplayMemberBinding="{Binding Path=Name}" Header="Name" Width="200"/>
                         <GridViewColumn DisplayMemberBinding="{Binding Path=DepartmentId}" Header="DepartmentId" Width="200"/>
                     </GridView>

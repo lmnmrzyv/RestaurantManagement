@@ -19,8 +19,6 @@ namespace RestaurantManagement.ViewModels
         {
             _db = db;
             CurrentPosition = new PositionsModel();
-
-
         }
 
         private State _state;
