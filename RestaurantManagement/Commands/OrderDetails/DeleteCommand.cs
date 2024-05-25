@@ -31,8 +31,12 @@ namespace RestaurantManagement.Commands.OrderDetails
            var result= MessageBox.Show("Are you sure you want to delete selected item?", "Are you sure?", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result != MessageBoxResult.Yes)
                 return;
+
             var deletedId = _viewModel.SelectedOrderDetails.Id;
             _db.OrderDetailRepository.Delete(deletedId);
+
+            MessageBox.Show("Successfully deleted", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+
             _viewModel.OrderDetails.Remove(_viewModel.SelectedOrderDetails);
             for(int i=0; i<_viewModel.OrderDetails.Count; i++)
             {

@@ -14,10 +14,10 @@ namespace RestaurantManagement.Commands.Tables
     {
         private readonly TablesViewModel _viewModel;
         private readonly IUnitOfWork _db;
-        public DeleteCommand(IUnitOfWork db,TablesViewModel currentState)
+        public DeleteCommand(IUnitOfWork db,TablesViewModel viewModel)
         {
             _db = db;
-            _viewModel = currentState;
+            _viewModel = viewModel;
         }
         public event EventHandler CanExecuteChanged;
 

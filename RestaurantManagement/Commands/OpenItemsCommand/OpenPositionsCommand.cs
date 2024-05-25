@@ -50,8 +50,6 @@ namespace RestaurantManagement.Commands
             viewModel.Positions = new ObservableCollection<PositionsModel>(positionModels);
             control.DataContext = viewModel;
             grid.Children.Add(control);
-            var positionsControl = new PositionsControl();
-            grid.Children.Add(positionsControl);
         }
     }
 }

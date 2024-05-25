@@ -33,6 +33,9 @@ namespace RestaurantManagement.Commands.Positions
                 return;
             var deletedId = _viewModel.SelectedPosition.Id;
             _db.PositionRepository.Delete(deletedId);
+
+            MessageBox.Show("Successfully deleted", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+
             _viewModel.Positions.Remove(_viewModel.SelectedPosition);
             for(int i=0; i<_viewModel.Positions.Count; i++)
             {
