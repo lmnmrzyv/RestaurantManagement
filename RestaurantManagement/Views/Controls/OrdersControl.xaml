@@ -23,7 +23,7 @@
                         <TextBlock Height="25" FontSize="15" HorizontalAlignment="Left" FontFamily="TIMES NEW ROMAN" Foreground="Black">Order Time</TextBlock>
                         <TextBox FontSize="15" Height="25" HorizontalAlignment="Left" Width="200" FontFamily="TIMES NEW ROMAN" Text="{Binding CurrentOrder.OrderTime,Mode=TwoWay}"/>
                     </StackPanel>
-                    
+
                     <StackPanel Grid.Row="0" Grid.Column="2">
                         <TextBlock Height="25" FontSize="15" HorizontalAlignment="Left" FontFamily="TIMES NEW ROMAN" Foreground="Black">Payment Method</TextBlock>
                         <StackPanel Orientation="Horizontal">
@@ -65,6 +65,7 @@
                     </GridView>
                 </ListView.View>
             </ListView>
+            <Button Content="See Details" Width="120" Height="40" Margin="600 150 0 0" Style="{StaticResource CustomButtonStyle}"/>
         </StackPanel>
     </Border>
 </UserControl>

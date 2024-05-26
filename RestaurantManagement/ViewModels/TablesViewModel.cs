@@ -4,20 +4,23 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DataAccessManager.Domain.Entities;
 using DataAccessManager.Domain.Interfaces;
 using RestaurantManagement.Commands.Tables;
 using RestaurantManagement.Enums;
 using RestaurantManagement.Models;
+using RestaurantManagement.ViewModels.Interfaces;
 
 namespace RestaurantManagement.ViewModels
 {
-    public class TablesViewModel:BaseViewModel
+    public class TablesViewModel: BaseViewModel, IControl
     {
         private readonly IUnitOfWork _db;
         public TablesViewModel(IUnitOfWork db)
         {
            _db = db;
             CurrentTables = new TablesModel();
+            LoadPositions();
         }
         /*public List<TablesModel> Tables { get; set; }*/
         
@@ -68,13 +71,56 @@ namespace RestaurantManagement.ViewModels
                 OnPropertyChanged(nameof(SelectedTables));
             }
         }
-        public ObservableCollection<TablesModel> Tables { get; set; }
+        private ObservableCollection<TablesModel> _tables { get; set; }
+
+        public ObservableCollection<TablesModel> Tables
+        {
+            get => _tables;
+            set
+            {
+                _tables = value;
+                OnPropertyChanged(nameof(Tables));
+            }
+        }
+        public List<TablesModel> AllTables { get; set; } = new List<TablesModel>();
+        private void LoadPositions()
+        {
+            var tableEntities = _db.TableRepository.GetAll();
+            AllTables = tableEntities.Select(e => new TablesModel
+            {
+                Id = e.Id,
+                TableNumber = e.TableNumber,
+                Capacity = e.Capacity
+            }
+            ).ToList();
+
+            Tables = new ObservableCollection<TablesModel>(AllTables);
+        }
+        private int _searchText;
+        public int SearchText
+        {
+            get => _searchText;
+            set
+            {
+                _searchText = value;
+                OnPropertyChanged(nameof(SearchText));
+
+                var lowerSearchText = SearchText;
+
+                var filteredTables = AllTables.Where(x => x.TableNumber == lowerSearchText ||
+                                                       x.Capacity == lowerSearchText );
+                Tables = new ObservableCollection<TablesModel>(filteredTables);
+            }
+        }
+      
 
         public AddCommand Add => new AddCommand(this);
         public SaveCommand Save => new SaveCommand(_db, this);
         public DeleteCommand Delete => new DeleteCommand(_db,this);
         public RejectCommand Reject => new RejectCommand(this);
         public EditCommand Edit => new EditCommand(this);
+
+        public string Header => "Tables";
 
         //public object Tables { get; internal set; }
     }

@@ -8,10 +8,12 @@ using RestaurantManagement.Commands.Positions;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using RestaurantManagement.ViewModels.Interfaces;
+using DataAccessManager.Domain.Entities;
 
 namespace RestaurantManagement.ViewModels
 {
-    public class PositionsViewModel:BaseViewModel
+    public class PositionsViewModel:BaseViewModel, IControl
     {
         private readonly IUnitOfWork _db;
 
@@ -19,6 +21,7 @@ namespace RestaurantManagement.ViewModels
         {
             _db = db;
             CurrentPosition = new PositionsModel();
+            LoadPositions();
         }
 
         private State _state;
@@ -63,12 +66,53 @@ namespace RestaurantManagement.ViewModels
                 OnPropertyChanged(nameof(SelectedPosition));
             }
         }
+        private ObservableCollection<PositionsModel> _positions { get; set; }
+        public ObservableCollection<PositionsModel> Positions
+        {
+            get => _positions;
+            set
+            {
+                _positions = value;
+                OnPropertyChanged(nameof(Positions));
+            }
+        }
+        public List<PositionsModel> AllPositions { get; set; } = new List<PositionsModel>();
+        private void LoadPositions()
+        {
+            var positionEntities = _db.PositionRepository.GetAll();
+            AllPositions = positionEntities.Select(e => new PositionsModel
+            {
+                Id = e.Id,
+                Name = e.Name,
+                DepartmentId = e.DepartmentId
+            }
+            ).ToList();
 
-        public ObservableCollection<PositionsModel> Positions { get; set; }
+            Positions = new ObservableCollection<PositionsModel>(AllPositions);
+        }
+       
+        private string _searchText;
+        public string SearchText
+        {
+            get => _searchText;
+            set
+            {
+                _searchText = value;
+                OnPropertyChanged(nameof(SearchText));
+
+                var lowerSearchText = SearchText.ToLower();
+
+                var filteredPositions = AllPositions.Where(x => x.Name.ToLower().Contains(lowerSearchText));
+                Positions = new ObservableCollection<PositionsModel>(filteredPositions);
+            }
+        }
         public AddCommand Add => new AddCommand(this);
         public SaveCommand Save => new SaveCommand(_db, this);
         public DeleteCommand Delete => new DeleteCommand(_db, this);
         public RejectCommand Reject => new RejectCommand(this);
         public EditCommand Edit => new EditCommand(this);
+
+        public string Header => "Positions";
+       
     }
 }
