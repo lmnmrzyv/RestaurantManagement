@@ -20,6 +20,7 @@ namespace RestaurantManagement.ViewModels
         {
            _db = db;
             CurrentTables = new TablesModel();
+            LoadPositions();
         }
         /*public List<TablesModel> Tables { get; set; }*/
         
@@ -71,6 +72,7 @@ namespace RestaurantManagement.ViewModels
             }
         }
         private ObservableCollection<TablesModel> _tables { get; set; }
+
         public ObservableCollection<TablesModel> Tables
         {
             get => _tables;
@@ -80,7 +82,20 @@ namespace RestaurantManagement.ViewModels
                 OnPropertyChanged(nameof(Tables));
             }
         }
-        public List<TablesModel> AllTables { get; set; }
+        public List<TablesModel> AllTables { get; set; } = new List<TablesModel>();
+        private void LoadPositions()
+        {
+            var tableEntities = _db.TableRepository.GetAll();
+            AllTables = tableEntities.Select(e => new TablesModel
+            {
+                Id = e.Id,
+                TableNumber = e.TableNumber,
+                Capacity = e.Capacity
+            }
+            ).ToList();
+
+            Tables = new ObservableCollection<TablesModel>(AllTables);
+        }
         private int _searchText;
         public int SearchText
         {

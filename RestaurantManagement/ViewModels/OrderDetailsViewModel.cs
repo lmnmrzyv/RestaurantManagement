@@ -9,10 +9,11 @@ using RestaurantManagement.Enums;
 using RestaurantManagement.Models;
 using RestaurantManagement.Commands.OrderDetails;
 using DataAccessManager.Domain.Entities;
+using RestaurantManagement.ViewModels.Interfaces;
 
 namespace RestaurantManagement.ViewModels
 {
-    public class OrderDetailsViewModel: BaseViewModel
+    public class OrderDetailsViewModel: BaseViewModel, IControl
     {
         private readonly IUnitOfWork _db;
         public ObservableCollection<MenuItem> MenuItems { get; set; }
@@ -82,5 +83,7 @@ namespace RestaurantManagement.ViewModels
         public DeleteCommand Delete => new DeleteCommand(_db, this);
         public RejectCommand Reject => new RejectCommand(this);
         public EditCommand Edit => new EditCommand(this);
+
+        public string Header =>"OrderDetails";
     }
 }
