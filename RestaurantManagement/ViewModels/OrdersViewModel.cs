@@ -8,6 +8,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using RestaurantManagement.Commands.Orders;
+using System.Windows.Input;
+using RestaurantManagement.Views;
+using RestaurantManagement.Views.Controls;
 
 namespace RestaurantManagement.ViewModels
 {
@@ -66,6 +69,16 @@ namespace RestaurantManagement.ViewModels
                 OnPropertyChanged(nameof(SelectedOrders));
             }
         }
+        private void ExecuteSeeOrderCommand(OrdersModel order)
+        {
+            if (order != null)
+            {
+                OrderDetailWindow orderDetailWindow = new OrderDetailWindow(order);
+                orderDetailWindow.Show();
+            }
+        }
+
+        public ICommand SeeOrderCommand { get; }
         public ObservableCollection<OrdersModel> Orders { get; set; }
 
         public AddCommand Add => new AddCommand(this);

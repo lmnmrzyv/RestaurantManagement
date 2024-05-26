@@ -36,19 +36,19 @@ namespace RestaurantManagement.Commands.Employees
             if (result != MessageBoxResult.Yes)
                 return;
 
-            var deletedId = _currentState.SelectedEmployees.Id;
+            var deletedId = _currentState.SelectedEmployee.Id;
 
             _db.EmployeeRepository.Delete(deletedId); // Corrected to EmployeeRepository
 
             MessageBox.Show("Successfully deleted", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
 
-            _currentState.Employees.Remove(_currentState.SelectedEmployees);
+            _currentState.Employees.Remove(_currentState.SelectedEmployee);
 
             for (int i = 0; i < _currentState.Employees.Count; i++)
             {
                 _currentState.Employees[i].No = i + 1;
             }
-            _currentState.Employees = new ObservableCollection<EmployeesModel>(_currentState.Employees);
+            _currentState.Employees = new ObservableCollection<EmployeeModel>(_currentState.Employees);
             _currentState.CurrentState = State.NORMAL;
         }
     }

@@ -48,13 +48,20 @@
                 <Button Style="{StaticResource btnDelete}" Width="120" Height="40" Margin="5"/>
             </StackPanel>
 
-            <ListView ItemsSource="{Binding Order}" SelectedItem="{Binding SelectedOrder,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource listViewCustom}" Margin="10">
+            <ListView ItemsSource="{Binding Orders}" SelectedItem="{Binding SelectedOrder, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource listViewCustom}" Margin="10">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn DisplayMemberBinding="{Binding Path=No}" Header="No" Width="50"/>
                         <GridViewColumn DisplayMemberBinding="{Binding Path=OrderTime}" Header="Order Time" Width="100"/>
                         <GridViewColumn DisplayMemberBinding="{Binding Path=TotalPrice}" Header="Total Price" Width="100"/>
                         <GridViewColumn DisplayMemberBinding="{Binding Path=PaymentMethod}" Header="Payment Method" Width="150"/>
+                        <GridViewColumn Header="Action" Width="100">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Content="See" Command="{Binding DataContext.SeeOrderCommand, RelativeSource={RelativeSource AncestorType=ListView}}" CommandParameter="{Binding}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
                     </GridView>
                 </ListView.View>
             </ListView>

@@ -124,6 +124,7 @@
     <Compile Include="Commands\Reservations\EditCommand.cs" />
     <Compile Include="Commands\Reservations\RejectCommand.cs" />
     <Compile Include="Commands\Reservations\SaveCommand.cs" />
+    <Compile Include="Commands\SignInCommand.cs" />
     <Compile Include="Commands\Tables\AddCommand.cs" />
     <Compile Include="Commands\Tables\DeleteCommand.cs" />
     <Compile Include="Commands\Tables\EditCommand.cs" />
@@ -144,23 +145,30 @@
     <Compile Include="Mappers\TableMapper.cs" />
     <Compile Include="Models\CategoriesModel.cs" />
     <Compile Include="Models\CustomersModel.cs" />
-    <Compile Include="Models\DepartmentsModel.cs" />
+    <Compile Include="Models\DatabaseConfigModel.cs" />
+    <Compile Include="Models\DepartmentModel.cs" />
     <Compile Include="Models\DiscountsModel.cs" />
-    <Compile Include="Models\EmployeesModel.cs" />
+    <Compile Include="Models\EmployeeModel.cs" />
     <Compile Include="Models\IModel.cs" />
     <Compile Include="Models\MenuItemsModel.cs" />
     <Compile Include="Models\OrderDetailsModel.cs" />
     <Compile Include="Models\OrdersModel.cs" />
     <Compile Include="Models\PositionsModel.cs" />
     <Compile Include="Models\TablesModel.cs" />
-    <Compile Include="Models\ReservationsModel.cs" />
+    <Compile Include="Models\ReservationModel.cs" />
+    <Compile Include="Models\UserLoginModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\CategoriesViewModel.cs" />
     <Compile Include="ViewModels\CustomersViewModel.cs" />
     <Compile Include="ViewModels\DepartmentsViewModel.cs" />
     <Compile Include="ViewModels\DiscountsViewModel.cs" />
     <Compile Include="ViewModels\EmployeesViewModel.cs" />
+    <Compile Include="ViewModels\Implementations\FileConfigManager.cs" />
+    <Compile Include="ViewModels\Implementations\MD5HashCalculator.cs" />
+    <Compile Include="ViewModels\Interfaces\IConfigManager.cs" />
     <Compile Include="ViewModels\Interfaces\IControl.cs" />
+    <Compile Include="ViewModels\Interfaces\IHashCalculator.cs" />
+    <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
     <Compile Include="ViewModels\MenuItemsViewModel.cs" />
     <Compile Include="ViewModels\OrderDetailsViewModel.cs" />
@@ -173,6 +181,12 @@
     </Compile>
     <Compile Include="Views\Components\SearchControl.xaml.cs">
       <DependentUpon>SearchControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Controls\OrderDetailWindow.xaml.cs">
+      <DependentUpon>OrderDetailWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\LoginPage.xaml.cs">
+      <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
@@ -278,6 +292,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Controls\OrderDetailWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Controls\OrdersControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -291,6 +309,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Controls\TablesControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\LoginPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

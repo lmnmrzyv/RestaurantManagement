@@ -27,7 +27,7 @@ namespace RestaurantManagement.Commands.Departments
         public void Execute(object parameter)
         {
             _viewModel.SelectedDepartments = null;
-            _viewModel.CurrentDepartments = new DepartmentsModel();
+            _viewModel.CurrentDepartments = new DepartmentModel();
             _viewModel.CurrentState = State.NORMAL;
             
         }

@@ -22,7 +22,7 @@ namespace RestaurantManagement.ViewModels
         public DepartmentsViewModel(IUnitOfWork db)
         {
             _db = db;
-            CurrentDepartments = new DepartmentsModel();
+            CurrentDepartments = new DepartmentModel();
         }
 
         private State _state;
@@ -36,8 +36,8 @@ namespace RestaurantManagement.ViewModels
                 OnPropertyChanged(nameof(CurrentState));
             }
         }
-        private DepartmentsModel _currentDepartments;
-        public DepartmentsModel CurrentDepartments
+        private DepartmentModel _currentDepartments;
+        public DepartmentModel CurrentDepartments
         {
             get => _currentDepartments;
             set
@@ -46,8 +46,8 @@ namespace RestaurantManagement.ViewModels
                 OnPropertyChanged(nameof(CurrentDepartments));
             }
         }
-        private DepartmentsModel _selectedDepartments;
-        public DepartmentsModel SelectedDepartments
+        private DepartmentModel _selectedDepartments;
+        public DepartmentModel SelectedDepartments
         {
             get => _selectedDepartments;
 
@@ -63,15 +63,15 @@ namespace RestaurantManagement.ViewModels
                 }
                 else
                 {
-                    CurrentDepartments = new DepartmentsModel();
+                    CurrentDepartments = new DepartmentModel();
                     CurrentState = State.NORMAL;
                 }
                 OnPropertyChanged(nameof(SelectedDepartments));
                 OnPropertyChanged(nameof(CurrentDepartments));
             }
         }
-        private ObservableCollection<DepartmentsModel> _departments { get; set; }
-        public ObservableCollection<DepartmentsModel> Departments
+        private ObservableCollection<DepartmentModel> _departments { get; set; }
+        public ObservableCollection<DepartmentModel> Departments
         {
             get => _departments;
             set
@@ -82,7 +82,7 @@ namespace RestaurantManagement.ViewModels
         }
 
 
-        public List<DepartmentsModel> AllDepartments { get; set; }
+        public List<DepartmentModel> AllDepartments { get; set; }
 
         private string _searchText;
         public string SearchText
@@ -97,7 +97,7 @@ namespace RestaurantManagement.ViewModels
 
                 var filteredDepartments = AllDepartments.Where(x => x.Name.ToLower().Contains(lowerSearchText));
 
-                Departments = new ObservableCollection<DepartmentsModel>(filteredDepartments);
+                Departments = new ObservableCollection<DepartmentModel>(filteredDepartments);
             }
         }
         public AddCommand Add => new AddCommand(this);

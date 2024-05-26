@@ -40,19 +40,19 @@
                         </StackPanel>
                         <StackPanel Grid.Row="0" Grid.Column="1">
                             <TextBlock Height="25" FontSize="15" HorizontalAlignment="Left" FontFamily="TIMES NEW ROMAN" Foreground="Black">Table Capacity</TextBlock>
-                            <ComboBox ItemsSource="{Binding Tables}" SelectedItem="{Binding CurrentReservation.Table, Mode=TwoWay}" SelectedValuePath="Id" DisplayMemberPath="Capacity" Height="25" HorizontalAlignment="Left" Width="200"/>
+                            <ComboBox ItemsSource="{Binding Tables}"
+                                      SelectedValue="{Binding CurrentReservation.Table.Id}"
+                                      SelectedItem="{Binding CurrentReservation.Table, Mode=TwoWay}" 
+                                      SelectedValuePath="Id" DisplayMemberPath="Capacity"
+                                      Height="25" HorizontalAlignment="Left" Width="200"/>
                             <TextBlock Height="25" FontSize="15" HorizontalAlignment="Left" FontFamily="TIMES NEW ROMAN" Foreground="Black">Customer</TextBlock>
-                            <ComboBox ItemsSource="{Binding Customers}" SelectedItem="{Binding CurrentReservation.Customer, Mode=TwoWay}" Height="25" HorizontalAlignment="Left" Width="200">
-                                <ComboBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <StackPanel Orientation="Horizontal">
-                                            <TextBlock Text="{Binding Name}"/>
-                                            <TextBlock Text=" "/>
-                                            <TextBlock Text="{Binding Surname}"/>
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </ComboBox.ItemTemplate>
-                            </ComboBox>
+                            <ComboBox ItemsSource="{Binding Customers}" 
+                                      SelectedValue="{Binding CurrentReservation.Customer.Id}"
+                                      SelectedItem="{Binding CurrentReservation.Customer, Mode=TwoWay}"                                      
+                                      SelectedValuePath="Id"
+                                      DisplayMemberPath="Name"
+                                      Height="25" HorizontalAlignment="Left" Width="200"/>
+
                         </StackPanel>
                     </Grid>
                 </Border>
@@ -72,20 +72,8 @@
                         <GridViewColumn DisplayMemberBinding="{Binding Path=No}" Header="No" Width="50"/>
                         <GridViewColumn DisplayMemberBinding="{Binding Path=ReservationDate}" Header="Reservation Date" Width="150"/>
                         <GridViewColumn DisplayMemberBinding="{Binding Path=NumberOfPeople}" Header="Number of People" Width="50"/>
-                        <GridViewColumn DisplayMemberBinding="{Binding Path=Table.Id}" Header="Table" Width="100"/>
-                        <GridViewColumn>
-                            <GridViewColumn.Header>
-                                <TextBlock Text="Customer" Width="150"/>
-                            </GridViewColumn.Header>
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <DockPanel>
-                                        <TextBlock Text="{Binding Path=Customer.Name}" Margin="5"/>
-                                        <TextBlock Text="{Binding Path=Customer.Surname}" Margin="5"/>
-                                    </DockPanel>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=Table.TableNumber}" Header="Table" Width="100"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=Customer.Name}" Header="Customer" Width="100"/>
                     </GridView>
                 </ListView.View>
             </ListView>

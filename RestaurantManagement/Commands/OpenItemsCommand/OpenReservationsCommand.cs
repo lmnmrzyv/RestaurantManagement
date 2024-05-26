@@ -39,18 +39,18 @@ namespace RestaurantManagement.Commands
             var reservationsControl = new ReservationsControl();
             var viewModel = new ReservationsViewModel(_db);
             var reservations=_db.ReservationRepository.GetAll();
-            var reservationsModel=new List<ReservationsModel>();
+            var reservationsModel=new List<ReservationModel>();
             var reservationMapper = new ReservationMapper();
             var no = 1;
 
             foreach (var reservation in reservations)
             {
-                var reservationModel = reservationMapper.MapEntityToModel(reservation,new ReservationsModel());
+                var reservationModel = reservationMapper.MapEntityToModel(reservation,new ReservationModel());
                 reservationModel.No = no++;
                 reservationsModel.Add(reservationModel);
             }
             viewModel.AllReservations= reservationsModel;
-            viewModel.Reservations= new ObservableCollection<ReservationsModel>(reservationsModel);
+            viewModel.Reservations= new ObservableCollection<ReservationModel>(reservationsModel);
             reservationsControl.DataContext= viewModel;
             grid.Children.Add(reservationsControl);
         }

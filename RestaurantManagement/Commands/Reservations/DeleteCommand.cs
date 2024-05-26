@@ -49,7 +49,7 @@ namespace RestaurantManagement.Commands.Reservations
             {
                 _currentState.Reservations[i].No = i + 1;
             }
-            _currentState.Reservations = new ObservableCollection<ReservationsModel>(_currentState.Reservations);
+            _currentState.Reservations = new ObservableCollection<ReservationModel>(_currentState.Reservations);
             _currentState.CurrentState = State.NORMAL;
         }
     }

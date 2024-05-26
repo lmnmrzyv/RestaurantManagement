@@ -68,7 +68,7 @@ namespace RestaurantManagement.Commands.Departments
             }
 
             // Mevcut departman modelini sıfırla
-            _currentState.CurrentDepartments = new DepartmentsModel();
+            _currentState.CurrentDepartments = new DepartmentModel();
             _currentState.SelectedDepartments = null;
             _currentState.CurrentState = State.NORMAL;
         }

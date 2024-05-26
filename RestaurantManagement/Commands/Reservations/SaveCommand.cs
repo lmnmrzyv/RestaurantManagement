@@ -67,7 +67,7 @@ namespace RestaurantManagement.Commands.Reservations
             }
 
             // Mevcut departman modelini sıfırla
-            _currentState.CurrentReservation = new ReservationsModel();
+            _currentState.CurrentReservation = new ReservationModel();
             _currentState.SelectedReservation = null;
             _currentState.CurrentState = State.NORMAL;
         }

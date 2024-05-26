@@ -47,7 +47,7 @@ namespace RestaurantManagement.Commands.Departments
             {
                 _currentState.Departments[i].No = i + 1;
             }
-            _currentState.Departments=new ObservableCollection<DepartmentsModel>(_currentState.Departments);
+            _currentState.Departments=new ObservableCollection<DepartmentModel>(_currentState.Departments);
         }
     }
 }

@@ -33,20 +33,20 @@ namespace RestaurantManagement.Commands.Employees
         public void Execute(object parameter)
         {
             var mapper = new EmployeeMapper();
-            var employee = mapper.MapModelToEntity(new Employee(), _currentState.CurrentEmployees);
+            var employee = mapper.MapModelToEntity(new Employee(), _currentState.CurrentEmployee);
             employee.IsActive=true;
             // Yeni bir departman mı oluşturuluyor yoksa mevcut bir departman mı güncelleniyor kontrol et
             if (employee.Id == 0)
             {
                 // Yeni departmanı veritabanına ekle ve dönen ID ile modeli güncelle
-                _currentState.CurrentEmployees.Id = _db.EmployeeRepository.Add(employee);
+                _currentState.CurrentEmployee.Id = _db.EmployeeRepository.Add(employee);
 
                 // Departmanın yeni numarasını belirle
                 var lastElementNo = _currentState.AllEmployees.LastOrDefault()?.No ?? 0;
-                _currentState.CurrentEmployees.No = lastElementNo + 1;
+                _currentState.CurrentEmployee.No = lastElementNo + 1;
 
                 // Mevcut departman modelini observable koleksiyona ekle
-                _currentState.Employees.Add(_currentState.CurrentEmployees);
+                _currentState.Employees.Add(_currentState.CurrentEmployee);
 
                 MessageBox.Show("Başarıyla oluşturuldu", "Başarılı", MessageBoxButton.OK, MessageBoxImage.Information);
             }
@@ -62,7 +62,7 @@ namespace RestaurantManagement.Commands.Employees
                 var index = _currentState.Employees.IndexOf(_currentState.Employees.First(x => x.Id == employee.Id));
 
                 // Observable koleksiyondaki departman modelini güncelle
-                _currentState.Employees[index] = _currentState.CurrentEmployees;
+                _currentState.Employees[index] = _currentState.CurrentEmployee;
 
                 MessageBox.Show("Başarıyla güncellendi", "Başarılı", MessageBoxButton.OK, MessageBoxImage.Information);
             }
