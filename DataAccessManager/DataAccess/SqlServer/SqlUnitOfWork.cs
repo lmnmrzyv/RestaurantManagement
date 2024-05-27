@@ -31,5 +31,6 @@ namespace DataAccessManager.DataAccess.SqlServer
         public IOrderRepository OrderRepository => new SqlOrderRepository(_connectionString);
         public ICustomerRepository CustomerRepository => new SqlCustomerRepository(_connectionString);
         public IDiscountRepository DiscountRepository => new SqlDiscountRepository(_connectionString);
+        public IUserRepository UserRepository => new SqlUserRepository(_connectionString);
     }
 }

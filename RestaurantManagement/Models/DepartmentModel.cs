@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RestaurantManagement.Models
 {
-    public class DepartmentsModel:IModel
+    public class DepartmentModel:IModel
     {
         public int Id { get; set; } 
         public int No { get; set; }

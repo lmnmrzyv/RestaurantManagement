@@ -31,14 +31,13 @@ namespace RestaurantManagement.Models
         public TablesModel Clone()
         {
             var tableModel= new TablesModel();
+
+            tableModel.Id = Id;
+            tableModel.No = No;
             tableModel.TableNumber = TableNumber;
             tableModel.Capacity = Capacity;
+
             return tableModel;
-           /* return new TablesModel()
-            {
-                TableNumber = TableNumber,
-                Capacity = Capacity
-            };*/
         }
     }
 }

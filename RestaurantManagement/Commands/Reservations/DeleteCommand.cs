@@ -1,8 +1,10 @@
 ﻿using DataAccessManager.Domain.Interfaces;
 using RestaurantManagement.Enums;
+using RestaurantManagement.Models;
 using RestaurantManagement.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,16 +38,18 @@ namespace RestaurantManagement.Commands.Reservations
 
             var deletedId = _currentState.SelectedReservation.Id;
 
-            _db.DepartmentRepository.Delete(deletedId);
+            _db.ReservationRepository.Delete(deletedId);
 
             MessageBox.Show("Successfully deleted", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
 
             _currentState.Reservations.Remove(_currentState.SelectedReservation);
 
-            for (int i = 0; i < _currentState.Reservations.Count; i++)
+            for (int i = 0; 
+                i < _currentState.Reservations.Count; i++)
             {
                 _currentState.Reservations[i].No = i + 1;
             }
+            _currentState.Reservations = new ObservableCollection<ReservationModel>(_currentState.Reservations);
             _currentState.CurrentState = State.NORMAL;
         }
     }

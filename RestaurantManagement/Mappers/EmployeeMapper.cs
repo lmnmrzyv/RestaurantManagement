@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace RestaurantManagement.Mappers
 {
-    public class EmployeeMapper : Mapper<EmployeesModel, Employee>
+    public class EmployeeMapper : Mapper<EmployeeModel, Employee>
     {
         
     }

@@ -26,8 +26,8 @@ namespace RestaurantManagement.Commands.Employees
 
         public void Execute(object parameter)
         {
-            _currentState.SelectedEmployees = null;
-            _currentState.CurrentEmployees=new EmployeesModel();
+            _currentState.SelectedEmployee = null;
+            _currentState.CurrentEmployee=new EmployeeModel();
             _currentState.CurrentState = State.NORMAL;
         }
     }

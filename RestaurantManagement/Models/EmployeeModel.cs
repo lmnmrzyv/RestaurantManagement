@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace RestaurantManagement.Models
 {
-    public class EmployeesModel : IModel
+    public class EmployeeModel : IModel
     {
         public int Id { get; set; }
         public int No { get; set; }

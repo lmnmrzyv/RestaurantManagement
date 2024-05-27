@@ -1,8 +1,10 @@
 ﻿using DataAccessManager.Domain.Interfaces;
 using RestaurantManagement.Enums;
+using RestaurantManagement.Models;
 using RestaurantManagement.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,7 +17,7 @@ namespace RestaurantManagement.Commands.Employees
     {
         private readonly IUnitOfWork _db;
         private readonly EmployeesViewModel _currentState;
-        public DeleteCommand(IUnitOfWork db,EmployeesViewModel currentState)
+        public DeleteCommand(IUnitOfWork db, EmployeesViewModel currentState)
         {
             _db = db;
             _currentState = currentState;
@@ -34,20 +36,21 @@ namespace RestaurantManagement.Commands.Employees
             if (result != MessageBoxResult.Yes)
                 return;
 
-            var deletedId = _currentState.SelectedEmployees.Id;
+            var deletedId = _currentState.SelectedEmployee.Id;
 
-            _db.DepartmentRepository.Delete(deletedId);
+            _db.EmployeeRepository.Delete(deletedId); // Corrected to EmployeeRepository
 
             MessageBox.Show("Successfully deleted", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
 
-            _currentState.Employees.Remove(_currentState.SelectedEmployees);
+            _currentState.Employees.Remove(_currentState.SelectedEmployee);
 
             for (int i = 0; i < _currentState.Employees.Count; i++)
             {
                 _currentState.Employees[i].No = i + 1;
             }
+            _currentState.Employees = new ObservableCollection<EmployeeModel>(_currentState.Employees);
             _currentState.CurrentState = State.NORMAL;
-
         }
     }
+
 }

@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace RestaurantManagement.Models
 {
-    public class PositionModel : IModel
+    public class UserLoginModel
     {
-        public int No { get; set; }
-        public string Name { get; set; }
-
+        public string Username { get; set; }
     }
 }

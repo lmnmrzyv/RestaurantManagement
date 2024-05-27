@@ -14,7 +14,7 @@ namespace RestaurantManagement.Commands.Tables
         private readonly TablesViewModel _currentState;
         public AddCommand(TablesViewModel currentState) 
         {
-            _currentState=currentState;
+            _currentState = currentState;
         }
         public event EventHandler CanExecuteChanged;
 

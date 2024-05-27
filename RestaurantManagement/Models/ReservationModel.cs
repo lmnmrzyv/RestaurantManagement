@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace RestaurantManagement.Models
 {
-    public class ReservationsModel : IModel
+    public class ReservationModel : IModel
     {
         public int Id { get; set; } 
         public int No {  get; set; }

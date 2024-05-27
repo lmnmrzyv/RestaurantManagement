@@ -3,21 +3,33 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:RestaurantManagement.Views.Controls"
+             xmlns:local="clr-namespace:RestaurantManagement.Views.Controls" xmlns:viewmodels="clr-namespace:RestaurantManagement.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:OrderDetailsViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Border Background="White" BorderThickness="5">
         <StackPanel>
             <Border Background="LightGray" Margin="0 0 0 10">
-                <Grid Margin="10">
+                <Grid Margin="10" Style="{StaticResource grdForm}">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <StackPanel Grid.Row="0">
-                        <TextBlock Height="25" FontSize="15" HorizontalAlignment="Left" FontFamily="TIMES NEW ROMAN" Foreground="Black">Name</TextBlock>
-                        <TextBox FontSize="15" Height="25" HorizontalAlignment="Left" Width="200" FontFamily="TIMES NEW ROMAN" Text="{Binding CurrentGenre.Name,Mode=TwoWay}"/>
-                    </StackPanel>
+                    <DockPanel>
+                        <StackPanel Margin="8 0">
+                            <TextBlock Height="25" FontSize="15" HorizontalAlignment="Left" FontFamily="TIMES NEW ROMAN" Foreground="Black">Menu Item Name</TextBlock>
+                            <ComboBox ItemsSource="{Binding MenuItems}" SelectedItem="{Binding CurrentOrderDetails.MenuItem , Mode=TwoWay}"  SelectedValuePath="Id" DisplayMemberPath="name" Height="25" HorizontalAlignment="Left" Width="200"/>
+                        </StackPanel>
+                        <StackPanel Margin="8 0">
+                            <TextBlock Height="25" FontSize="15" HorizontalAlignment="Left" FontFamily="TIMES NEW ROMAN" Foreground="Black">Quantity</TextBlock>
+                            <TextBox FontSize="15" Height="25" HorizontalAlignment="Left" Width="200" FontFamily="TIMES NEW ROMAN" Text="{Binding CurrentOrderDetails.Quantity,Mode=TwoWay}"/>
+                        </StackPanel>
+                        <StackPanel Margin="8 0">
+                            <TextBlock Height="25" FontSize="15" HorizontalAlignment="Left" FontFamily="TIMES NEW ROMAN" Foreground="Black">Amount</TextBlock>
+                            <TextBox FontSize="15" Height="25" HorizontalAlignment="Left" Width="200" FontFamily="TIMES NEW ROMAN" Text="{Binding CurrentOrderDetails.Amount,Mode=TwoWay}"/>
+                        </StackPanel>
+                            
+                    </DockPanel>
+                    
                 </Grid>
             </Border>
 
@@ -29,11 +41,14 @@
                 <Button Style="{StaticResource btnDelete}" Width="120" Height="40" Margin="5"/>
             </StackPanel>
 
-            <ListView ItemsSource="{Binding Departments}" SelectedItem="{Binding SelectedGenre,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource listViewCustom}" Margin="10">
+            <ListView ItemsSource="{Binding OrderDetails}" SelectedItem="{Binding SelectedOrderDetails,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource listViewCustom}" Margin="10">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn DisplayMemberBinding="{Binding Path=No}" Header="No" Width="50"/>
-                        <GridViewColumn DisplayMemberBinding="{Binding Path=Name}" Header="Name" Width="200"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=OrderId}" Header="OrderId" Width="150"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=MenuItemId}" Header="MenuItemId" Width="150"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=Quantity}" Header="Quantity" Width="150"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=Amount}" Header="Amount" Width="150"/>
                     </GridView>
                 </ListView.View>
             </ListView>

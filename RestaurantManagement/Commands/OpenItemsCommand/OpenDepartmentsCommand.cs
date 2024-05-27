@@ -43,21 +43,22 @@ namespace RestaurantManagement.Commands
 
             var departments = _db.DepartmentRepository.GetAll();
 
-            var departmentsModel = new List<DepartmentsModel>();
+            var departmentsModel = new List<DepartmentModel>();
 
             var departmentsMapper = new DepartmentMapper();
             var no = 1;
 
             foreach (var department in departments)
             {
-                var departmentModel = departmentsMapper.MapEntityToModel(department,new DepartmentsModel());
+                var departmentModel = departmentsMapper.MapEntityToModel(department,new DepartmentModel());
 
                 departmentModel.No = no++;
 
                 departmentsModel.Add(departmentModel);
             }
 
-            viewModel.Departments = new ObservableCollection<DepartmentsModel>(departmentsModel);
+            viewModel.AllDepartments = departmentsModel;
+            viewModel.Departments = new ObservableCollection<DepartmentModel>(departmentsModel);
 
             control.DataContext = viewModel;
 

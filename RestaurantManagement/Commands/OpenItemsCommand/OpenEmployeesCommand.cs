@@ -42,20 +42,22 @@ namespace RestaurantManagement.Commands
 
             var employees=_db.EmployeeRepository.GetAll();
 
-            var employeesModel=new List<EmployeesModel>();
+            var employeesModel=new List<EmployeeModel>();
             var employeesMapper = new EmployeeMapper();
             var no = 1;
 
             foreach ( var employee in employees)
             {
-                var employeeModel=employeesMapper.MapEntityToModel(employee,new EmployeesModel());
+                var employeeModel=employeesMapper.MapEntityToModel(employee,new EmployeeModel());
 
                 employeeModel.No = no++;
 
                 employeesModel.Add(employeeModel);
             }
 
-            viewModel.Employees = new ObservableCollection<EmployeesModel>(employeesModel);
+            viewModel.AllEmployees = employeesModel;
+            viewModel.Employees= new ObservableCollection<EmployeeModel>(employeesModel);
+
             employeesControl.DataContext = viewModel;
 
             grid.Children.Add(employeesControl);

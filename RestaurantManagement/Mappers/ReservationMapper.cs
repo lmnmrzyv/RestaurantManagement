@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace RestaurantManagement.Mappers
 {
-    public class ReservationMapper : Mapper<ReservationsModel, Reservation>
+    public class ReservationMapper : Mapper<ReservationModel, Reservation>
     {
        
     }
