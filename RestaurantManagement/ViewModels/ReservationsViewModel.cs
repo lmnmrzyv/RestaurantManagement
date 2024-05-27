@@ -16,29 +16,37 @@ namespace RestaurantManagement.ViewModels
     public class ReservationsViewModel : BaseViewModel,IControl
     {
         private readonly IUnitOfWork _db;
-        public ObservableCollection<Customer> Customers { get; set; }
-        public ObservableCollection<Table> Tables { get; set; }
+        public ObservableCollection<CustomerModel> Customers { get; set; }
+        public ObservableCollection<TableModel> Tables { get; set; }
 
         public ReservationsViewModel(IUnitOfWork db)
         {
             _db = db;
             CurrentReservation = new ReservationModel();
-            CurrentReservation.Table=new Table();
-            CurrentReservation.Customer=new Customer();
-            LoadCustomers();
-            LoadTables();
         }
 
-        private void LoadCustomers()
+        public void LoadCustomers()
         {
             var customers = _db.CustomerRepository.GetAll();
-            Customers = new ObservableCollection<Customer>(customers);
+            Customers = new ObservableCollection<CustomerModel>(customers.Select(c=>new CustomerModel
+            {
+                Id=c.Id,
+                Name=c.Name,
+                Surname=c.Surname,
+                PhoneNum=c.PhoneNum,
+                Mail=c.Mail
+            }));
         }
 
-        private void LoadTables()
+        public void LoadTables()
         {
             var tables = _db.TableRepository.GetAll();
-            Tables = new ObservableCollection<Table>(tables);
+            Tables = new ObservableCollection<TableModel>(tables.Select(t=>new TableModel
+            {
+                Id= t.Id,
+                TableNumber=t.TableNumber,
+                Capacity=t.Capacity
+            }));
         }
 
         private State _state;

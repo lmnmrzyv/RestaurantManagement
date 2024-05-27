@@ -49,9 +49,19 @@
                             <ComboBox ItemsSource="{Binding Customers}" 
                                       SelectedValue="{Binding CurrentReservation.Customer.Id}"
                                       SelectedItem="{Binding CurrentReservation.Customer, Mode=TwoWay}"                                      
-                                      SelectedValuePath="Id"
-                                      DisplayMemberPath="Name"
-                                      Height="25" HorizontalAlignment="Left" Width="200"/>
+                                      SelectedValuePath="Id"                                      
+                                      Height="25" HorizontalAlignment="Left" Width="200">       
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding Name}"/>
+                                            <TextBlock Text=" " />
+                                            <TextBlock Text="{Binding Surname}" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+
 
                         </StackPanel>
                     </Grid>
@@ -73,7 +83,19 @@
                         <GridViewColumn DisplayMemberBinding="{Binding Path=ReservationDate}" Header="Reservation Date" Width="150"/>
                         <GridViewColumn DisplayMemberBinding="{Binding Path=NumberOfPeople}" Header="Number of People" Width="50"/>
                         <GridViewColumn DisplayMemberBinding="{Binding Path=Table.TableNumber}" Header="Table" Width="100"/>
-                        <GridViewColumn DisplayMemberBinding="{Binding Path=Customer.Name}" Header="Customer" Width="100"/>
+                        <GridViewColumn Header="Customer" Width="200">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding Customer.Name}" />
+                                        <TextBlock Text=" " />
+                                        <TextBlock Text="{Binding Customer.Surname}" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+
                     </GridView>
                 </ListView.View>
             </ListView>

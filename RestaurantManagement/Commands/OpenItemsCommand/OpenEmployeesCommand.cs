@@ -18,6 +18,7 @@ namespace RestaurantManagement.Commands
     {
         public event EventHandler CanExecuteChanged;
         private readonly IUnitOfWork _db;
+
         public OpenEmployeesCommand(IUnitOfWork db)
         {
             _db = db;
@@ -39,6 +40,8 @@ namespace RestaurantManagement.Commands
 
             var employeesControl = new EmployeesControl();
             var viewModel = new EmployeesViewModel(_db);
+            viewModel.LoadPositions();
+            
 
             var employees=_db.EmployeeRepository.GetAll();
 

@@ -31,7 +31,7 @@ namespace DataAccessManager.DataAccess.SqlServer
                     command.Parameters.AddWithValue("@Name", item.Name);
                     command.Parameters.AddWithValue("@Surname", item.Surname);
                     command.Parameters.AddWithValue("@PositionId", item.Position.Id);
-                    command.Parameters.AddWithValue("@EducationLevel", item.EducationLevel.ToString()); // Enum to string
+                    command.Parameters.AddWithValue("@EducationLevel", item.EducationLevel.ToString()); 
                     command.Parameters.AddWithValue("@PerformanceRating", item.PerformanceRating);
 
                     return (int)command.ExecuteScalar();
@@ -55,7 +55,7 @@ namespace DataAccessManager.DataAccess.SqlServer
                     command.Parameters.AddWithValue("@Name", item.Name);
                     command.Parameters.AddWithValue("@Surname", item.Surname);
                     command.Parameters.AddWithValue("@PositionId", item.Position.Id);
-                    command.Parameters.AddWithValue("@EducationLevel", item.EducationLevel.ToString()); // Enum to string
+                    command.Parameters.AddWithValue("@EducationLevel", item.EducationLevel.ToString());
                     command.Parameters.AddWithValue("@PerformanceRating", item.PerformanceRating);
 
                     command.ExecuteNonQuery();

@@ -27,7 +27,7 @@ namespace RestaurantManagement.Commands.Tables
         public void Execute(object parameter)
         {
             /* _viewModel.SelectedTables = null;*/
-            _viewModel.CurrentTables = new TablesModel();
+            _viewModel.CurrentTables = new TableModel();
             _viewModel.CurrentState = State.NORMAL;
             
         }

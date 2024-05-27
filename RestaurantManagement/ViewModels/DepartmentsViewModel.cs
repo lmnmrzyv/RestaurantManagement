@@ -22,7 +22,7 @@ namespace RestaurantManagement.ViewModels
         public DepartmentsViewModel(IUnitOfWork db)
         {
             _db = db;
-            CurrentDepartments = new DepartmentModel();
+            CurrentDepartment = new DepartmentModel();
         }
 
         private State _state;
@@ -36,38 +36,40 @@ namespace RestaurantManagement.ViewModels
                 OnPropertyChanged(nameof(CurrentState));
             }
         }
-        private DepartmentModel _currentDepartments;
-        public DepartmentModel CurrentDepartments
+        private DepartmentModel _currentDepartment;
+        public DepartmentModel CurrentDepartment
         {
-            get => _currentDepartments;
+            get => _currentDepartment;
             set
             {
-                _currentDepartments = value;
-                OnPropertyChanged(nameof(CurrentDepartments));
+                _currentDepartment = value;
+                OnPropertyChanged(nameof(CurrentDepartment));
             }
         }
-        private DepartmentModel _selectedDepartments;
-        public DepartmentModel SelectedDepartments
+        private DepartmentModel _selectedDepartment;
+        public DepartmentModel SelectedDepartment
         {
-            get => _selectedDepartments;
+            get => _selectedDepartment;
 
             set
             {
-                _selectedDepartments = value;
-                if (_selectedDepartments != null)
+                _selectedDepartment = value;
+                if (_selectedDepartment != null)
                 {
-                    CurrentDepartments.Name = SelectedDepartments.Name;
-                    CurrentDepartments.Id = SelectedDepartments.Id;
-                    CurrentDepartments.No = SelectedDepartments.No;
+                    var DepartmentsTemp=new DepartmentModel();
+                    DepartmentsTemp.Name = SelectedDepartment.Name;
+                    DepartmentsTemp.Id = SelectedDepartment.Id;
+                    DepartmentsTemp.No = SelectedDepartment.No;
+                    CurrentDepartment=DepartmentsTemp;
                     CurrentState = State.SELECTED;
                 }
                 else
                 {
-                    CurrentDepartments = new DepartmentModel();
+                    CurrentDepartment = new DepartmentModel();
                     CurrentState = State.NORMAL;
                 }
-                OnPropertyChanged(nameof(SelectedDepartments));
-                OnPropertyChanged(nameof(CurrentDepartments));
+                OnPropertyChanged(nameof(SelectedDepartment));
+               
             }
         }
         private ObservableCollection<DepartmentModel> _departments { get; set; }

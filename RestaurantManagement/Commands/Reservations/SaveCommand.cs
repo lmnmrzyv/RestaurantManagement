@@ -13,13 +13,13 @@ namespace RestaurantManagement.Commands.Reservations
 {
     public class SaveCommand : ICommand
     {
-        private readonly ReservationsViewModel _currentState;
+        private readonly ReservationsViewModel _viewModel;
         private readonly IUnitOfWork _db;
 
-        public SaveCommand(IUnitOfWork db, ReservationsViewModel currentState)
+        public SaveCommand(IUnitOfWork db, ReservationsViewModel viewModel)
         {
             _db = db;
-            _currentState = currentState;
+            _viewModel = viewModel;
         }
 
         public event EventHandler CanExecuteChanged;
@@ -32,44 +32,38 @@ namespace RestaurantManagement.Commands.Reservations
         public void Execute(object parameter)
         {
             var mapper = new ReservationMapper();
-            var reservation = mapper.MapModelToEntity(new Reservation(), _currentState.CurrentReservation);
+            var reservation = mapper.MapModelToEntity(new Reservation(), _viewModel.CurrentReservation);
 
-            // Yeni bir departman mı oluşturuluyor yoksa mevcut bir departman mı güncelleniyor kontrol et
             if (reservation.Id == 0)
             {
-                // Yeni departmanı veritabanına ekle ve dönen ID ile modeli güncelle
-                _currentState.CurrentReservation.Id = _db.ReservationRepository.Add(reservation);
+                _viewModel.CurrentReservation.Id = _db.ReservationRepository.Add(reservation);
 
-                // Departmanın yeni numarasını belirle
-                var lastElementNo = _currentState.Reservations.LastOrDefault()?.No ?? 0;
-                _currentState.CurrentReservation.No = lastElementNo + 1;
+                var lastElementNo = _viewModel.Reservations.LastOrDefault()?.No ?? 0;
+                _viewModel.CurrentReservation.No = lastElementNo + 1;
 
-                // Mevcut departman modelini observable koleksiyona ekle
-                _currentState.Reservations.Add(_currentState.CurrentReservation);
+                
+                _viewModel.Reservations.Add(_viewModel.CurrentReservation);
+                _viewModel.AllReservations = _viewModel.Reservations.ToList();
 
-                MessageBox.Show("Başarıyla oluşturuldu", "Başarılı", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Successfully created", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             else
             {
-                // Gerekirse mevcut departmanı veritabanından al
                 var existingDepartment = _db.ReservationRepository.Get(reservation.Id);
 
-                // Mevcut departmanı veritabanında güncelle
                 _db.ReservationRepository.Update(reservation);
 
-                // Observable koleksiyondaki departmanın indeksini bul
-                var index = _currentState.Reservations.IndexOf(_currentState.Reservations.First(x => x.Id == reservation.Id));
+                var index = _viewModel.Reservations.IndexOf(_viewModel.Reservations.First(x => x.Id == reservation.Id));
 
-                // Observable koleksiyondaki departman modelini güncelle
-                _currentState.Reservations[index] = _currentState.CurrentReservation;
+                _viewModel.Reservations[index] = _viewModel.CurrentReservation;
+                _viewModel.AllReservations = _viewModel.Reservations.ToList();
 
-                MessageBox.Show("Başarıyla güncellendi", "Başarılı", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Successfully updated", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             }
 
-            // Mevcut departman modelini sıfırla
-            _currentState.CurrentReservation = new ReservationModel();
-            _currentState.SelectedReservation = null;
-            _currentState.CurrentState = State.NORMAL;
+             _viewModel.CurrentReservation = new ReservationModel();
+             _viewModel.SelectedReservation = null;
+            _viewModel.CurrentState = State.NORMAL;
         }
     }
 }

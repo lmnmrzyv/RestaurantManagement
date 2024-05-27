@@ -1,4 +1,5 @@
 ﻿using DataAccessManager.Domain.Interfaces;
+using RestaurantManagement.Enums;
 using RestaurantManagement.Models;
 using RestaurantManagement.ViewModels;
 using System;
@@ -15,11 +16,11 @@ namespace RestaurantManagement.Commands.Departments
     public class DeleteCommand : ICommand
     {
         private readonly IUnitOfWork _db;
-        private readonly DepartmentsViewModel _currentState;
-        public DeleteCommand(IUnitOfWork db,DepartmentsViewModel currentState)
+        private readonly DepartmentsViewModel _viewModel;
+        public DeleteCommand(IUnitOfWork db,DepartmentsViewModel viewModel)
         {
             _db = db;
-            _currentState = currentState;
+            _viewModel = viewModel;
         }
         public event EventHandler CanExecuteChanged;
 
@@ -35,19 +36,21 @@ namespace RestaurantManagement.Commands.Departments
             if (result != MessageBoxResult.Yes)
                 return;
 
-            var deletedId = _currentState.SelectedDepartments.Id;
+            var deletedId = _viewModel.SelectedDepartment.Id;
 
             _db.DepartmentRepository.Delete(deletedId);
 
             MessageBox.Show("Successfully deleted", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
 
-            _currentState.Departments.Remove(_currentState.SelectedDepartments);
+            _viewModel.Departments.Remove(_viewModel.SelectedDepartment);
+            _viewModel.AllDepartments=_viewModel.Departments.ToList();
 
-            for (int i = 0; i < _currentState.Departments.Count; i++)
+            for (int i = 0; i < _viewModel.Departments.Count; i++)
             {
-                _currentState.Departments[i].No = i + 1;
+                _viewModel.Departments[i].No = i + 1;
             }
-            _currentState.Departments=new ObservableCollection<DepartmentModel>(_currentState.Departments);
+            _viewModel.Departments=new ObservableCollection<DepartmentModel>(_viewModel.Departments);
+            _viewModel.CurrentState = State.NORMAL;
         }
     }
 }

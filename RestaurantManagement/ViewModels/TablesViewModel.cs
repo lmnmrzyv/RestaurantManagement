@@ -19,7 +19,7 @@ namespace RestaurantManagement.ViewModels
         public TablesViewModel(IUnitOfWork db)
         {
            _db = db;
-            CurrentTables = new TablesModel();
+            CurrentTables = new TableModel();
             LoadPositions();
         }
         /*public List<TablesModel> Tables { get; set; }*/
@@ -34,9 +34,9 @@ namespace RestaurantManagement.ViewModels
                 OnPropertyChanged(nameof(CurrentState));
             }
         }
-        private TablesModel _currentTables;
+        private TableModel _currentTables;
 
-        public TablesModel CurrentTables
+        public TableModel CurrentTables
         {
             get => _currentTables;
             set
@@ -46,9 +46,9 @@ namespace RestaurantManagement.ViewModels
             }
         }
 
-        private TablesModel _selectedTables;
+        private TableModel _selectedTables;
 
-        public TablesModel SelectedTables
+        public TableModel SelectedTables
         {
             get => _selectedTables;
             set
@@ -65,15 +65,15 @@ namespace RestaurantManagement.ViewModels
                 }
                 else
                 {
-                    CurrentTables = new TablesModel();
+                    CurrentTables = new TableModel();
                     CurrentState = State.NORMAL;
                 }
                 OnPropertyChanged(nameof(SelectedTables));
             }
         }
-        private ObservableCollection<TablesModel> _tables { get; set; }
+        private ObservableCollection<TableModel> _tables { get; set; }
 
-        public ObservableCollection<TablesModel> Tables
+        public ObservableCollection<TableModel> Tables
         {
             get => _tables;
             set
@@ -82,11 +82,11 @@ namespace RestaurantManagement.ViewModels
                 OnPropertyChanged(nameof(Tables));
             }
         }
-        public List<TablesModel> AllTables { get; set; } = new List<TablesModel>();
+        public List<TableModel> AllTables { get; set; } = new List<TableModel>();
         private void LoadPositions()
         {
             var tableEntities = _db.TableRepository.GetAll();
-            AllTables = tableEntities.Select(e => new TablesModel
+            AllTables = tableEntities.Select(e => new TableModel
             {
                 Id = e.Id,
                 TableNumber = e.TableNumber,
@@ -94,7 +94,7 @@ namespace RestaurantManagement.ViewModels
             }
             ).ToList();
 
-            Tables = new ObservableCollection<TablesModel>(AllTables);
+            Tables = new ObservableCollection<TableModel>(AllTables);
         }
         private int _searchText;
         public int SearchText
@@ -109,7 +109,7 @@ namespace RestaurantManagement.ViewModels
 
                 var filteredTables = AllTables.Where(x => x.TableNumber == lowerSearchText ||
                                                        x.Capacity == lowerSearchText );
-                Tables = new ObservableCollection<TablesModel>(filteredTables);
+                Tables = new ObservableCollection<TableModel>(filteredTables);
             }
         }
       

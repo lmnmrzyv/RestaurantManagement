@@ -16,11 +16,11 @@ namespace RestaurantManagement.Commands.Employees
     public class DeleteCommand : ICommand
     {
         private readonly IUnitOfWork _db;
-        private readonly EmployeesViewModel _currentState;
-        public DeleteCommand(IUnitOfWork db, EmployeesViewModel currentState)
+        private readonly EmployeesViewModel _viewModel;
+        public DeleteCommand(IUnitOfWork db, EmployeesViewModel viewModel)
         {
             _db = db;
-            _currentState = currentState;
+            _viewModel = viewModel;
         }
         public event EventHandler CanExecuteChanged;
 
@@ -36,20 +36,18 @@ namespace RestaurantManagement.Commands.Employees
             if (result != MessageBoxResult.Yes)
                 return;
 
-            var deletedId = _currentState.SelectedEmployee.Id;
-
-            _db.EmployeeRepository.Delete(deletedId); // Corrected to EmployeeRepository
-
+            var deletedId = _viewModel.SelectedEmployee.Id;
+            _db.EmployeeRepository.Delete(deletedId);
             MessageBox.Show("Successfully deleted", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            _viewModel.Employees.Remove(_viewModel.SelectedEmployee);
+            _viewModel.AllEmployees = _viewModel.Employees.ToList();
 
-            _currentState.Employees.Remove(_currentState.SelectedEmployee);
-
-            for (int i = 0; i < _currentState.Employees.Count; i++)
+            for (int i = 0; i < _viewModel.Employees.Count; i++)
             {
-                _currentState.Employees[i].No = i + 1;
+                _viewModel.Employees[i].No = i + 1;
             }
-            _currentState.Employees = new ObservableCollection<EmployeeModel>(_currentState.Employees);
-            _currentState.CurrentState = State.NORMAL;
+            _viewModel.Employees = new ObservableCollection<EmployeeModel>(_viewModel.Employees);
+            _viewModel.CurrentState = State.NORMAL;
         }
     }
 

@@ -16,12 +16,12 @@ namespace RestaurantManagement.Commands.Employees
 {
     public class SaveCommand : ICommand
     {
-        private readonly EmployeesViewModel _currentState;
+        private readonly EmployeesViewModel _viewModel;
         private readonly IUnitOfWork _db;
-        public SaveCommand(IUnitOfWork db,EmployeesViewModel currentState)
+        public SaveCommand(IUnitOfWork db,EmployeesViewModel viewModel)
         {
             _db = db;
-            _currentState = currentState;
+            _viewModel = viewModel;
         }
         public event EventHandler CanExecuteChanged;
 
@@ -33,44 +33,31 @@ namespace RestaurantManagement.Commands.Employees
         public void Execute(object parameter)
         {
             var mapper = new EmployeeMapper();
-            var employee = mapper.MapModelToEntity(new Employee(), _currentState.CurrentEmployee);
+            var employee = mapper.MapModelToEntity(new Employee(), _viewModel.CurrentEmployee);
             employee.IsActive=true;
-            // Yeni bir departman mı oluşturuluyor yoksa mevcut bir departman mı güncelleniyor kontrol et
             if (employee.Id == 0)
             {
-                // Yeni departmanı veritabanına ekle ve dönen ID ile modeli güncelle
-                _currentState.CurrentEmployee.Id = _db.EmployeeRepository.Add(employee);
+                _viewModel.CurrentEmployee.Id = _db.EmployeeRepository.Add(employee);
+                var lastElementNo = _viewModel.AllEmployees.LastOrDefault()?.No ?? 0;
+                _viewModel.CurrentEmployee.No = lastElementNo + 1;
+                _viewModel.Employees.Add(_viewModel.CurrentEmployee);
+                _viewModel.AllEmployees = _viewModel.Employees.ToList();
 
-                // Departmanın yeni numarasını belirle
-                var lastElementNo = _currentState.AllEmployees.LastOrDefault()?.No ?? 0;
-                _currentState.CurrentEmployee.No = lastElementNo + 1;
-
-                // Mevcut departman modelini observable koleksiyona ekle
-                _currentState.Employees.Add(_currentState.CurrentEmployee);
-
-                MessageBox.Show("Başarıyla oluşturuldu", "Başarılı", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Successfully created", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             else
             {
-                // Gerekirse mevcut departmanı veritabanından al
                 var existingDepartment = _db.EmployeeRepository.Get(employee.Id);
-
-                // Mevcut departmanı veritabanında güncelle
                 _db.EmployeeRepository.Update(employee);
+                var index = _viewModel.Employees.IndexOf(_viewModel.Employees.First(x => x.Id == employee.Id));
+                _viewModel.Employees[index] = _viewModel.CurrentEmployee;
+                _viewModel.AllEmployees = _viewModel.Employees.ToList();
 
-                // Observable koleksiyondaki departmanın indeksini bul
-                var index = _currentState.Employees.IndexOf(_currentState.Employees.First(x => x.Id == employee.Id));
-
-                // Observable koleksiyondaki departman modelini güncelle
-                _currentState.Employees[index] = _currentState.CurrentEmployee;
-
-                MessageBox.Show("Başarıyla güncellendi", "Başarılı", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Successfully created", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             }
-
-            // Mevcut departman modelini sıfırla
-           // _currentState.CurrentDepartments = new EmployeesModel();
-           // _currentState.SelectedDepartments = null;
-            _currentState.CurrentState = State.NORMAL;
+            _viewModel.CurrentEmployee = new EmployeeModel();
+            _viewModel.SelectedEmployee = null;
+            _viewModel.CurrentState = State.NORMAL;
         }
     }
 }

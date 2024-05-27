@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace RestaurantManagement.Models
 {
-    public class TablesModel : IModel,INotifyPropertyChanged
+    public class TableModel : IModel,INotifyPropertyChanged
     {
         public int Id { get; set; }
         public int _no;
@@ -28,9 +28,9 @@ namespace RestaurantManagement.Models
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        public TablesModel Clone()
+        public TableModel Clone()
         {
-            var tableModel= new TablesModel();
+            var tableModel= new TableModel();
 
             tableModel.Id = Id;
             tableModel.No = No;

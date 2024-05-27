@@ -16,11 +16,11 @@ namespace RestaurantManagement.Commands.Reservations
     public class DeleteCommand : ICommand
     {
         private readonly IUnitOfWork _db;
-        private readonly ReservationsViewModel _currentState;
-        public DeleteCommand(IUnitOfWork db,ReservationsViewModel currentState)
+        private readonly ReservationsViewModel _viewModel;
+        public DeleteCommand(IUnitOfWork db,ReservationsViewModel viewModel)
         {
             _db = db;
-            _currentState = currentState;
+            _viewModel = viewModel;
         }
         public event EventHandler CanExecuteChanged;
 
@@ -36,21 +36,21 @@ namespace RestaurantManagement.Commands.Reservations
             if (result != MessageBoxResult.Yes)
                 return;
 
-            var deletedId = _currentState.SelectedReservation.Id;
+            var deletedId = _viewModel.SelectedReservation.Id;
 
             _db.ReservationRepository.Delete(deletedId);
 
             MessageBox.Show("Successfully deleted", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
 
-            _currentState.Reservations.Remove(_currentState.SelectedReservation);
+            _viewModel.Reservations.Remove(_viewModel.SelectedReservation);
+            _viewModel.AllReservations = _viewModel.Reservations.ToList();
 
-            for (int i = 0; 
-                i < _currentState.Reservations.Count; i++)
+            for (int i = 0; i < _viewModel.Reservations.Count; i++)
             {
-                _currentState.Reservations[i].No = i + 1;
+                _viewModel.Reservations[i].No = i + 1;
             }
-            _currentState.Reservations = new ObservableCollection<ReservationModel>(_currentState.Reservations);
-            _currentState.CurrentState = State.NORMAL;
+            _viewModel.Reservations = new ObservableCollection<ReservationModel>(_viewModel.Reservations);
+            _viewModel.CurrentState = State.NORMAL;
         }
     }
 }

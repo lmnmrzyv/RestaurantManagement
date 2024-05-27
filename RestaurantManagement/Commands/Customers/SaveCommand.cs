@@ -41,7 +41,7 @@ namespace RestaurantManagement.Commands.Customers
             _currentState.CurrentCustomers.No = lastElementNo + 1;
 
             _currentState.Customers.Add(_currentState.CurrentCustomers);
-            _currentState.CurrentCustomers = new CustomersModel();
+            _currentState.CurrentCustomers = new CustomerModel();
 
             _currentState.CurrentState = State.NORMAL;
         }

@@ -32,6 +32,16 @@ namespace RestaurantManagement.Mappers
                                 var enumValue = Enum.Parse(propertyInfosEntity[i].PropertyType, modelValue.ToString());
                                 propertyInfosEntity[i].SetValue(entity, enumValue);
                             }
+                            else if (typeof(IModel).IsAssignableFrom(propertyInfosModel[j].PropertyType) && typeof(IDbEntity).IsAssignableFrom(propertyInfosEntity[i].PropertyType))
+                            {
+                                var mapperType = typeof(Mapper<,>).MakeGenericType(propertyInfosModel[j].PropertyType, propertyInfosEntity[i].PropertyType);
+                                var mapper = Activator.CreateInstance(mapperType);
+                                var mapMethod = mapperType.GetMethod("MapModelToEntity");
+                                var nestedEntity = Activator.CreateInstance(propertyInfosEntity[i].PropertyType);
+                                var nestedModel = modelValue;
+                                var mapperValue = mapMethod.Invoke(mapper, new object[] { nestedEntity, nestedModel });
+                                propertyInfosEntity[i].SetValue(entity, mapperValue);
+                            }
                             else
                             {
                                 propertyInfosEntity[i].SetValue(entity, modelValue);
@@ -59,12 +69,23 @@ namespace RestaurantManagement.Mappers
                     if (propertyInfosEntity[i].Name == propertyInfosModel[j].Name)
                     {
                         var entityValue = propertyInfosEntity[i].GetValue(entity);
+                        
                         if (entityValue != null)
                         {
                             if (propertyInfosModel[j].PropertyType.IsEnum)
                             {
                                 var enumValue = Enum.Parse(propertyInfosModel[j].PropertyType, entityValue.ToString());
                                 propertyInfosModel[j].SetValue(model, enumValue);
+                            }
+                            else if (typeof(IModel).IsAssignableFrom(propertyInfosModel[j].PropertyType) && typeof(IDbEntity).IsAssignableFrom(propertyInfosEntity[i].PropertyType))
+                            {
+                                var mapperType=typeof(Mapper<,>).MakeGenericType(propertyInfosModel[j].PropertyType,propertyInfosEntity[i].PropertyType);
+                                var mapper=Activator.CreateInstance(mapperType);
+                                var mapMethod= mapperType.GetMethod("MapEntityToModel");
+                                var nestedModel=Activator.CreateInstance(propertyInfosModel[j].PropertyType);
+                                var nestedEntity = entityValue;
+                                var mapperValue=mapMethod.Invoke(mapper, new object[] { nestedEntity, nestedModel });
+                                propertyInfosModel[j].SetValue(model, mapperValue);
                             }
                             else
                             {

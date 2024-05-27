@@ -14,7 +14,7 @@ namespace RestaurantManagement.Models
         public int No { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
-        public Position Position { get; set; }
+        public PositionsModel Position { get; set; }
         public EducationLevel EducationLevel { get; set; }
         public decimal PerformanceRating { get; set; }
     }

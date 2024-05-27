@@ -42,20 +42,20 @@ namespace RestaurantManagement.Commands
 
             var customers = _db.CustomerRepository.GetAll();
 
-            var customersModel = new List<CustomersModel>();
+            var customersModel = new List<CustomerModel>();
             var customerMapper = new CustomerMapper();
             var no = 1;
 
             foreach (var customer in customers)
             {
-                var customerModel = customerMapper.MapEntityToModel(customer, new CustomersModel());
+                var customerModel = customerMapper.MapEntityToModel(customer, new CustomerModel());
 
                 customerModel.No = no++;
 
                 customersModel.Add(customerModel);
             }
 
-            viewModel.Customers = new ObservableCollection<CustomersModel>(customersModel);
+            viewModel.Customers = new ObservableCollection<CustomerModel>(customersModel);
             customerControl.DataContext = viewModel;
 
             grid.Children.Add(customerControl);

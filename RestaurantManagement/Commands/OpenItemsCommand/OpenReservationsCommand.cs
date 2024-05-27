@@ -38,6 +38,8 @@ namespace RestaurantManagement.Commands
 
             var reservationsControl = new ReservationsControl();
             var viewModel = new ReservationsViewModel(_db);
+            viewModel.LoadTables();
+            viewModel.LoadCustomers();
             var reservations=_db.ReservationRepository.GetAll();
             var reservationsModel=new List<ReservationModel>();
             var reservationMapper = new ReservationMapper();

@@ -17,7 +17,7 @@ namespace RestaurantManagement.ViewModels
         public CustomersViewModel(IUnitOfWork db)
         {
             _db = db;
-            CurrentCustomers = new CustomersModel();
+            CurrentCustomers = new CustomerModel();
 
         }
         private State _state;
@@ -30,9 +30,9 @@ namespace RestaurantManagement.ViewModels
                 OnPropertyChanged(nameof(CurrentState));
             }
         }
-        private CustomersModel _currentCustomers;
+        private CustomerModel _currentCustomers;
 
-        public CustomersModel CurrentCustomers
+        public CustomerModel CurrentCustomers
         {
             get => _currentCustomers;
             set
@@ -42,9 +42,9 @@ namespace RestaurantManagement.ViewModels
             }
         }
 
-        private CustomersModel _selectedCustomers;
+        private CustomerModel _selectedCustomers;
 
-        public CustomersModel SelectedCustomers
+        public CustomerModel SelectedCustomers
         {
             get => _selectedCustomers;
             set
@@ -52,23 +52,36 @@ namespace RestaurantManagement.ViewModels
                 _selectedCustomers = value;
                 if (_selectedCustomers != null)
                 {
-                    CurrentCustomers.No = SelectedCustomers.No;
-                    CurrentCustomers.Name = SelectedCustomers.Name;
-                    CurrentCustomers.Surname = SelectedCustomers.Surname;
-                    CurrentCustomers.PhoneNum = SelectedCustomers.PhoneNum;
-                    CurrentCustomers.Mail = SelectedCustomers.Mail;
+                    var CustomersTemp=new CustomerModel();
+                    CustomersTemp.Id = _selectedCustomers.Id;
+                    CustomersTemp.No = SelectedCustomers.No;
+                    CustomersTemp.Name = SelectedCustomers.Name;
+                    CustomersTemp.Surname = SelectedCustomers.Surname;
+                    CustomersTemp.PhoneNum = SelectedCustomers.PhoneNum;
+                    CustomersTemp.Mail = SelectedCustomers.Mail;
+                    CurrentCustomers=CustomersTemp;
                     CurrentState = State.SELECTED;
                 }
                 else
                 {
-                    CurrentCustomers = new CustomersModel();
+                    CurrentCustomers = new CustomerModel();
                     CurrentState = State.NORMAL;
                 }
                 OnPropertyChanged(nameof(SelectedCustomers));
             }
         }
-        public ObservableCollection<CustomersModel> Customers { get; set; }
 
+        public List<CustomerModel> AllCustomers { get; set; }
+        private ObservableCollection<CustomerModel> _customers;
+        public ObservableCollection<CustomerModel> Customers
+        {
+            get=> _customers;
+            set
+            {
+                _customers = value;
+                OnPropertyChanged(nameof(Customers));
+            }
+        }
         public AddCommand Add => new AddCommand(this);
         public SaveCommand Save => new SaveCommand(_db, this);
         public DeleteCommand Delete => new DeleteCommand(this);

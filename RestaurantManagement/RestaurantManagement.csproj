@@ -144,7 +144,7 @@
     <Compile Include="Mappers\ReservationMapper.cs" />
     <Compile Include="Mappers\TableMapper.cs" />
     <Compile Include="Models\CategoriesModel.cs" />
-    <Compile Include="Models\CustomersModel.cs" />
+    <Compile Include="Models\CustomerModel.cs" />
     <Compile Include="Models\DatabaseConfigModel.cs" />
     <Compile Include="Models\DepartmentModel.cs" />
     <Compile Include="Models\DiscountsModel.cs" />
@@ -154,7 +154,7 @@
     <Compile Include="Models\OrderDetailsModel.cs" />
     <Compile Include="Models\OrdersModel.cs" />
     <Compile Include="Models\PositionsModel.cs" />
-    <Compile Include="Models\TablesModel.cs" />
+    <Compile Include="Models\TableModel.cs" />
     <Compile Include="Models\ReservationModel.cs" />
     <Compile Include="Models\UserLoginModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />

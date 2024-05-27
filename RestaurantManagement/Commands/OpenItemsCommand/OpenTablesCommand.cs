@@ -40,16 +40,16 @@ namespace RestaurantManagement.Commands
             var control = new TablesControl();
             var viewModel= new TablesViewModel(_db);
             var tables = _db.TableRepository.GetAll();
-            var tableModels= new List<TablesModel>();
+            var tableModels= new List<TableModel>();
             var tableMapper= new TableMapper();
             var no = 1;
             foreach ( var table in tables)
             {
-                var tableModel = tableMapper.MapEntityToModel(table,new TablesModel());
+                var tableModel = tableMapper.MapEntityToModel(table,new TableModel());
                 tableModel.No = no++;
                 tableModels.Add(tableModel);
             }
-            viewModel.Tables= new ObservableCollection<TablesModel>(tableModels);
+            viewModel.Tables= new ObservableCollection<TableModel>(tableModels);
             control.DataContext = viewModel;
             grid.Children.Add(control);
         }

@@ -16,12 +16,12 @@ namespace RestaurantManagement.Commands.Departments
 {
     public class SaveCommand : ICommand
     {
-        private readonly DepartmentsViewModel _currentState;
+        private readonly DepartmentsViewModel _viewModel;
         private readonly IUnitOfWork _db;
-        public SaveCommand(IUnitOfWork db,DepartmentsViewModel currentState)
+        public SaveCommand(IUnitOfWork db,DepartmentsViewModel viewModel)
         {
             _db = db;
-            _currentState = currentState;
+            _viewModel = viewModel;
         }
         public event EventHandler CanExecuteChanged;
 
@@ -33,44 +33,30 @@ namespace RestaurantManagement.Commands.Departments
         public void Execute(object parameter)
         {
             var mapper = new DepartmentMapper();
-            var department = mapper.MapModelToEntity(new Department(), _currentState.CurrentDepartments);
-
-            // Yeni bir departman mı oluşturuluyor yoksa mevcut bir departman mı güncelleniyor kontrol et
+            var department = mapper.MapModelToEntity(new Department(), _viewModel.CurrentDepartment);
             if (department.Id == 0)
             {
-                // Yeni departmanı veritabanına ekle ve dönen ID ile modeli güncelle
-                _currentState.CurrentDepartments.Id = _db.DepartmentRepository.Add(department);
+                _viewModel.CurrentDepartment.Id = _db.DepartmentRepository.Add(department);
+                var lastElementNo = _viewModel.Departments.LastOrDefault()?.No ?? 0;
+                _viewModel.CurrentDepartment.No = lastElementNo + 1;
+                _viewModel.Departments.Add(_viewModel.CurrentDepartment);
+                _viewModel.AllDepartments = _viewModel.Departments.ToList();
 
-                // Departmanın yeni numarasını belirle
-                var lastElementNo = _currentState.Departments.LastOrDefault()?.No ?? 0;
-                _currentState.CurrentDepartments.No = lastElementNo + 1;
-
-                // Mevcut departman modelini observable koleksiyona ekle
-                _currentState.Departments.Add(_currentState.CurrentDepartments);
-
-                MessageBox.Show("Başarıyla oluşturuldu", "Başarılı", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Successfully created", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             else
             {
-                // Gerekirse mevcut departmanı veritabanından al
                 var existingDepartment = _db.DepartmentRepository.Get(department.Id);
-
-                // Mevcut departmanı veritabanında güncelle
                 _db.DepartmentRepository.Update(department);
+                var index = _viewModel.Departments.IndexOf(_viewModel.Departments.First(x => x.Id == department.Id));
+                _viewModel.Departments[index] = _viewModel.CurrentDepartment;
+                _viewModel.AllDepartments = _viewModel.Departments.ToList();
 
-                // Observable koleksiyondaki departmanın indeksini bul
-                var index = _currentState.Departments.IndexOf(_currentState.Departments.First(x => x.Id == department.Id));
-
-                // Observable koleksiyondaki departman modelini güncelle
-                _currentState.Departments[index] = _currentState.CurrentDepartments;
-
-                MessageBox.Show("Başarıyla güncellendi", "Başarılı", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Successfully created", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             }
-
-            // Mevcut departman modelini sıfırla
-            _currentState.CurrentDepartments = new DepartmentModel();
-            _currentState.SelectedDepartments = null;
-            _currentState.CurrentState = State.NORMAL;
+            _viewModel.CurrentDepartment = new DepartmentModel();
+            _viewModel.SelectedDepartment = null;
+            _viewModel.CurrentState = State.NORMAL;
         }
 
     }

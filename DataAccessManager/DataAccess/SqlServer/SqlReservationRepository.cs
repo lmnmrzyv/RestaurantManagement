@@ -106,18 +106,15 @@ namespace DataAccessManager.DataAccess.SqlServer
                         reservation.NumberOfPeople = reader.GetInt32(reader.GetOrdinal("NumberOfPeople"));
                         reservation.IsActive = reader.GetBoolean(reader.GetOrdinal("IsActive"));
 
-                        // Table ve Customer nesnelerini oluşturup verilerini doldurun
+                       
                         Table table = new Table();
-                        table.Id = reader.GetInt32(reader.GetOrdinal("Id"));
-                        table.TableNumber = reader.GetInt32(reader.GetOrdinal("TableNumber")); // Varsayılan olarak sütun adını kullanarak değeri alıyorum, uygun şekilde değiştirebilirsiniz
-      
+                        table.Id = reader.GetInt32(reader.GetOrdinal("TableId"));
+                        table.TableNumber = reader.GetInt32(reader.GetOrdinal("TableNumber")); 
 
                         Customer customer = new Customer();
-                        customer.Id = reader.GetInt32(reader.GetOrdinal("Id"));
-                        customer.Name = reader.GetString(reader.GetOrdinal("Name")); // Varsayılan olarak sütun adını kullanarak değeri alıyorum, uygun şekilde değiştirebilirsiniz
-                        customer.Surname = reader.GetString(reader.GetOrdinal("Surname")); // Varsayılan olarak sütun adını kullanarak değeri alıyorum, uygun şekilde değiştirebilirsiniz
-
-                        // Reservation nesnesine Table ve Customer nesnelerini ekleyin
+                        customer.Id = reader.GetInt32(reader.GetOrdinal("CustomerId"));
+                        customer.Name = reader.GetString(reader.GetOrdinal("Name"));
+                        customer.Surname = reader.GetString(reader.GetOrdinal("Surname")); 
                         reservation.Table = table;
                         reservation.Customer = customer;
 
@@ -155,15 +152,14 @@ namespace DataAccessManager.DataAccess.SqlServer
                         reservation.NumberOfPeople = reader.GetInt32(reader.GetOrdinal("NumberOfPeople"));
                         reservation.IsActive = reader.GetBoolean(reader.GetOrdinal("IsActive"));
 
-                        // Table nesnesini oluşturup verilerini doldurun
                         Table table = new Table();
+
                         table.Id = reader.GetInt32(reader.GetOrdinal("TableId"));
                         table.TableNumber = reader.GetInt32(reader.GetOrdinal("TableNumber"));
                         reservation.Table = table;
 
-                        // Customer nesnesini oluşturup verilerini doldurun
                         Customer customer = new Customer();
-                        customer.Id = reader.GetInt32(reader.GetOrdinal("Id"));
+                        customer.Id = reader.GetInt32(reader.GetOrdinal("CustomerId"));
                         customer.Name = reader.GetString(reader.GetOrdinal("Name"));
                         customer.Surname = reader.GetString(reader.GetOrdinal("Surname"));
                         reservation.Customer = customer;

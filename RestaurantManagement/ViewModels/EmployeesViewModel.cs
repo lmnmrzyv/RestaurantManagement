@@ -20,21 +20,23 @@ namespace RestaurantManagement.ViewModels
     {
 
         private readonly IUnitOfWork _db;
-        public ObservableCollection<Position> Positions {  get; set; }
+        public ObservableCollection<PositionsModel> Positions {  get; set; }
         public EmployeesViewModel(IUnitOfWork db)
         {
             _db = db;
             CurrentEmployee=new EmployeeModel();
-            CurrentEmployee.Position = new Position();
 
-            LoadPositions();
         }
 
-        private void LoadPositions()
+        public void LoadPositions()
         {
             var positions = _db.PositionRepository.GetAll();
 
-            Positions = new ObservableCollection<Position>(positions);
+            Positions = new ObservableCollection<PositionsModel>(positions.Select(p => new PositionsModel
+            {
+                Id = p.Id,
+                Name = p.Name
+            }));
         }
         private State _currentState;
 

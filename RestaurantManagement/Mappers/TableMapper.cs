@@ -8,7 +8,7 @@ using RestaurantManagement.Models;
 
 namespace RestaurantManagement.Mappers
 {
-    public class TableMapper : Mapper<TablesModel, Table>
+    public class TableMapper : Mapper<TableModel, Table>
     {
         
         
