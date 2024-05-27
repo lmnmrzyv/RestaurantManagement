@@ -56,11 +56,9 @@ namespace RestaurantManagement.ViewModels
                 _selectedDepartment = value;
                 if (_selectedDepartment != null)
                 {
-                    var DepartmentsTemp=new DepartmentModel();
-                    DepartmentsTemp.Name = SelectedDepartment.Name;
-                    DepartmentsTemp.Id = SelectedDepartment.Id;
-                    DepartmentsTemp.No = SelectedDepartment.No;
-                    CurrentDepartment=DepartmentsTemp;
+                    CloneRef<DepartmentModel> cloner = new CloneRef<DepartmentModel>();
+                    var DepartmentTmp = cloner.Clone(_selectedDepartment);
+                    CurrentDepartment=DepartmentTmp;
                     CurrentState = State.SELECTED;
                 }
                 else
