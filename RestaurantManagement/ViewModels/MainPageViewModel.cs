@@ -12,9 +12,9 @@ namespace RestaurantManagement.ViewModels
     {
         public MainPageViewModel(IUnitOfWork db)
         {
-            OpenDepartments = new OpenDepartmentsCommand(db);
-            OpenEmployees = new OpenEmployeesCommand(db);
-            OpenReservations = new OpenReservationsCommand(db);
+            OpenDepartments = new OpenDepartmentCommand(db);
+            OpenEmployees = new OpenEmployeeCommand(db);
+            OpenReservations = new OpenReservationCommand(db);
             OpenCategories = new OpenCategoriesCommand();
             OpenMenuItems = new OpenMenuItemsCommand();
             OpenOrders = new OpenOrdersCommand();
@@ -26,9 +26,9 @@ namespace RestaurantManagement.ViewModels
         }
 
 
-        public OpenDepartmentsCommand OpenDepartments { get; }
-        public OpenEmployeesCommand OpenEmployees { get; }
-        public OpenReservationsCommand OpenReservations { get; }
+        public OpenDepartmentCommand OpenDepartments { get; }
+        public OpenEmployeeCommand OpenEmployees { get; }
+        public OpenReservationCommand OpenReservations { get; }
         public OpenCategoriesCommand OpenCategories { get; }
         public OpenMenuItemsCommand OpenMenuItems { get; }
         public OpenOrdersCommand OpenOrders { get; }

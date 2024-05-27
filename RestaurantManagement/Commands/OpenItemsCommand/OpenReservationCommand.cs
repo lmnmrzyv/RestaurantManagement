@@ -14,11 +14,11 @@ using System.Windows.Input;
 
 namespace RestaurantManagement.Commands
 {
-    public class OpenReservationsCommand : ICommand
+    public class OpenReservationCommand : ICommand
     {
         public event EventHandler CanExecuteChanged;
         private readonly IUnitOfWork _db;
-        public OpenReservationsCommand(IUnitOfWork db)
+        public OpenReservationCommand(IUnitOfWork db)
         {
             _db = db;
         }
