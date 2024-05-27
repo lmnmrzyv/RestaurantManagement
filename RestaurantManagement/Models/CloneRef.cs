@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RestaurantManagement.ViewModels.Interfaces
+namespace RestaurantManagement.Models
 {
-    public interface IHashCalculator
+    public class CloneRef
     {
-        string Calculate(string rawText);
+        
     }
 }

@@ -131,6 +131,7 @@
     <Compile Include="Commands\Tables\RejectCommand.cs" />
     <Compile Include="Commands\Tables\SaveCommand.cs" />
     <Compile Include="Enums\State.cs" />
+    <Compile Include="Infrastructure\Implementations\FileConfigManager.cs" />
     <Compile Include="Mappers\CategoryMapper.cs" />
     <Compile Include="Mappers\CustomerMapper.cs" />
     <Compile Include="Mappers\DepartmentMapper.cs" />
@@ -144,8 +145,9 @@
     <Compile Include="Mappers\ReservationMapper.cs" />
     <Compile Include="Mappers\TableMapper.cs" />
     <Compile Include="Models\CategoriesModel.cs" />
+    <Compile Include="Models\CloneRef.cs" />
     <Compile Include="Models\CustomerModel.cs" />
-    <Compile Include="Models\DatabaseConfigModel.cs" />
+    <Compile Include="Infrastructure\Models\DatabaseConfigModel.cs" />
     <Compile Include="Models\DepartmentModel.cs" />
     <Compile Include="Models\DiscountsModel.cs" />
     <Compile Include="Models\EmployeeModel.cs" />
@@ -163,11 +165,10 @@
     <Compile Include="ViewModels\DepartmentsViewModel.cs" />
     <Compile Include="ViewModels\DiscountsViewModel.cs" />
     <Compile Include="ViewModels\EmployeesViewModel.cs" />
-    <Compile Include="ViewModels\Implementations\FileConfigManager.cs" />
-    <Compile Include="ViewModels\Implementations\MD5HashCalculator.cs" />
-    <Compile Include="ViewModels\Interfaces\IConfigManager.cs" />
+    <Compile Include="Infrastructure\Implementations\MD5HashCalculator.cs" />
+    <Compile Include="Infrastructure\Interfaces\IConfigManager.cs" />
     <Compile Include="ViewModels\Interfaces\IControl.cs" />
-    <Compile Include="ViewModels\Interfaces\IHashCalculator.cs" />
+    <Compile Include="Infrastructure\Interfaces\IHashCalculator.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
     <Compile Include="ViewModels\MenuItemsViewModel.cs" />
