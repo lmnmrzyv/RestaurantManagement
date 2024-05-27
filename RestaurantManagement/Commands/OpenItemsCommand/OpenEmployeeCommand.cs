@@ -14,12 +14,12 @@ using System.Windows.Input;
 
 namespace RestaurantManagement.Commands
 {
-    public class OpenEmployeesCommand : ICommand
+    public class OpenEmployeeCommand : ICommand
     {
         public event EventHandler CanExecuteChanged;
         private readonly IUnitOfWork _db;
 
-        public OpenEmployeesCommand(IUnitOfWork db)
+        public OpenEmployeeCommand(IUnitOfWork db)
         {
             _db = db;
             
