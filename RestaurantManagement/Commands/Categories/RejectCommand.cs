@@ -26,8 +26,8 @@ namespace RestaurantManagement.Commands.Categories
 
         public void Execute(object parameter)
         {
-            _viewModel.SelectedCategories = null;
-            _viewModel.CurrentCategories = new CategoriesModel();
+            _viewModel.SelectedCategory = null;
+            _viewModel.CurrentCategory = new CategoriesModel();
             _viewModel.CurrentState = State.NORMAL;
 
         }

@@ -56,11 +56,9 @@ namespace RestaurantManagement.ViewModels
                 _selectedCategory = value;
                 if (_selectedCategory != null)
                 {
-                    var CategoriesTemp = new CategoriesModel();
-                    CategoriesTemp.name = SelectedCategory.name;
-                    CategoriesTemp.Id = SelectedCategory.Id;
-                    CategoriesTemp.No = SelectedCategory.No;
-                    CurrentCategory = CategoriesTemp;
+                    CloneRef<CategoriesModel> cloner = new CloneRef<CategoriesModel>();
+                    var CategoryTmp = cloner.Clone(_selectedCategory);
+                    CurrentCategory = CategoryTmp;
                     CurrentState = State.SELECTED;
                 }
                 else
