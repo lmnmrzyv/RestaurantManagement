@@ -1,6 +1,12 @@
-﻿using RestaurantManagement.Views.Controls;
+﻿using DataAccessManager.Domain.Entities;
+using DataAccessManager.Domain.Interfaces;
+using RestaurantManagement.Mappers;
+using RestaurantManagement.Models;
+using RestaurantManagement.ViewModels;
+using RestaurantManagement.Views.Controls;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,8 +15,13 @@ using System.Windows.Input;
 
 namespace RestaurantManagement.Commands
 {
-    public class OpenCategoriesCommand:ICommand
+    public class OpenCategoryCommand : ICommand
     {
+        private readonly IUnitOfWork _db;
+        public OpenCategoryCommand(IUnitOfWork db)
+        {
+            _db = db;
+        }
         public event EventHandler CanExecuteChanged;
 
         public bool CanExecute(object parameter)
@@ -27,9 +38,31 @@ namespace RestaurantManagement.Commands
 
             grid.Children.Clear();
 
-            var categoriesControl = new CategoriesControl();
+            var control = new CategoriesControl();
+            var viewModel = new CategoriesViewModel(_db);
 
-            grid.Children.Add(categoriesControl);
+            var categories = _db.CategoryRepository.GetAll();
+
+            var categoriesModel = new List<CategoriesModel>();
+
+            var categoriesMapper = new CategoryMapper();
+            var no = 1;
+
+            foreach (var category in categories)
+            {
+                var categoryModel = categoriesMapper.MapEntityToModel(category, new CategoriesModel());
+
+                categoryModel.No = no++;
+
+                categoriesModel.Add(categoryModel);
+            }
+
+            viewModel.AllCategories = categoriesModel;
+            viewModel.Categories = new ObservableCollection<CategoriesModel>(categoriesModel);
+
+            control.DataContext = viewModel;
+
+            grid.Children.Add(control);
         }
     }
 }
