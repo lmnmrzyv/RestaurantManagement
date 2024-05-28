@@ -15,10 +15,10 @@ using System.Windows.Input;
 
 namespace RestaurantManagement.Commands
 {
-    public class OpenDepartmentsCommand:ICommand
+    public class OpenDepartmentCommand:ICommand
     {
         private readonly IUnitOfWork _db;
-        public OpenDepartmentsCommand(IUnitOfWork db)
+        public OpenDepartmentCommand(IUnitOfWork db)
         {
             _db = db;
         }

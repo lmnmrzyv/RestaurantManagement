@@ -86,11 +86,11 @@
                         <GridViewColumn Header="Customer" Width="200">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <StackPanel Orientation="Horizontal">
+                                    <DockPanel >
                                         <TextBlock Text="{Binding Customer.Name}" />
                                         <TextBlock Text=" " />
                                         <TextBlock Text="{Binding Customer.Surname}" />
-                                    </StackPanel>
+                                    </DockPanel>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
