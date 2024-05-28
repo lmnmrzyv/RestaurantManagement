@@ -2,6 +2,7 @@
 using RestaurantManagement.Commands.Customers;
 using RestaurantManagement.Enums;
 using RestaurantManagement.Models;
+using RestaurantManagement.ViewModels.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,13 +12,13 @@ using System.Threading.Tasks;
 
 namespace RestaurantManagement.ViewModels
 {
-    public class CustomersViewModel : BaseViewModel
+    public class CustomersViewModel : BaseViewModel , IControl
     {
         private readonly IUnitOfWork _db;
         public CustomersViewModel(IUnitOfWork db)
         {
             _db = db;
-            CurrentCustomers = new CustomerModel();
+            CurrentCustomer = new CustomerModel();
 
         }
         private State _state;
@@ -30,49 +31,42 @@ namespace RestaurantManagement.ViewModels
                 OnPropertyChanged(nameof(CurrentState));
             }
         }
-        private CustomerModel _currentCustomers;
-
-        public CustomerModel CurrentCustomers
+        private CustomerModel _currentCustomer;
+        public CustomerModel CurrentCustomer
         {
-            get => _currentCustomers;
+            get => _currentCustomer;
             set
             {
-                _currentCustomers = value;
-                OnPropertyChanged(nameof(CurrentCustomers));
+                _currentCustomer = value;
+                OnPropertyChanged(nameof(CurrentCustomer));
             }
         }
 
-        private CustomerModel _selectedCustomers;
+        private CustomerModel _selectedCustomer;
 
-        public CustomerModel SelectedCustomers
+        public CustomerModel SelectedCustomer
         {
-            get => _selectedCustomers;
+            get => _selectedCustomer;
             set
             {
-                _selectedCustomers = value;
-                if (_selectedCustomers != null)
+                _selectedCustomer = value;
+                if (_selectedCustomer != null)
                 {
-                    var CustomersTemp=new CustomerModel();
-                    CustomersTemp.Id = _selectedCustomers.Id;
-                    CustomersTemp.No = SelectedCustomers.No;
-                    CustomersTemp.Name = SelectedCustomers.Name;
-                    CustomersTemp.Surname = SelectedCustomers.Surname;
-                    CustomersTemp.PhoneNum = SelectedCustomers.PhoneNum;
-                    CustomersTemp.Mail = SelectedCustomers.Mail;
-                    CurrentCustomers=CustomersTemp;
+                    CloneRef<CustomerModel> cloner = new CloneRef<CustomerModel>();
+                    var CustomerTemp =cloner.Clone(_selectedCustomer);
+                    CurrentCustomer = CustomerTemp;
                     CurrentState = State.SELECTED;
                 }
                 else
                 {
-                    CurrentCustomers = new CustomerModel();
+                    CurrentCustomer = new CustomerModel();
                     CurrentState = State.NORMAL;
                 }
-                OnPropertyChanged(nameof(SelectedCustomers));
+                OnPropertyChanged(nameof(SelectedCustomer));
             }
         }
-
         public List<CustomerModel> AllCustomers { get; set; }
-        private ObservableCollection<CustomerModel> _customers;
+        private ObservableCollection<CustomerModel> _customers { get; set; }
         public ObservableCollection<CustomerModel> Customers
         {
             get=> _customers;
@@ -82,10 +76,28 @@ namespace RestaurantManagement.ViewModels
                 OnPropertyChanged(nameof(Customers));
             }
         }
+        private string _searchText;
+        public string SearchText
+        {
+            get => _searchText;
+            set
+            {
+                _searchText = value;
+                OnPropertyChanged(nameof(SearchText));
+
+                var lowerSearchText = SearchText.ToLower();
+
+                var filteredCustomers = AllCustomers.Where(x => x.Name.ToLower().Contains(lowerSearchText));
+
+                Customers = new ObservableCollection<CustomerModel>(filteredCustomers);
+            }
+        }
         public AddCommand Add => new AddCommand(this);
         public SaveCommand Save => new SaveCommand(_db, this);
-        public DeleteCommand Delete => new DeleteCommand(this);
+        public DeleteCommand Delete => new DeleteCommand(_db, this);
         public RejectCommand Reject => new RejectCommand(this);
         public EditCommand Edit => new EditCommand(this);
+        public string Header => "Customers";
+
     }
 }

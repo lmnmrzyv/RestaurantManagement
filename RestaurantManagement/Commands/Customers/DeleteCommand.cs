@@ -1,4 +1,5 @@
-﻿using RestaurantManagement.ViewModels;
+﻿using DataAccessManager.Domain.Interfaces;
+using RestaurantManagement.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,11 +11,16 @@ namespace RestaurantManagement.Commands.Customers
 {
     public class DeleteCommand : ICommand
     {
-        private readonly CustomersViewModel _currentState;
-        public DeleteCommand(CustomersViewModel currentState)
+        
+        private readonly IUnitOfWork _db;
+        private readonly CustomersViewModel _viewModel;
+
+        public DeleteCommand(IUnitOfWork db,CustomersViewModel viewModel)
         {
-            _currentState = currentState;
+            _db = db;
+            _viewModel = viewModel;
         }
+        
         public event EventHandler CanExecuteChanged;
 
         public bool CanExecute(object parameter)

@@ -32,16 +32,16 @@ namespace RestaurantManagement.Commands.Customers
         public void Execute(object parameter)
         {
             var mapper = new CustomerMapper();
-            var customers = mapper.MapModelToEntity(new Customer(), _currentState.CurrentCustomers);
+            var customers = mapper.MapModelToEntity(new Customer(), _currentState.CurrentCustomer);
 
             _db.CustomerRepository.Add(customers);
 
             var lastElementNo = _currentState.Customers.LastOrDefault()?.No ?? 0;
 
-            _currentState.CurrentCustomers.No = lastElementNo + 1;
+            _currentState.CurrentCustomer.No = lastElementNo + 1;
 
-            _currentState.Customers.Add(_currentState.CurrentCustomers);
-            _currentState.CurrentCustomers = new CustomerModel();
+            _currentState.Customers.Add(_currentState.CurrentCustomer);
+            _currentState.CurrentCustomer = new CustomerModel();
 
             _currentState.CurrentState = State.NORMAL;
         }

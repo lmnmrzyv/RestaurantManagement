@@ -1,7 +1,9 @@
-﻿using DataAccessManager.Domain.Interfaces;
+﻿using DataAccessManager.Domain.Entities;
+using DataAccessManager.Domain.Interfaces;
 using RestaurantManagement.Commands.Discounts;
 using RestaurantManagement.Enums;
 using RestaurantManagement.Models;
+using RestaurantManagement.ViewModels.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,13 +13,13 @@ using System.Threading.Tasks;
 
 namespace RestaurantManagement.ViewModels
 {
-    public class DiscountsViewModel : BaseViewModel
+    public class DiscountsViewModel : BaseViewModel , IControl
     {
         private readonly IUnitOfWork _db;
         public DiscountsViewModel(IUnitOfWork db)
         {
             _db = db;
-            CurrentDiscounts = new DiscountsModel();
+            CurrentDiscount = new DiscountModel();
 
         }
         private State _state;
@@ -30,51 +32,77 @@ namespace RestaurantManagement.ViewModels
                 OnPropertyChanged(nameof(CurrentState));
             }
         }
-        private DiscountsModel _currentDiscounts;
-
-        public DiscountsModel CurrentDiscounts
+        private DiscountModel _currentDiscount;
+        public DiscountModel CurrentDiscount
         {
-            get => _currentDiscounts;
+            get => _currentDiscount;
             set
             {
-                _currentDiscounts = value;
-                OnPropertyChanged(nameof(CurrentDiscounts));
+                _currentDiscount = value;
+                OnPropertyChanged(nameof(CurrentDiscount));
             }
         }
+        private DiscountModel _selectedDiscount;
 
-        private DiscountsModel _selectedDiscounts;
-
-        public DiscountsModel SelectedDiscounts
+        public DiscountModel SelectedDiscount
         {
-            get => _selectedDiscounts;
+            get => _selectedDiscount;
             set
             {
-                _selectedDiscounts = value;
-                if (_selectedDiscounts != null)
+                _selectedDiscount = value;
+                if (_selectedDiscount != null)
                 {
-                    CurrentDiscounts.No = SelectedDiscounts.No;
-                    CurrentDiscounts.startTime = SelectedDiscounts.startTime;
-                    CurrentDiscounts.endTime = SelectedDiscounts.endTime;
-                    CurrentDiscounts.Status = SelectedDiscounts.Status;
-                    CurrentDiscounts.CategoryId = SelectedDiscounts.CategoryId;
-                    CurrentDiscounts.Percent = SelectedDiscounts.Percent;
+                    CloneRef<DiscountModel> cloner = new CloneRef<DiscountModel>();
+                    var DiscountTemp = cloner.Clone(_selectedDiscount);
+                    CurrentDiscount = DiscountTemp;
                     CurrentState = State.SELECTED;
                 }
                 else
                 {
-                    CurrentDiscounts = new DiscountsModel();
+                    CurrentDiscount = new DiscountModel();
                     CurrentState = State.NORMAL;
                 }
-                OnPropertyChanged(nameof(SelectedDiscounts));
+                OnPropertyChanged(nameof(SelectedDiscount));
+                 
             }
         }
-        public ObservableCollection<DiscountsModel> Discounts { get; set; }
+        public ObservableCollection<DiscountModel> _discounts { get; set; }
+        public ObservableCollection<DiscountModel> Discounts
+        {
+            get => _discounts;
+            set
+            {
+                _discounts = value;
+                OnPropertyChanged(nameof(Discounts));
+            }
+        }
 
+
+        public List<DiscountModel> AllDiscounts { get; set; }
+
+        private string _searchText;
+        public string SearchText
+        {
+            get => _searchText;
+            set
+            {
+                _searchText = value;
+                OnPropertyChanged(nameof(SearchText));
+
+                var lowerSearchText = SearchText.ToLower();
+
+                var filteredDiscounts = AllDiscounts.Where(x => x.No==Convert.ToInt32((lowerSearchText)));
+
+                Discounts = new ObservableCollection<DiscountModel>(filteredDiscounts);
+            }
+        }
         public AddCommand Add => new AddCommand(this);
         public SaveCommand Save => new SaveCommand(_db, this);
-        public DeleteCommand Delete => new DeleteCommand(this);
+        public DeleteCommand Delete => new DeleteCommand(_db, this);
         public RejectCommand Reject => new RejectCommand(this);
         public EditCommand Edit => new EditCommand(this);
+        
+        public string Header => "Discounts";
     }
 }
 

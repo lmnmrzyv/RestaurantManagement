@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace RestaurantManagement.Mappers
 {
-    public class DiscountMapper : Mapper<DiscountsModel,Discount>
+    public class DiscountMapper : Mapper<DiscountModel,Discount>
     {
         
     }

@@ -26,8 +26,8 @@ namespace RestaurantManagement.Commands.Discounts
 
         public void Execute(object parameter)
         {
-            _viewModel.SelectedDiscounts = null;
-            _viewModel.CurrentDiscounts = new DiscountsModel();
+            _viewModel.SelectedDiscount = null;
+            _viewModel.CurrentDiscount = new DiscountModel();
             _viewModel.CurrentState = State.NORMAL;
 
         }
