@@ -27,5 +27,6 @@ namespace RestaurantManagement.Commands.Discounts
         {
             _currentState.CurrentState = State.CREATED;
         }
+        
     }
 }

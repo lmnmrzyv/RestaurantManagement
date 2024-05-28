@@ -3,10 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:RestaurantManagement.Views.Controls" 
-			 xmlns:components="clr-namespace:RestaurantManagement.Views.Components"
-			 mc:Ignorable="d" 
+             xmlns:local="clr-namespace:RestaurantManagement.Views.Controls"
+             xmlns:viewmodels="clr-namespace:RestaurantManagement.ViewModels"
+             xmlns:components="clr-namespace:RestaurantManagement.Views.Components"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance Type=viewmodels:CustomersViewModel}"
              d:DesignHeight="450" d:DesignWidth="800">
+
 	<Border Background="White" BorderThickness="5" CornerRadius="10" Padding="20">
 		<Border.Effect>
 			<DropShadowEffect Color="Black" Opacity="0.5" ShadowDepth="4"/>
@@ -24,12 +27,24 @@
 				<Border Background="LightGray" CornerRadius="10" Padding="10" Margin="0 0 0 10">
 					<Grid Margin="10" Style="{StaticResource grdForm}">
 						<Grid.RowDefinitions>
-							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="100"/>
 							<RowDefinition Height="Auto"/>
 						</Grid.RowDefinitions>
-						<StackPanel Grid.Row="1" Orientation="Vertical">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="400"/>
+							<ColumnDefinition/>
+						</Grid.ColumnDefinitions>
+						<StackPanel Grid.Row="0" Grid.Column="0">
 							<TextBlock Height="25" FontSize="15" HorizontalAlignment="Left" FontFamily="TIMES NEW ROMAN" Foreground="Black">Name</TextBlock>
-							<TextBox FontSize="15" Height="25" HorizontalAlignment="Left" Width="200" FontFamily="TIMES NEW ROMAN" Text="{Binding CurrentDepartment.Name, Mode=TwoWay}"/>
+							<TextBox FontSize="15" Height="25" HorizontalAlignment="Left" Width="200" FontFamily="TIMES NEW ROMAN" Text="{Binding CurrentCustomer.Name, Mode=TwoWay}"/>
+							<TextBlock Height="25" FontSize="15" HorizontalAlignment="Left" FontFamily="TIMES NEW ROMAN" Foreground="Black">Surname</TextBlock>
+							<TextBox FontSize="15" Height="25" HorizontalAlignment="Left" Width="200" FontFamily="TIMES NEW ROMAN" Text="{Binding CurrentCustomer.Surname, Mode=TwoWay}"/>
+						</StackPanel>
+						<StackPanel Grid.Row="0" Grid.Column="1">
+							<TextBlock Height="25" FontSize="15" HorizontalAlignment="Left" FontFamily="TIMES NEW ROMAN" Foreground="Black">Phone Num</TextBlock>
+							<TextBox FontSize="15" Height="25" HorizontalAlignment="Left" Width="200" FontFamily="TIMES NEW ROMAN" Text="{Binding CurrentCustomer.PhoneNum, Mode=TwoWay}"/>
+							<TextBlock Height="25" FontSize="15" HorizontalAlignment="Left" FontFamily="TIMES NEW ROMAN" Foreground="Black">Mail</TextBlock>
+							<TextBox FontSize="15" Height="25" HorizontalAlignment="Left" Width="200" FontFamily="TIMES NEW ROMAN" Text="{Binding CurrentCustomer.Mail, Mode=TwoWay}"/>
 						</StackPanel>
 					</Grid>
 				</Border>
@@ -43,11 +58,14 @@
 				<Button Style="{StaticResource btnDelete}" Width="120" Height="40" Margin="5" Content="Delete"/>
 			</StackPanel>
 
-			<ListView ItemsSource="{Binding Departments}" SelectedItem="{Binding SelectedDepartment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource listViewCustom}" Margin="10" Grid.Row="2">
+			<ListView ItemsSource="{Binding Customers}" SelectedItem="{Binding SelectedCustomer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource listViewCustom}" Margin="10" Grid.Row="2">
 				<ListView.View>
 					<GridView>
 						<GridViewColumn DisplayMemberBinding="{Binding Path=No}" Header="No" Width="50"/>
 						<GridViewColumn DisplayMemberBinding="{Binding Path=Name, Mode=TwoWay}" Header="Name" Width="200"/>
+						<GridViewColumn DisplayMemberBinding="{Binding Path=Surname, Mode=TwoWay}" Header="Surname" Width="200"/>
+						<GridViewColumn DisplayMemberBinding="{Binding Path=PhoneNum, Mode=TwoWay}" Header="PhoneNum" Width="200"/>
+						<GridViewColumn DisplayMemberBinding="{Binding Path=Mail, Mode=TwoWay}" Header="Mail" Width="200"/>
 					</GridView>
 				</ListView.View>
 			</ListView>

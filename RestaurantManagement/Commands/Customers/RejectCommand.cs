@@ -26,8 +26,8 @@ namespace RestaurantManagement.Commands.Customers
 
         public void Execute(object parameter)
         {
-            _viewModel.SelectedCustomers = null;
-            _viewModel.CurrentCustomers = new CustomerModel();
+            _viewModel.SelectedCustomer = null;
+            _viewModel.CurrentCustomer = new CustomerModel();
             _viewModel.CurrentState = State.NORMAL;
 
         }

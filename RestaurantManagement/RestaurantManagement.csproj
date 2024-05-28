@@ -106,7 +106,7 @@
     <Compile Include="Commands\OpenItemsCommand\OpenCategoriesCommand.cs" />
     <Compile Include="Commands\OpenItemsCommand\OpenCustomersCommand.cs" />
     <Compile Include="Commands\OpenItemsCommand\OpenDepartmentCommand.cs" />
-    <Compile Include="Commands\OpenItemsCommand\OpenDiscountsCommand.cs" />
+    <Compile Include="Commands\OpenItemsCommand\OpenDiscountCommand.cs" />
     <Compile Include="Commands\OpenItemsCommand\OpenEmployeeCommand.cs" />
     <Compile Include="Commands\OpenItemsCommand\OpenMenuItemsCommand.cs" />
     <Compile Include="Commands\OpenItemsCommand\OpenOrderDetailsCommand.cs" />
@@ -149,7 +149,7 @@
     <Compile Include="Models\CustomerModel.cs" />
     <Compile Include="Infrastructure\Models\DatabaseConfigModel.cs" />
     <Compile Include="Models\DepartmentModel.cs" />
-    <Compile Include="Models\DiscountsModel.cs" />
+    <Compile Include="Models\DiscountModel.cs" />
     <Compile Include="Models\EmployeeModel.cs" />
     <Compile Include="Models\IModel.cs" />
     <Compile Include="Models\MenuItemsModel.cs" />
