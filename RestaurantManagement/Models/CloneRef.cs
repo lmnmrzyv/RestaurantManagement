@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RestaurantManagement.Mappers;
+using System;
 using System.Reflection;
 
 namespace RestaurantManagement.Models
@@ -21,6 +22,15 @@ namespace RestaurantManagement.Models
                 if (propertyInfo.CanWrite) 
                 {
                     object value = propertyInfo.GetValue(model);
+                    if (typeof(IModel).IsAssignableFrom(propertyInfo.PropertyType))
+                    {
+                        var cloneType = typeof(CloneRef<>).MakeGenericType(propertyInfo.PropertyType);
+                        var mapper = Activator.CreateInstance(cloneType);
+                        var cloneMethod = cloneType.GetMethod("Clone");
+                        var nestedModel = value;
+                        var cloneValue = cloneMethod.Invoke(mapper, new object[] { nestedModel });
+                        propertyInfo.SetValue(clone, cloneValue);
+                    }                       
                     propertyInfo.SetValue(clone, value);
                 }
             }
