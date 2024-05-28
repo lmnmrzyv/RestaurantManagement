@@ -26,8 +26,8 @@ namespace RestaurantManagement.Commands.MenuItems
 
         public void Execute(object parameter)
         {
-            _viewModel.SelectedMenuItems = null;
-            _viewModel.CurrentMenuItems = new MenuItemsModel();
+            _viewModel.SelectedMenuItem = null;
+            _viewModel.CurrentMenuItem = new MenuItemsModel();
             _viewModel.CurrentState = State.NORMAL;
 
         }

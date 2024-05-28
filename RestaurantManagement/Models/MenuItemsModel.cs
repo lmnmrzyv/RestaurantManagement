@@ -8,6 +8,7 @@ namespace RestaurantManagement.Models
 {
     public class MenuItemsModel : IModel
     {
+        public int Id { get; set; }
         public int No { get; set; }
         public string name { get; set; }
         public string description { get; set; }
