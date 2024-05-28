@@ -24,28 +24,27 @@ namespace RestaurantManagement.ViewModels
             _db = db;
             CurrentReservation = new ReservationModel();
         }
-
         public void LoadCustomers()
         {
             var customers = _db.CustomerRepository.GetAll();
-            Customers = new ObservableCollection<CustomerModel>(customers.Select(c=>new CustomerModel
+            Customers = new ObservableCollection<CustomerModel>(customers.Select(c => new CustomerModel
             {
-                Id=c.Id,
-                Name=c.Name,
-                Surname=c.Surname,
-                PhoneNum=c.PhoneNum,
-                Mail=c.Mail
+                Id = c.Id,
+                Name = c.Name,
+                Surname = c.Surname,
+                PhoneNum = c.PhoneNum,
+                Mail = c.Mail
             }));
         }
 
         public void LoadTables()
         {
             var tables = _db.TableRepository.GetAll();
-            Tables = new ObservableCollection<TableModel>(tables.Select(t=>new TableModel
+            Tables = new ObservableCollection<TableModel>(tables.Select(t => new TableModel
             {
-                Id= t.Id,
-                TableNumber=t.TableNumber,
-                Capacity=t.Capacity
+                Id = t.Id,
+                TableNumber = t.TableNumber,
+                Capacity = t.Capacity
             }));
         }
 
@@ -79,14 +78,9 @@ namespace RestaurantManagement.ViewModels
             {
                 _selectedReservation = value;
                 if (_selectedReservation != null)
-                {   
-                    var  ReservationTemp=new ReservationModel();
-                    ReservationTemp.Customer= _selectedReservation.Customer;
-                    ReservationTemp.NumberOfPeople= _selectedReservation.NumberOfPeople;
-                    ReservationTemp.Table= _selectedReservation.Table;
-                    ReservationTemp.No= _selectedReservation.No;
-                    ReservationTemp.ReservationDate= _selectedReservation.ReservationDate;
-                    ReservationTemp.Id= _selectedReservation.Id;
+                {
+                    CloneRef<ReservationModel> cloner = new CloneRef<ReservationModel>();
+                    var  ReservationTemp=cloner.Clone(_selectedReservation);
                     CurrentReservation = ReservationTemp;
                     CurrentState = State.SELECTED;
                 }

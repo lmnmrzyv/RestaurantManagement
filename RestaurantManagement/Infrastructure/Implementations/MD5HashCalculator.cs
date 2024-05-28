@@ -1,4 +1,5 @@
-﻿using RestaurantManagement.ViewModels.Interfaces;
+﻿using RestaurantManagement.Infrastructure.Interfaces;
+using RestaurantManagement.ViewModels.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +7,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RestaurantManagement.ViewModels.Implementations
+namespace RestaurantManagement.Infrastructure.Implementations
 {
     public class MD5HashCalculator : IHashCalculator
     {

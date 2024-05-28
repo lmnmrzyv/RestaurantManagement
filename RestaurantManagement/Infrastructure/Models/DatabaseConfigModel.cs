@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RestaurantManagement.Models
+namespace RestaurantManagement.Infrastructure.Models
 {
     public class DatabaseConfigModel
     {

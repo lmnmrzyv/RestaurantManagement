@@ -60,14 +60,8 @@ namespace RestaurantManagement.ViewModels
                _selectedEmployee= value;
                 if(_selectedEmployee!=null)
                 {
-                   var Employeetmp = new EmployeeModel();
-                    Employeetmp.EducationLevel = SelectedEmployee.EducationLevel;
-                    Employeetmp.Position = SelectedEmployee.Position;
-                    Employeetmp.PerformanceRating = SelectedEmployee.PerformanceRating;
-                    Employeetmp.Surname= SelectedEmployee.Surname;
-                    Employeetmp.Name= SelectedEmployee.Name;
-                    Employeetmp.Id=SelectedEmployee.Id;
-                    Employeetmp.No=SelectedEmployee.No;
+                    CloneRef<EmployeeModel> cloner = new CloneRef<EmployeeModel>();
+                    var Employeetmp = cloner.Clone(_selectedEmployee);
                     CurrentEmployee = Employeetmp;
                     CurrentState = State.SELECTED;
                 }

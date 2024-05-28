@@ -1,7 +1,8 @@
 ﻿using DataAccessManager.DataAccess.SqlServer;
 using DataAccessManager.Domain.Interfaces;
+using RestaurantManagement.Infrastructure.Implementations;
+using RestaurantManagement.Infrastructure.Interfaces;
 using RestaurantManagement.ViewModels;
-using RestaurantManagement.ViewModels.Implementations;
 using RestaurantManagement.ViewModels.Interfaces;
 using RestaurantManagement.Views;
 using System;
@@ -11,6 +12,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Threading;
 
 namespace RestaurantManagement
 {
@@ -35,7 +37,7 @@ namespace RestaurantManagement
             loginPage.DataContext = loginViewModel;
 
             MainWindow = loginPage;
-
+            Dispatcher.UnhandledException += OnUnhandledException;
             MainWindow.Show();
            /* var mainPageViewModel = new MainPageViewModel(db);
             var mainPage = new MainPage
@@ -46,6 +48,12 @@ namespace RestaurantManagement
             MainWindow = mainPage;
 
             MainWindow.Show()*/;
+        }
+        private void OnUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
+        {
+            e.Handled = true;
+
+            MessageBox.Show("Something went wrong, please try again", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 }

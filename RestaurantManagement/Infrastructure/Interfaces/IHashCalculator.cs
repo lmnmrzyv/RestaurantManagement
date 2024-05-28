@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RestaurantManagement.ViewModels.Interfaces
+namespace RestaurantManagement.Infrastructure.Interfaces
 {
     public interface IHashCalculator
     {
