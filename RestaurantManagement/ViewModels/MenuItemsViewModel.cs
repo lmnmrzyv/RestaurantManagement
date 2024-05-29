@@ -25,6 +25,7 @@ namespace RestaurantManagement.ViewModels
         {
             _db = db;
             CurrentMenuItem = new MenuItemsModel();
+            CurrentMenuItem.Category = new CategoriesModel();
         }
         public void LoadCategories()
         {
