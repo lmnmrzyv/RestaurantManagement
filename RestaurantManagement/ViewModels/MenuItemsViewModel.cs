@@ -96,6 +96,7 @@ namespace RestaurantManagement.ViewModels
 
         public List<MenuItemsModel> AllMenuItems { get; set; }
 
+
         private string _searchText;
         public string SearchText
         {

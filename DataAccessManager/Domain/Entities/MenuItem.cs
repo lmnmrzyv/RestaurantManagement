@@ -9,7 +9,7 @@ namespace DataAccessManager.Domain.Entities
         public int Id { get; set; }
         public string name { get; set; }
         public string description { get; set; }
-        public float price { get; set; }
+        public double price { get; set; }
         public Category Category { get; set; }
         public bool IsActive { get; set; }
 
