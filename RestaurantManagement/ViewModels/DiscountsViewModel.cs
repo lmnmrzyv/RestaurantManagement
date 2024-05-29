@@ -21,6 +21,7 @@ namespace RestaurantManagement.ViewModels
         {
             _db = db;
             CurrentDiscount = new DiscountModel();
+            CurrentDiscount.Category = new CategoriesModel();
 
         }
         public void LoadCategories()

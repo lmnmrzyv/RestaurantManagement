@@ -22,7 +22,7 @@ namespace DataAccessManager.DataAccess.SqlServer
             {
                 connection.Open();
 
-                string query = @"INSERT INTO Discounts (startTime,endTime, CategoryId,percent,IsActive)
+                string query = @"INSERT INTO Discounts (startTime,endTime, CategoryId,[Percent],IsActive)
                                output inserted.Id VALUES (@startTime,@endTime, @CategoryId,@percent,1);";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
