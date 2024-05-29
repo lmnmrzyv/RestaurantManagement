@@ -22,14 +22,14 @@ namespace DataAccessManager.DataAccess.SqlServer
             {
                 connection.Open();
 
-                string query = @"INSERT INTO Discounts (startTime,endTime, CategoryId,percent,IsActive)
+                string query = @"INSERT INTO Discounts (startTime,endTime, CategoryId,[Percent],IsActive)
                                output inserted.Id VALUES (@startTime,@endTime, @CategoryId,@percent,1);";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@startTime", item.startTime);
                     command.Parameters.AddWithValue("@endTime", item.endTime);
-                    command.Parameters.AddWithValue("@CategoryId", item.Category);
+                    command.Parameters.AddWithValue("@CategoryId", item.Category.Id);
                     command.Parameters.AddWithValue("@percent", item.Percent);
 
                     return (int)command.ExecuteScalar();
@@ -59,7 +59,11 @@ namespace DataAccessManager.DataAccess.SqlServer
             {
                 connection.Open();
 
-                string query = "SELECT * FROM Discounts WHERE Id = @Id and IsActive=1";
+                string query = @"SELECT d.Id, d.startTime, d.endTime, d.Percent, d.IsActive,
+                                c.Id AS CategoryId, c.Name AS CategoryName
+                         FROM Discounts AS d
+                         INNER JOIN Categories AS c ON d.CategoryId = c.Id
+                         WHERE d.Id = @Id AND d.IsActive = 1";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
@@ -67,7 +71,7 @@ namespace DataAccessManager.DataAccess.SqlServer
 
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        if (reader.Read() == false)
+                        if (!reader.Read())
                             return null;
 
                         Discount discount = new Discount();
@@ -137,11 +141,12 @@ namespace DataAccessManager.DataAccess.SqlServer
                 {
                     command.Parameters.AddWithValue("@startTime", item.startTime);
                     command.Parameters.AddWithValue("@endTime", item.endTime);
-                    command.Parameters.AddWithValue("@CategoryId", item.Category);
+                    command.Parameters.AddWithValue("@CategoryId", item.Category.Id);
                     command.Parameters.AddWithValue("@Percent", item.Percent);
 
                     command.ExecuteNonQuery();
                 }
+          
             }
         }
 

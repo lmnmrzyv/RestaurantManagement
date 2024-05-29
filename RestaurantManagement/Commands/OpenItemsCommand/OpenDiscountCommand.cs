@@ -39,6 +39,7 @@ namespace RestaurantManagement.Commands
 
             var control = new DiscountsControl();
             var viewModel = new DiscountsViewModel(_db);
+            viewModel.LoadCategories();
 
             var discounts = _db.DiscountRepository.GetAll();
 

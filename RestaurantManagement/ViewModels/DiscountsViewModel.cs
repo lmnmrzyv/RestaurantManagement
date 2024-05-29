@@ -16,11 +16,23 @@ namespace RestaurantManagement.ViewModels
     public class DiscountsViewModel : BaseViewModel , IControl
     {
         private readonly IUnitOfWork _db;
+        public ObservableCollection<CategoriesModel> Categories { get; set; }
         public DiscountsViewModel(IUnitOfWork db)
         {
             _db = db;
             CurrentDiscount = new DiscountModel();
+            CurrentDiscount.Category = new CategoriesModel();
 
+        }
+        public void LoadCategories()
+        {
+            var categories = _db.CategoryRepository.GetAll();
+
+            Categories = new ObservableCollection<CategoriesModel>(categories.Select(c => new CategoriesModel
+            {
+                Id = c.Id,
+                name = c.name
+            }));
         }
         private State _state;
         public State CurrentState

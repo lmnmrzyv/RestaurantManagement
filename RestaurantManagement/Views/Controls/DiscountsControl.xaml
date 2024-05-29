@@ -45,8 +45,15 @@
 							<TextBlock Height="25" FontSize="15" HorizontalAlignment="Left" FontFamily="TIMES NEW ROMAN" Foreground="Black">Percent</TextBlock>
 							<TextBox FontSize="15" Height="25" HorizontalAlignment="Left" Width="200" FontFamily="TIMES NEW ROMAN" Text="{Binding CurrentDiscount.Percent, Mode=TwoWay}"/>
 							<TextBlock Height="25" FontSize="15" HorizontalAlignment="Left" FontFamily="TIMES NEW ROMAN" Foreground="Black">Category</TextBlock>
-							<TextBox FontSize="15" Height="25" HorizontalAlignment="Left" Width="200" FontFamily="TIMES NEW ROMAN" Text="{Binding CurrentDiscount.CategoryId, Mode=TwoWay}"/>
+							<TextBox FontSize="15" Height="25" HorizontalAlignment="Left" Width="200" FontFamily="TIMES NEW ROMAN" Text="{Binding CurrentDiscount.Category.Id, Mode=TwoWay}"/>
 						</StackPanel>
+						<!--
+				<ComboBox ItemsSource="{Binding Positions}"
+                 SelectedValue="{Binding CurrentEmployee.Position.Id, Mode=TwoWay}"
+                SelectedItem="{Binding CurrentEmployee.Position}" 
+                SelectedValuePath="Id"
+                DisplayMemberPath="Name" Height="25" HorizontalAlignment="Left" Width="200"/>
+						-->
 					</Grid>
 				</Border>
 			</StackPanel>
@@ -66,7 +73,7 @@
 						<GridViewColumn DisplayMemberBinding="{Binding Path=startTime, Mode=TwoWay}" Header="Start Time" Width="200"/>
 						<GridViewColumn DisplayMemberBinding="{Binding Path=endTime, Mode=TwoWay}" Header="End Time" Width="200"/>
 						<GridViewColumn DisplayMemberBinding="{Binding Path=Percent, Mode=TwoWay}" Header="Percent" Width="200"/>
-						<GridViewColumn DisplayMemberBinding="{Binding Path=CategoryId, Mode=TwoWay}" Header="Category" Width="200"/>
+						<GridViewColumn DisplayMemberBinding="{Binding Path=Category.Id, Mode=TwoWay}" Header="Category" Width="200"/>
 					</GridView>
 				</ListView.View>
 			</ListView>
