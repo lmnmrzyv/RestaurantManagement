@@ -40,6 +40,7 @@ namespace RestaurantManagement.Commands
 
             var control = new MenuItemsControl();
             var viewModel = new MenuItemsViewModel(_db);
+            viewModel.LoadCategories();
 
             var menuItems = _db.MenuItemRepository.GetAll();
 

@@ -1,4 +1,5 @@
 ﻿using DataAccessManager.Domain.Entities;
+using DataAccessManager.Domain.EnumsDB;
 using DataAccessManager.Domain.Interfaces;
 using RestaurantManagement.Commands.MenuItems;
 using RestaurantManagement.Enums;
@@ -19,10 +20,21 @@ namespace RestaurantManagement.ViewModels
     {
 
         private readonly IUnitOfWork _db;
+        public ObservableCollection<CategoriesModel> Categories { get; set; }
         public MenuItemsViewModel(IUnitOfWork db)
         {
             _db = db;
             CurrentMenuItem = new MenuItemsModel();
+        }
+        public void LoadCategories()
+        {
+            var categories = _db.CategoryRepository.GetAll();
+
+            Categories = new ObservableCollection<CategoriesModel>(categories.Select(c => new CategoriesModel
+            {
+                Id = c.Id,
+                name = c.name
+            }));
         }
 
         private State _state;
