@@ -25,7 +25,6 @@ namespace RestaurantManagement.ViewModels
         {
             _db = db;
             CurrentEmployee=new EmployeeModel();
-
         }
 
         public void LoadPositions()
