@@ -82,7 +82,7 @@ namespace DataAccessManager.Domain.SqlServer
             {
                 connection.Open();
 
-                string query = "SELECT * FROM Category  where IsActive=1";
+                string query = "SELECT * FROM Categories where IsActive=1";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {

@@ -25,7 +25,7 @@ namespace DataAccessManager.DataAccess.SqlServer
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    command.Parameters.AddWithValue("@name,", item.name);
+                    command.Parameters.AddWithValue("@name", item.name);
                     command.Parameters.AddWithValue("@description", item.description ?? (object)DBNull.Value);
                     command.Parameters.AddWithValue("@price", item.price);
 
