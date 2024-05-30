@@ -10,7 +10,7 @@ namespace DataAccessManager.Domain.Entities
         public DateTime startTime { get; set; }
         public DateTime endTime { get; set; }
         public Category Category { get; set; }
-        public int Percent {  get; set; }
+        public double Percent {  get; set; }
         public bool IsActive { get ; set ; }
     }
 }

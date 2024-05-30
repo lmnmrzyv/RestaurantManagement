@@ -14,6 +14,6 @@ namespace RestaurantManagement.Models
         public DateTime endTime { get; set; }
         public bool Status { get; set; }
         public CategoriesModel Category { get; set; }
-        public int Percent { get; set; }
+        public double Percent { get; set; }
     }
 }
