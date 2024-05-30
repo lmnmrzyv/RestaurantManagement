@@ -34,8 +34,12 @@
                                 <TextBox FontSize="15" Height="25" HorizontalAlignment="Left" Width="200" FontFamily="TIMES NEW ROMAN" Text="{Binding CurrentPosition.Name,Mode=TwoWay}"/>
                             </StackPanel>
                             <StackPanel Margin="50 0 0 0">
-                                <TextBlock Height="25" FontSize="15" HorizontalAlignment="Left" FontFamily="TIMES NEW ROMAN" Foreground="Black">DepartmentId</TextBlock>
-                                <TextBox FontSize="15" Height="25" HorizontalAlignment="Left" Width="200" FontFamily="TIMES NEW ROMAN" Text="{Binding CurrentPosition.DepartmentId,Mode=TwoWay}"/>
+                                <TextBlock Height="25" FontSize="15" HorizontalAlignment="Left" FontFamily="TIMES NEW ROMAN" Foreground="Black">Department</TextBlock>
+                                <ComboBox ItemsSource="{Binding Departments}"
+                                   SelectedValue="{Binding CurrentPosition.Department.Id, Mode=TwoWay}"
+                                    SelectedItem="{Binding CurrentPosition.Department}" 
+                                    SelectedValuePath="Id"
+                                      DisplayMemberPath="Name" Height="25" HorizontalAlignment="Left" Width="200"/>
                             </StackPanel>
                         </WrapPanel>
                     </Grid>
@@ -54,7 +58,7 @@
                         <GridView>
                             <GridViewColumn DisplayMemberBinding="{Binding Path=No, Mode=TwoWay}" Header="No" Width="50"/>
                             <GridViewColumn DisplayMemberBinding="{Binding Path=Name}" Header="Name" Width="200"/>
-                            <GridViewColumn DisplayMemberBinding="{Binding Path=DepartmentId}" Header="DepartmentId" Width="200"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=Department.Name}" Header="Department" Width="200"/>
                         </GridView>
                     </ListView.View>
                 </ListView>
