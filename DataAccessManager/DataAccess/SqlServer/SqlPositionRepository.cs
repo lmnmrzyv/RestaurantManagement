@@ -23,8 +23,7 @@ namespace DataAccessManager.DataAccess.SqlServer
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@Name", item.Name);
-                    command.Parameters.AddWithValue("@DepartmentId", item.DepartmentId);
-                  //  command.Parameters.AddWithValue("@IsActive", item.IsActive);
+                    command.Parameters.AddWithValue("@DepartmentId", item.Department.Id);
                     return (int)command.ExecuteScalar();
                 }
             }
@@ -53,7 +52,11 @@ namespace DataAccessManager.DataAccess.SqlServer
             {
                 connection.Open();
 
-                string query = @"Select * from Positions where Id=@Id and IsActive=1";
+                string query = @"SELECT p.Id, p.Name, p.IsActive,
+                                d.Id AS DepartmentId, d.Name AS DepartmentName
+                         FROM Positions AS p
+                         INNER JOIN Departments AS d ON p.DepartmentId = d.Id
+                         WHERE p.Id = @Id AND p.IsActive = 1";
 
                 using (SqlCommand cmd = new SqlCommand(query, connection))
                 {
@@ -68,7 +71,11 @@ namespace DataAccessManager.DataAccess.SqlServer
 
                         position.Id = reader.GetInt32(reader.GetOrdinal("Id"));
                         position.Name = reader.GetString(reader.GetOrdinal("Name"));
-                        position.DepartmentId = reader.GetInt32(reader.GetOrdinal("DepartmentId"));
+                        position.Department = new Department
+                        {
+                            Id = reader.GetInt32(reader.GetOrdinal("DepartmentId")),
+                            Name = reader.GetString(reader.GetOrdinal("DepartmentName"))
+                        };
                         position.IsActive = reader.GetBoolean(reader.GetOrdinal("IsActive"));
                         return position;
                     }
@@ -86,19 +93,27 @@ namespace DataAccessManager.DataAccess.SqlServer
 
                 List<Position> positions = new List<Position>();
 
-                string query = "SELECT * FROM Positions where IsActive=1";
+                string query = @"SELECT p.Id AS PositionId, p.Name, p.IsActive,
+                                d.Id AS DepartmentId, d.Name AS DepartmentName
+                         FROM Positions AS p
+                         INNER JOIN Departments AS d ON p.DepartmentId = d.Id
+                         WHERE p.IsActive = 1";
 
                 using (SqlCommand cmd = new SqlCommand(query, connection))
                 {
-                    SqlDataReader Reader = cmd.ExecuteReader();
+                    SqlDataReader reader = cmd.ExecuteReader();
 
-                    while (Reader.Read())
+                    while (reader.Read())
                     {
                         Position position = new Position();
-                        position.Id = (int)Reader["Id"];
-                        position.Name = (string)Reader["Name"];
-                        position.DepartmentId = (int)Reader["DepartmentId"];
-                        position.IsActive = (bool)Reader["IsActive"];
+                        position.Id = (int)reader["PositionId"];
+                        position.Name = (string)reader["Name"];
+                        position.Department = new Department
+                        {
+                            Id = reader.GetInt32(reader.GetOrdinal("DepartmentId")),
+                            Name = reader.GetString(reader.GetOrdinal("DepartmentName"))
+                        };
+                        position.IsActive = (bool)reader["IsActive"];
 
                         positions.Add(position);
                     }
@@ -120,7 +135,7 @@ namespace DataAccessManager.DataAccess.SqlServer
                 {
                     command.Parameters.AddWithValue("@Id", item.Id);
                     command.Parameters.AddWithValue("@Name", item.Name);
-                    command.Parameters.AddWithValue("@DepartmentId", item.DepartmentId);
+                    command.Parameters.AddWithValue("@DepartmentId", item.Department.Id);
                     command.ExecuteNonQuery();
                 }
 

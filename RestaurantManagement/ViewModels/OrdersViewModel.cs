@@ -1,21 +1,23 @@
-﻿using DataAccessManager.Domain.Interfaces;
+﻿using DataAccessManager.Domain.Entities;
+using DataAccessManager.Domain.Interfaces;
+using RestaurantManagement.Commands.Orders;
 using RestaurantManagement.Enums;
 using RestaurantManagement.Models;
+using RestaurantManagement.ViewModels.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using RestaurantManagement.Commands.Orders;
-using System.Windows.Input;
-using RestaurantManagement.Views;
-using RestaurantManagement.Views.Controls;
+using System.Windows;
 
 namespace RestaurantManagement.ViewModels
 {
-    public class OrdersViewModel : BaseViewModel
+    public class OrdersViewModel : BaseViewModel, IControl
     {
+
         private readonly IUnitOfWork _db;
         public OrdersViewModel(IUnitOfWork db)
         {
@@ -24,7 +26,9 @@ namespace RestaurantManagement.ViewModels
             SeeDetailsCommand = new SeeDetailsCommand(_db, this);
 
         }
+
         private State _state;
+
         public State CurrentState
         {
             get => _state;
@@ -34,59 +38,78 @@ namespace RestaurantManagement.ViewModels
                 OnPropertyChanged(nameof(CurrentState));
             }
         }
-        private OrdersModel _currentOrders;
-
-        public OrdersModel CurrentOrders
+        private OrdersModel _currentOrder;
+        public OrdersModel CurrentOrder
         {
-            get => _currentOrders;
+            get => _currentOrder;
             set
             {
-                _currentOrders = value;
-                OnPropertyChanged(nameof(CurrentOrders));
+                _currentOrder = value;
+                OnPropertyChanged(nameof(CurrentOrder));
             }
         }
-
-        private OrdersModel _selectedOrders;
-
-        public OrdersModel SelectedOrders
+        private OrdersModel _selectedOrder;
+        public OrdersModel SelectedOrder
         {
-            get => _selectedOrders;
+            get => _selectedOrder;
+
             set
             {
-                _selectedOrders = value;
-                if (_selectedOrders != null)
+                _selectedOrder = value;
+                if (_selectedOrder != null)
                 {
-                    CurrentOrders.No = SelectedOrders.No;
-                    CurrentOrders.OrderTime = SelectedOrders.OrderTime;
-                    CurrentOrders.TotalPrice = SelectedOrders.TotalPrice;
-                    CurrentOrders.PaymentMethod = SelectedOrders.PaymentMethod;
+                    CloneRef<OrdersModel> cloner = new CloneRef<OrdersModel>();
+                    var OrderTmp = cloner.Clone(_selectedOrder);
+                    CurrentOrder = OrderTmp;
                     CurrentState = State.SELECTED;
                 }
                 else
                 {
-                    CurrentOrders = new OrdersModel();
+                    CurrentOrder = new OrdersModel();
                     CurrentState = State.NORMAL;
                 }
-                OnPropertyChanged(nameof(SelectedOrders));
+                OnPropertyChanged(nameof(SelectedOrder));
+
             }
         }
-        private void ExecuteSeeOrderCommand(OrdersModel order)
+        private ObservableCollection<OrdersModel> _orders { get; set; }
+        public ObservableCollection<OrdersModel> Orders
         {
-            if (order != null)
+            get => _orders;
+            set
             {
-                OrderDetailWindow orderDetailWindow = new OrderDetailWindow(order);
-                orderDetailWindow.Show();
+                _orders = value;
+                OnPropertyChanged(nameof(Orders));
             }
         }
 
+
+        public List<OrdersModel> AllOrders { get; set; }
+
+        private string _searchText;
+        public string SearchText
+        {
+            get => _searchText;
+            set
+            {
+                _searchText = value;
+                OnPropertyChanged(nameof(SearchText));
+
+                var lowerSearchText = SearchText.ToLower();
+
+                var filteredOrders = AllOrders.Where(x => x.PaymentMethod.ToLower().Contains(lowerSearchText));
         public ICommand SeeDetailsCommand { get; }
         public ObservableCollection<OrdersModel> Orders { get; set; }
 
+                Orders = new ObservableCollection<OrdersModel>(filteredOrders);
+            }
+        }
         public AddCommand Add => new AddCommand(this);
         public SaveCommand Save => new SaveCommand(_db, this);
-        public DeleteCommand Delete => new DeleteCommand(this);
+        public DeleteCommand Delete => new DeleteCommand(_db, this);
         public RejectCommand Reject => new RejectCommand(this);
         public EditCommand Edit => new EditCommand(this);
-    }
 
+        public string Header => "Orders";
+    }
 }
