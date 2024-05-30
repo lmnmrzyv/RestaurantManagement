@@ -20,10 +20,7 @@ namespace RestaurantManagement.ViewModels
         {
            _db = db;
             CurrentTables = new TableModel();
-            LoadPositions();
         }
-        /*public List<TablesModel> Tables { get; set; }*/
-        
         private State _state;
         public State CurrentState
         {
@@ -56,11 +53,9 @@ namespace RestaurantManagement.ViewModels
                 _selectedTables = value;
                 if (_selectedTables != null)
                 {
-                    CurrentTables=SelectedTables.Clone();
-                   // CurrentTables=SelectedTables.Clone();
-                    /*CurrentTables.No = SelectedTables.No;
-                    CurrentTables.TableNumber = SelectedTables.TableNumber;
-                    CurrentTables.Capacity = SelectedTables.Capacity;*/
+                    CloneRef<TableModel> cloner = new CloneRef<TableModel>();
+                    var Tabletmp = cloner.Clone(_selectedTables);
+                    CurrentTables = Tabletmp;
                     CurrentState = State.SELECTED;
                 }
                 else
@@ -82,20 +77,7 @@ namespace RestaurantManagement.ViewModels
                 OnPropertyChanged(nameof(Tables));
             }
         }
-        public List<TableModel> AllTables { get; set; } = new List<TableModel>();
-        private void LoadPositions()
-        {
-            var tableEntities = _db.TableRepository.GetAll();
-            AllTables = tableEntities.Select(e => new TableModel
-            {
-                Id = e.Id,
-                TableNumber = e.TableNumber,
-                Capacity = e.Capacity
-            }
-            ).ToList();
-
-            Tables = new ObservableCollection<TableModel>(AllTables);
-        }
+        public List<TableModel> AllTables { get; set; }
         private int _searchText;
         public int SearchText
         {
@@ -121,7 +103,5 @@ namespace RestaurantManagement.ViewModels
         public EditCommand Edit => new EditCommand(this);
 
         public string Header => "Tables";
-
-        //public object Tables { get; internal set; }
     }
 }

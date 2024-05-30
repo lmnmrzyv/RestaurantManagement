@@ -11,17 +11,6 @@ namespace RestaurantManagement.Models
         public int Id { get; set; }
         public int No { get; set; }
         public string Name { get; set; }
-        public int DepartmentId { get; set; }
-        public PositionsModel Clone()
-        {
-            var positionModel = new PositionsModel();
-
-            positionModel.Id = Id;
-            positionModel.No = No;
-            positionModel.Name = Name;
-            positionModel.DepartmentId = DepartmentId;
-
-            return positionModel;
-        }
+        public DepartmentModel Department { get; set; }
     }
 }

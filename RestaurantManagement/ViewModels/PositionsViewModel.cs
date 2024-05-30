@@ -10,20 +10,29 @@ using System.Text;
 using System.Threading.Tasks;
 using RestaurantManagement.ViewModels.Interfaces;
 using DataAccessManager.Domain.Entities;
+using System.Xml.Linq;
 
 namespace RestaurantManagement.ViewModels
 {
     public class PositionsViewModel:BaseViewModel, IControl
     {
         private readonly IUnitOfWork _db;
-
+        public ObservableCollection<DepartmentModel> Departments { get; set; }
         public PositionsViewModel(IUnitOfWork db)
         {
             _db = db;
             CurrentPosition = new PositionsModel();
-            LoadPositions();
         }
+        public void LoadDepartments()
+        {
+            var departments = _db.DepartmentRepository.GetAll();
 
+            Departments = new ObservableCollection<DepartmentModel>(departments.Select(d => new DepartmentModel
+            {
+                Id = d.Id,
+                Name = d.Name
+            }));
+        }
         private State _state;
 
         public State CurrentState
@@ -55,7 +64,9 @@ namespace RestaurantManagement.ViewModels
                 _selectedPosition = value;
                 if (_selectedPosition != null)
                 {
-                    CurrentPosition = SelectedPosition.Clone();
+                    CloneRef<PositionsModel> cloner = new CloneRef<PositionsModel>();
+                    var Positiontmp = cloner.Clone(_selectedPosition);
+                    CurrentPosition = Positiontmp;
                     CurrentState = State.SELECTED;
                 }
                 else
@@ -76,21 +87,7 @@ namespace RestaurantManagement.ViewModels
                 OnPropertyChanged(nameof(Positions));
             }
         }
-        public List<PositionsModel> AllPositions { get; set; } = new List<PositionsModel>();
-        private void LoadPositions()
-        {
-            var positionEntities = _db.PositionRepository.GetAll();
-            AllPositions = positionEntities.Select(e => new PositionsModel
-            {
-                Id = e.Id,
-                Name = e.Name,
-                DepartmentId = e.DepartmentId
-            }
-            ).ToList();
-
-            Positions = new ObservableCollection<PositionsModel>(AllPositions);
-        }
-       
+        public List<PositionsModel> AllPositions { get; set; }      
         private string _searchText;
         public string SearchText
         {
@@ -113,6 +110,6 @@ namespace RestaurantManagement.ViewModels
         public EditCommand Edit => new EditCommand(this);
 
         public string Header => "Positions";
-       
+
     }
 }

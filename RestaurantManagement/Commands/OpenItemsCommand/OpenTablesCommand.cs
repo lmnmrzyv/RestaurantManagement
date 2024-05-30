@@ -49,6 +49,7 @@ namespace RestaurantManagement.Commands
                 tableModel.No = no++;
                 tableModels.Add(tableModel);
             }
+            viewModel.AllTables= tableModels;
             viewModel.Tables= new ObservableCollection<TableModel>(tableModels);
             control.DataContext = viewModel;
             grid.Children.Add(control);

@@ -37,16 +37,20 @@ namespace RestaurantManagement.Commands
             grid.Children.Clear();
             var control = new PositionsControl();
             var viewModel = new PositionsViewModel(_db);
+            viewModel.LoadDepartments();
+
             var positions = _db.PositionRepository.GetAll();
             var positionModels = new List<PositionsModel>();
             var positionMapper = new PositionMapper();
             var no = 1;
+
             foreach (var position in positions)
             {
                 var positionModel = positionMapper.MapEntityToModel(position, new PositionsModel());
                 positionModel.No = no++;
                 positionModels.Add(positionModel);
             }
+            viewModel.AllPositions = positionModels;
             viewModel.Positions = new ObservableCollection<PositionsModel>(positionModels);
             control.DataContext = viewModel;
             grid.Children.Add(control);

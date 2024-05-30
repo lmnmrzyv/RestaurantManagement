@@ -13,6 +13,6 @@ namespace RestaurantManagement.Models
         public string name { get; set; }
         public string description { get; set; }
         public CategoriesModel Category { get; set; }
-        public float price { get; set; }
+        public double price { get; set; }
     }
 }
