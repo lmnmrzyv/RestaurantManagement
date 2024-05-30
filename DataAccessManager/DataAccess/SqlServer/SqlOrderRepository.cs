@@ -25,7 +25,7 @@ namespace DataAccessManager.DataAccess.SqlServer
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    command.Parameters.AddWithValue("@OrderTime,", item.OrderTime);
+                    command.Parameters.AddWithValue("@OrderTime", item.OrderTime);
                     command.Parameters.AddWithValue("@TotalPrice", item.TotalPrice);
                     command.Parameters.AddWithValue("@PaymentMethod", item.PaymentMethod);
 
@@ -88,7 +88,7 @@ namespace DataAccessManager.DataAccess.SqlServer
             {
                 connection.Open();
 
-                string query = "SELECT * FROM Order where IsActive=1";
+                string query = "SELECT * FROM Orders where IsActive=1";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {

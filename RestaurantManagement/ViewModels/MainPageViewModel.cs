@@ -17,7 +17,7 @@ namespace RestaurantManagement.ViewModels
             OpenReservations = new OpenReservationCommand(db);
             OpenCategories = new OpenCategoryCommand(db);
             OpenMenuItems = new OpenMenuItemCommand(db);
-            OpenOrders = new OpenOrdersCommand();
+            OpenOrders = new OpenOrderCommand(db);
             OpenCustomers = new OpenCustomersCommand(db);
             OpenDiscounts = new OpenDiscountCommand(db);
             OpenPositions = new OpenPositionsCommand(db);
@@ -31,7 +31,7 @@ namespace RestaurantManagement.ViewModels
         public OpenReservationCommand OpenReservations { get; }
         public OpenCategoryCommand OpenCategories { get; }
         public OpenMenuItemCommand OpenMenuItems { get; }
-        public OpenOrdersCommand OpenOrders { get; }
+        public OpenOrderCommand OpenOrders { get; }
         public OpenCustomersCommand OpenCustomers { get; }
         public OpenDiscountCommand OpenDiscounts { get; }
         public OpenOrderDetailsCommand OpenOrderDetails { get; }

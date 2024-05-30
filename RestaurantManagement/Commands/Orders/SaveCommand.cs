@@ -9,18 +9,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace RestaurantManagement.Commands.Orders
 {
     public class SaveCommand : ICommand
     {
-        private readonly OrdersViewModel _currentState;
+        private readonly OrdersViewModel _viewModel;
         private readonly IUnitOfWork _db;
-        public SaveCommand(IUnitOfWork db, OrdersViewModel currentState)
+        public SaveCommand(IUnitOfWork db, OrdersViewModel viewModel)
         {
             _db = db;
-            _currentState = currentState;
+            _viewModel = viewModel;
         }
         public event EventHandler CanExecuteChanged;
 
@@ -32,18 +33,31 @@ namespace RestaurantManagement.Commands.Orders
         public void Execute(object parameter)
         {
             var mapper = new OrderMapper();
-            var orders = mapper.MapModelToEntity(new Order(), _currentState.CurrentOrders);
+            var order = mapper.MapModelToEntity(new Order(), _viewModel.CurrentOrder);
+            if (order.Id == 0)
+            {
+                _viewModel.CurrentOrder.Id = _db.OrderRepository.Add(order);
+                var lastElementNo = _viewModel.Orders.LastOrDefault()?.No ?? 0;
+                _viewModel.CurrentOrder.No = lastElementNo + 1;
+                _viewModel.Orders.Add(_viewModel.CurrentOrder);
+                _viewModel.AllOrders = _viewModel.Orders.ToList();
 
-            _db.OrderRepository.Add(orders);
+                MessageBox.Show("Successfully created", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {
+                var existingOrder = _db.OrderRepository.Get(order.Id);
+                _db.OrderRepository.Update(order);
+                var index = _viewModel.Orders.IndexOf(_viewModel.Orders.First(x => x.Id == order.Id));
+                _viewModel.Orders[index] = _viewModel.CurrentOrder;
+                _viewModel.AllOrders = _viewModel.Orders.ToList();
 
-            var lastElementNo = _currentState.Orders.LastOrDefault()?.No ?? 0;
-
-            _currentState.CurrentOrders.No = lastElementNo + 1;
-
-            _currentState.Orders.Add(_currentState.CurrentOrders);
-            _currentState.CurrentOrders = new OrdersModel();
-
-            _currentState.CurrentState = State.NORMAL;
+                MessageBox.Show("Successfully created", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            _viewModel.CurrentOrder = new OrdersModel();
+            _viewModel.SelectedOrder = null;
+            _viewModel.CurrentState = State.NORMAL;
         }
+
     }
 }

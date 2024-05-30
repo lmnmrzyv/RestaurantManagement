@@ -26,10 +26,12 @@ namespace RestaurantManagement.Commands.Orders
 
         public void Execute(object parameter)
         {
-            _viewModel.SelectedOrders = null;
-            _viewModel.CurrentOrders = new OrdersModel();
+            _viewModel.SelectedOrder = null;
+            _viewModel.CurrentOrder = new OrdersModel();
             _viewModel.CurrentState = State.NORMAL;
 
         }
     }
 }
+
+   
