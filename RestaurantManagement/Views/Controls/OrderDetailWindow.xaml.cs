@@ -1,5 +1,4 @@
 ﻿using RestaurantManagement.Models;
-using System;
 using System.Windows;
 
 namespace RestaurantManagement.Views.Controls
@@ -11,6 +10,5 @@ namespace RestaurantManagement.Views.Controls
             InitializeComponent();
             DataContext = order;
         }
-
     }
 }

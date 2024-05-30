@@ -114,6 +114,7 @@
     <Compile Include="Commands\OpenItemsCommand\OpenPositionsCommand.cs" />
     <Compile Include="Commands\OpenItemsCommand\OpenReservationCommand.cs" />
     <Compile Include="Commands\OpenItemsCommand\OpenTablesCommand.cs" />
+    <Compile Include="Commands\Orders\SeeDetailsCommand.cs" />
     <Compile Include="Commands\Positions\AddCommand.cs" />
     <Compile Include="Commands\Positions\DeleteCommand.cs" />
     <Compile Include="Commands\Positions\EditCommand.cs" />

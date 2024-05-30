@@ -21,6 +21,7 @@ namespace RestaurantManagement.ViewModels
         {
             _db = db;
             CurrentOrders = new OrdersModel();
+            SeeDetailsCommand = new SeeDetailsCommand(_db, this);
 
         }
         private State _state;
@@ -78,7 +79,7 @@ namespace RestaurantManagement.ViewModels
             }
         }
 
-        public ICommand SeeOrderCommand { get; }
+        public ICommand SeeDetailsCommand { get; }
         public ObservableCollection<OrdersModel> Orders { get; set; }
 
         public AddCommand Add => new AddCommand(this);
