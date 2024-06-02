@@ -103,7 +103,7 @@ namespace RestaurantManagement.ViewModels
 
                 var lowerSearchText = SearchText.ToLower();
 
-                var filteredDiscounts = AllDiscounts.Where(x => x.No==Convert.ToInt32((lowerSearchText)));
+                var filteredDiscounts = AllDiscounts.Where(x => x.Category.name.Contains((lowerSearchText)));
 
                 Discounts = new ObservableCollection<DiscountModel>(filteredDiscounts);
             }

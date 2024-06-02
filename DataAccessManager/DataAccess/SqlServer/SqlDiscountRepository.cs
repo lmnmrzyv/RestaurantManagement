@@ -99,7 +99,11 @@ namespace DataAccessManager.DataAccess.SqlServer
             {
                 connection.Open();
 
-                string query = "SELECT * FROM Discounts where IsActive=1";
+                string query = @"SELECT d.Id AS DiscountId, d.startTime, d.endTime, d.[Percent], d.IsActive ,
+                                           c.Id AS CategoryId, c.Name AS CategoryName
+                                       From Discounts AS d
+                                       Inner Join Categories AS c On d.CategoryId = c.Id
+                                       where d.IsActive=1";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
@@ -110,7 +114,7 @@ namespace DataAccessManager.DataAccess.SqlServer
                         while (reader.Read())
                         {
                             Discount discount = new Discount();
-                            discount.Id = reader.GetInt32(reader.GetOrdinal("Id"));
+                            discount.Id = reader.GetInt32(reader.GetOrdinal("DiscountId"));
                             discount.startTime = reader.GetDateTime(reader.GetOrdinal("startTime"));
                             discount.endTime = reader.GetDateTime(reader.GetOrdinal("endTime"));
                             discount.Percent = reader.GetDouble(reader.GetOrdinal("Percent"));
@@ -118,7 +122,7 @@ namespace DataAccessManager.DataAccess.SqlServer
                             discount.Category = new Category
                             {
                                 Id = reader.GetInt32(reader.GetOrdinal("CategoryId")),
-                               // name = reader.GetString(reader.GetOrdinal("CategoryName"))
+                                name = reader.GetString(reader.GetOrdinal("CategoryName"))
                             };
                             discounts.Add(discount);
                         }
