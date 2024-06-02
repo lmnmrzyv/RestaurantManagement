@@ -105,12 +105,11 @@ namespace DataAccessManager.DataAccess.SqlServer
 
                 List<MenuItem> menuItems = new List<MenuItem>();
 
-                //string query = @"SELECT m.Id AS MenuItemId, m.name, m.description, m.price, m.IsActive,
-                //                c.Id AS CategoryId, c.name AS CategoryName
-                //         FROM MenuItems AS m
-                //         INNER JOIN Categories AS c ON m.CategoryId = c.Id
-                //         WHERE m.IsActive = 1";
-                string query = "SELECT * FROM MenuItems where IsActive=1";
+                string query = @"SELECT m.Id AS MenuItemId, m.name, m.description, m.price, m.IsActive,
+                                c.Id AS CategoryId, c.name AS CategoryName
+                         FROM MenuItems AS m
+                         INNER JOIN Categories AS c ON m.CategoryId = c.Id
+                         WHERE m.IsActive = 1";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
@@ -120,15 +119,15 @@ namespace DataAccessManager.DataAccess.SqlServer
                         {
                             MenuItem menuitem = new MenuItem();
 
-                            menuitem.Id = reader.GetInt32(reader.GetOrdinal("Id"));
+                            menuitem.Id = reader.GetInt32(reader.GetOrdinal("MenuItemId"));
                             menuitem.name = reader.GetString(reader.GetOrdinal("name"));
                             menuitem.description = reader.IsDBNull(reader.GetOrdinal("description")) ? null : reader.GetString(reader.GetOrdinal("description"));
                             menuitem.price = reader.GetDouble(reader.GetOrdinal("price"));
-                            //menuitem.price = reader.IsDBNull(reader.GetOrdinal("price")) ? 0.0f : reader.GetFloat(reader.GetOrdinal("price"));
                             menuitem.IsActive = reader.GetBoolean(reader.GetOrdinal("IsActive"));
                             menuitem.Category = new Category
                             {
-                                Id = reader.GetInt32(reader.GetOrdinal("CategoryId"))
+                                Id = reader.GetInt32(reader.GetOrdinal("CategoryId")),
+                                name = reader.GetString(reader.GetOrdinal("CategoryName"))
                             };
 
                             menuItems.Add(menuitem);

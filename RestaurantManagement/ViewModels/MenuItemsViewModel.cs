@@ -109,7 +109,7 @@ namespace RestaurantManagement.ViewModels
 
                 var lowerSearchText = SearchText.ToLower();
 
-                var filteredMenuItems = AllMenuItems.Where(x => x.name.ToLower().Contains(lowerSearchText));
+                var filteredMenuItems = AllMenuItems.Where(x => x.Category.name.ToLower().Contains(lowerSearchText));
 
                 MenuItems = new ObservableCollection<MenuItemsModel>(filteredMenuItems);
             }
