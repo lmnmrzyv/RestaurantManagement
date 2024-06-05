@@ -12,11 +12,9 @@ namespace RestaurantManagement.Commands.Orders
     public class SeeDetailsCommand : ICommand
     {
         private readonly OrdersViewModel _viewModel;
-        private readonly IUnitOfWork _db;
 
-        public SeeDetailsCommand(IUnitOfWork db, OrdersViewModel viewModel)
+        public SeeDetailsCommand(OrdersViewModel viewModel)
         {
-            _db = db;
             _viewModel = viewModel;
         }
 
@@ -24,12 +22,12 @@ namespace RestaurantManagement.Commands.Orders
 
         public bool CanExecute(object parameter)
         {
-            return _viewModel.SelectedOrders != null;
+            return _viewModel.SelectedOrder != null;
         }
 
         public void Execute(object parameter)
         {
-            var selectedOrder = _viewModel.SelectedOrders;
+            var selectedOrder = _viewModel.SelectedOrder;
             if (selectedOrder != null)
             {
                 var orderDetailWindow = new OrderDetailWindow(selectedOrder)

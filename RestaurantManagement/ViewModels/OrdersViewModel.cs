@@ -12,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 
 namespace RestaurantManagement.ViewModels
 {
@@ -22,8 +23,8 @@ namespace RestaurantManagement.ViewModels
         public OrdersViewModel(IUnitOfWork db)
         {
             _db = db;
-            CurrentOrders = new OrdersModel();
-            SeeDetailsCommand = new SeeDetailsCommand(_db, this);
+            CurrentOrder = new OrdersModel();
+            SeeDetailsCommand = new SeeDetailsCommand(this);
 
         }
 
@@ -98,18 +99,21 @@ namespace RestaurantManagement.ViewModels
                 var lowerSearchText = SearchText.ToLower();
 
                 var filteredOrders = AllOrders.Where(x => x.PaymentMethod.ToLower().Contains(lowerSearchText));
-        public ICommand SeeDetailsCommand { get; }
-        public ObservableCollection<OrdersModel> Orders { get; set; }
-
-                Orders = new ObservableCollection<OrdersModel>(filteredOrders);
+  
+                  Orders = new ObservableCollection<OrdersModel>(filteredOrders);
             }
         }
+        public ICommand SeeDetailsCommand { get; }
+
+        public string Header => "Orders";
+
         public AddCommand Add => new AddCommand(this);
         public SaveCommand Save => new SaveCommand(_db, this);
         public DeleteCommand Delete => new DeleteCommand(_db, this);
         public RejectCommand Reject => new RejectCommand(this);
         public EditCommand Edit => new EditCommand(this);
 
-        public string Header => "Orders";
+        //public SeeDetailsCommand SeeDetails => new SeeDetailsCommand(this);
+
     }
 }

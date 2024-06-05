@@ -51,7 +51,7 @@
                 <Button Style="{StaticResource btnSave}" Width="120" Height="40" Margin="5"/>
                 <Button Style="{StaticResource btnReject}" Width="120" Height="40" Margin="5"/>
                 <Button Style="{StaticResource btnDelete}" Width="120" Height="40" Margin="5"/>
-                <Button Style="{StaticResource btnReject}" Content="See Details" Width="120" Height="40" Margin="5" Command="{Binding SeeDetailsCommand}"/>
+                <Button Style="{StaticResource btnSeeDetails}"  Width="120" Height="40" Margin="5"/>
             </StackPanel>
 
             <ListView ItemsSource="{Binding Orders, Mode=TwoWay}" SelectedItem="{Binding SelectedOrder,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource listViewCustom}" Margin="10" Grid.Row="2">
@@ -69,6 +69,6 @@
             </Grid>
         </Grid>
             
-        </StackPanel>
+  
     </Border>
 </UserControl>

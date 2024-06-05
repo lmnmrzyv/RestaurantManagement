@@ -412,6 +412,17 @@
                 </DataTrigger>
             </Style.Triggers>
         </Style>
+        <Style TargetType="{x:Type Button}" BasedOn="{StaticResource CustomButtonStyle}" x:Key="btnSeeDetails">
+            <Setter Property="Content" Value="See Details"/>
+            <Setter Property="Command" Value="{Binding SeeDetails}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding CurrentState}" Value="0">
+                    <Setter Property="IsEnabled" Value="False"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
 
         <Style TargetType="{x:Type Button}" BasedOn="{StaticResource CustomButtonStyle}" x:Key="btnDelete">
             <Setter Property="Content" Value="Delete"/>
