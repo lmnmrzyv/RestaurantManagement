@@ -55,7 +55,8 @@ namespace DataAccessManager.DataAccess.SqlServer
                 string query = "Update Customers Set Name=@Name,Surname=@Surname,PhoneNum=@PhoneNum,Mail=@Mail WHERE Id = @Id;";
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    command.Parameters.AddWithValue("@Name,", customer.Name);
+                    command.Parameters.AddWithValue("@Id", customer.Id);
+                    command.Parameters.AddWithValue("@Name", customer.Name);
                     command.Parameters.AddWithValue("@Surname", customer.Surname);
                     command.Parameters.AddWithValue("@PhoneNum", customer.PhoneNum);
                     command.Parameters.AddWithValue("@Mail",customer.Mail);
@@ -70,7 +71,7 @@ namespace DataAccessManager.DataAccess.SqlServer
             using(SqlConnection connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
-                string query = "Select Name,Surname,PhoneNum,Mail,IsActive from Customers Where Id=@Id and IsActive=1;";
+                string query = "Select Id,Name,Surname,PhoneNum,Mail,IsActive from Customers Where Id=@Id and IsActive=1;";
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@Id", id);

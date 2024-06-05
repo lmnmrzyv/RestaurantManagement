@@ -47,7 +47,7 @@ namespace RestaurantManagement.Commands.Employees
             }
             else
             {
-                var existingDepartment = _db.EmployeeRepository.Get(employee.Id);
+                var existingEmployee = _db.EmployeeRepository.Get(employee.Id);
                 _db.EmployeeRepository.Update(employee);
                 var index = _viewModel.Employees.IndexOf(_viewModel.Employees.First(x => x.Id == employee.Id));
                 _viewModel.Employees[index] = _viewModel.CurrentEmployee;

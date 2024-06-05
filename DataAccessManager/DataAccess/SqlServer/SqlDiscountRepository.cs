@@ -59,7 +59,7 @@ namespace DataAccessManager.DataAccess.SqlServer
             {
                 connection.Open();
 
-                string query = @"SELECT d.Id, d.startTime, d.endTime, d.Percent, d.IsActive,
+                string query = @"SELECT d.Id, d.startTime, d.endTime, d.[Percent], d.IsActive,
                                 c.Id AS CategoryId, c.Name AS CategoryName
                          FROM Discounts AS d
                          INNER JOIN Categories AS c ON d.CategoryId = c.Id
@@ -139,10 +139,11 @@ namespace DataAccessManager.DataAccess.SqlServer
             {
                 connection.Open();
 
-                string query = "UPDATE Discounts SET startTime = @startTime, endTime = @endTime, CategoryId = @CategoryId, Percent= @Percent WHERE Id = @Id";
+                string query = "UPDATE Discounts SET startTime = @startTime, endTime = @endTime, CategoryId = @CategoryId, [Percent]= @Percent WHERE Id = @Id";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
+                    command.Parameters.AddWithValue("@Id", item.Id);
                     command.Parameters.AddWithValue("@startTime", item.startTime);
                     command.Parameters.AddWithValue("@endTime", item.endTime);
                     command.Parameters.AddWithValue("@CategoryId", item.Category.Id);
