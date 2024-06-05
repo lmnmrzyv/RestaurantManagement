@@ -45,7 +45,11 @@
                             <TextBlock Height="25" FontSize="15" HorizontalAlignment="Left" FontFamily="TIMES NEW ROMAN" Foreground="Black">Price</TextBlock>
                             <TextBox FontSize="15" Height="25" HorizontalAlignment="Left" Width="200" FontFamily="TIMES NEW ROMAN" Text="{Binding CurrentMenuItem.price, Mode=TwoWay}"/>
                             <TextBlock Height="25" FontSize="15" HorizontalAlignment="Left" FontFamily="TIMES NEW ROMAN" Foreground="Black">Category</TextBlock>
-                            <TextBox FontSize="15" Height="25" HorizontalAlignment="Left" Width="200" FontFamily="TIMES NEW ROMAN" Text="{Binding CurrentMenuItem.Category.Id, Mode=TwoWay}"/>
+							<ComboBox ItemsSource="{Binding Categories}" 
+								  SelectedValue="{Binding CurrentMenuItem.Category.Id, Mode=TwoWay}"
+								  SelectedItem="{Binding CurrentMenuItem.Category}"
+								  SelectedValuePath="Id"
+								  DisplayMemberPath="name" Height="25" Width="200" HorizontalAlignment="Left"/>
                         </StackPanel>
                     </Grid>
                 </Border>
@@ -66,7 +70,7 @@
                         <GridViewColumn DisplayMemberBinding="{Binding Path=name, Mode=TwoWay}" Header="Name" Width="200"/>
                         <GridViewColumn DisplayMemberBinding="{Binding Path=description, Mode=TwoWay}" Header="Description" Width="200"/>
                         <GridViewColumn DisplayMemberBinding="{Binding Path=price, Mode=TwoWay}" Header="Price" Width="200"/>
-                        <GridViewColumn DisplayMemberBinding="{Binding Path=Category.Id, Mode=TwoWay}" Header="Category" Width="200"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=Category.name, Mode=TwoWay}" Header="Category" Width="200"/>
                     </GridView>
                 </ListView.View>
             </ListView>
